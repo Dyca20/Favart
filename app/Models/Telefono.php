@@ -11,8 +11,9 @@ class Telefono extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'Numero_Telefono', 
-        'Id_Cliente', 
+        'id_Telefono',
+        'numero_Telefono', 
+        'id_Persona', 
     ];
     public function Crear_Telefono(){
         return true;

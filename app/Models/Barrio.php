@@ -11,10 +11,11 @@ class Barrio extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'Id_Provincia', 
-        'Id_Canton', 
-        'Id_Distrito',
-        'Nombre',
+        'id_Barrio',
+        'id_Provincia', 
+        'id_Canton', 
+        'id_Distrito',
+        'nombre',
     ];
     public function distrito(){
         return $this->hasOne(Distrito::class);

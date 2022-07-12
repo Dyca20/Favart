@@ -11,7 +11,8 @@ class Provincia extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'Nombre',
+        'id_Provincia',
+        'nombre',
     ];
 
     public function Crear_Provincia(){

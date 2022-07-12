@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDistritosTable extends Migration
+class CreateCantonsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateDistritosTable extends Migration
      */
     public function up()
     {
-        Schema::create('distritos', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('Id_Canton')->constrained('cantons');
-            $table->foreignId('Id_Provincia')->constrained('provincias');
-            $table->string('Nombre', 25);
+        Schema::create('cantons', function (Blueprint $table) {
+            $table->increments('id_Canton');
+            $table->integer('id_Provincia')->unsigned();
+            $table->foreign('id_Provincia')->references('id_Provincia')->on('provincias');
+            $table->string('nombre', 25);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateDistritosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('distritos');
+        Schema::dropIfExists('cantons');
     }
 }

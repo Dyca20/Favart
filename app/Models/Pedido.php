@@ -11,9 +11,10 @@ class Pedido extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'Fecha_Pedido', 
-        'Fecha_Entrega',
-        'Estado',
+        'id_Usuario',
+        'id_Carrito',
+        'fecha',
+        'estado',
     ];
 
     public function Crear_Pedido(){

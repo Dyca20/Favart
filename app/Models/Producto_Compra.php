@@ -5,21 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Detalle_del_Pedido extends Model
+class Distrito extends Model
 {
     use HasFactory;
     public $timestamps = false;
 
     protected $fillable = [
-        'Id_Producto', 
-        'Resumen_Precio',
-        'Cantidad',
+        'id_Carrito',
+        'id_Producto ', 
+        'cantidad', 
+        
     ];
-    public function producto(){
-        return $this->hasOne(Producto::class);
+    public function canton(){
+        return $this->hasOne(Canton::class);
 }
-    public function Crear_Detalles_Del_Pedido(){
+     public function Crear_Distrito(){
         return true;
     }
-
 }

@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Usuario extends Model
+class Distrito extends Model
 {
     use HasFactory;
     public $timestamps = false;
 
     protected $fillable = [
-        'Nombre_Usuario', 
-        'Contraseña',
-        'Fecha_Registro',
-        'Email',
+        'id_Direccion',
+        'id_Barrio',
+        'señas_Exactas',
     ];
-
-    public function Crear_Usuario(){
+    public function canton(){
+        return $this->hasOne(Canton::class);
+}
+     public function Crear_Distrito(){
         return true;
     }
 }
-

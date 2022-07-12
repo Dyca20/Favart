@@ -11,9 +11,10 @@ class Distrito extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'Id_Provincia', 
-        'Id_Canton', 
-        'Nombre',
+        'id_Distrito',
+        'id_Provincia', 
+        'id_Canton', 
+        'nombre',
     ];
     public function canton(){
         return $this->hasOne(Canton::class);

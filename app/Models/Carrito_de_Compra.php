@@ -11,8 +11,9 @@ class Carrito_de_Compra extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'Resumen_Precio', 
-        'Cantidad',
+        'id_Carrito',
+        'id_Usuario',        
+        'resumen_Precio', 
     ];
 
     public function Crear_Carrito(){

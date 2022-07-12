@@ -11,8 +11,9 @@ class Canton extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'Id_Provincia', 
-        'Nombre',
+        'id_Canton',
+        'id_Provincia', 
+        'nombre',
     ];
     public function provincia(){
         return $this->hasOne(Provincia::class);

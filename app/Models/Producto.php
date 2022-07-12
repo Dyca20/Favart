@@ -11,9 +11,13 @@ class Producto extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'Nombre_Producto', 
-        'Precio_Unidad',
-        'Accesorio',
+        'id_Producto',
+        'cantidad',
+        'nombre', 
+        'precio',
+        'imagen',
+        'detalles',
+        'categoria',
     ];
     public function Crear_Producto(){
         return true;

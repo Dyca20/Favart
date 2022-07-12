@@ -11,11 +11,11 @@ class Factura extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'Id_Pedido', 
-        'Fecha',
-        'Medio_Pago',
-        'Cantidad',
-        'Resumen',
+        'id_Factura',
+        'id_Pedido', 
+        'fecha',
+        'medio_Pago',
+        'resumen',
     ];
     public function pedido(){
         return $this->hasOne(Pedido::class);

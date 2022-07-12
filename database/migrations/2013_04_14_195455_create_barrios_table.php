@@ -14,11 +14,18 @@ class CreateBarriosTable extends Migration
     public function up()
     {
         Schema::create('barrios', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('Id_Distrito')->constrained('distritos');
-            $table->foreignId('Id_Canton')->constrained('cantons');
-            $table->foreignId('Id_Provincia')->constrained('provincias');
-            $table->string('Nombre', 25);
+            $table->increments('id_Barrio');
+
+            $table->integer('id_Distrito')->unsigned();
+            $table->foreign('id_Distrito')->references('id_Distrito')->on('distritos');
+          
+            $table->integer('id_Canton')->unsigned();
+            $table->foreign('id_Canton')->references('id_Canton')->on('cantons');
+
+            $table->integer('id_Provincia')->unsigned();
+            $table->foreign('id_Provincia')->references('id_Provincia')->on('provincias');
+            
+            $table->string('nombre', 25);
             $table->timestamps();
         });
     }

@@ -5,20 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Administrador extends Model
+class Cliente extends Model
 {
     use HasFactory;
     public $timestamps = false;
-
+ 
     protected $fillable = [
-        'Id_Usuario', 
-        'Nombre_Administrador',
+        'id_Direccion', 
+        'id_Persona',
+        'nombre',
+        'primer_Apellido',
+        'segundo_Apelido',
+        'edad',
     ];
     public function usuario(){
         return $this->hasOne(Usuario::class);
 }
-
-     public function Crear_Administrador(){
+    public function Crear_Cliente(){
         return true;
     }
 
