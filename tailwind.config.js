@@ -2,10 +2,13 @@ module.exports = {
   content: [
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
-    "./resources/**/*.vue",],
+    "./resources/**/*.vue",
+    "./node_modules/flowbite/**/*.js"
+  ],
   presets: [],
   darkMode: 'media', // or 'class'
   theme: {
+    extend: {},
     screens: {
       sm: '640px',
       md: '768px',
@@ -949,5 +952,7 @@ module.exports = {
     'active',
     'disabled',
   ],
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin')
+  ],
 }
