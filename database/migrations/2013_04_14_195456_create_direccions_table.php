@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use Illuminate\Support\Facades\DB;
 class CreateDireccionsTable extends Migration
 {
     /**
@@ -31,6 +31,16 @@ class CreateDireccionsTable extends Migration
             $table->string('señas_Exactas',50);
             $table->timestamps();
         });
+
+        DB::table("direccions")
+        ->insert([
+            "id_direccion" => "1",
+            "id_Barrio" => "1",
+            "id_Distrito" => "1",
+            "id_Canton" => "1",
+            "id_Provincia" => "5",
+            "señas_Exactas" => "Casa de los contenedores",
+        ]);
     }
 
     /**

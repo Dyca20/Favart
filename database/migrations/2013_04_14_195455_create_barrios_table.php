@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+        use Illuminate\Support\Facades\DB;
 
 class CreateBarriosTable extends Migration
 {
@@ -28,6 +29,14 @@ class CreateBarriosTable extends Migration
             $table->string('nombre', 25);
             $table->timestamps();
         });
+        DB::table("barrios")
+        ->insert([
+            "id_Barrio" => "1",
+            "id_Distrito" => "1",
+            "id_Canton" => "1",
+            "id_Provincia" => "5",
+            "nombre" => "Guardia",
+        ]);
     }
 
     /**

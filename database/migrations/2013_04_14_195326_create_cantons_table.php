@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+ use Illuminate\Support\Facades\DB;
 class CreateCantonsTable extends Migration
 {
     /**
@@ -20,6 +20,14 @@ class CreateCantonsTable extends Migration
             $table->string('nombre', 25);
             $table->timestamps();
         });
+
+       
+        DB::table("cantons")
+        ->insert([
+            "id_Canton" => "1",
+            "id_Provincia" => "5",
+            "nombre" => "Liberia",
+        ]);
     }
 
     /**

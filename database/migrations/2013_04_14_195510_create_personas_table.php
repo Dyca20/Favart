@@ -14,6 +14,7 @@ class CreatePersonasTable extends Migration
     public function up()
     {
         Schema::create('personas', function (Blueprint $table) {
+           
             $table->increments('id_Persona');
 
             $table->integer('id_direccion')->unsigned();
@@ -22,7 +23,7 @@ class CreatePersonasTable extends Migration
             $table->string('nombre', 25);
             $table->string('primer_Apellido', 25);
             $table->string('segundo_Apellido', 25);
-            $table->float('edad', 2);
+            $table->string('edad', 3);
             $table->timestamps();
         });
     }

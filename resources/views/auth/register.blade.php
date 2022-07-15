@@ -24,7 +24,7 @@
                             </label>
                             <input
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                id="nombre-de-usuario" type="text" placeholder="Usuario">
+                                id="nombre_Usuario" name="nombre_Usuario" type="text" placeholder="Usuario">
                         </div>
                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -33,7 +33,7 @@
                             </label>
                             <input
                                 class="form-control @error('password') is-invalid @enderror appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="password" required autocomplete="new-password" id="password" type="password"
+                                id='password' name="password" required autocomplete="new-password" type="password"
                                 placeholder="******************">
                             <p class="text-gray-600 text-xs italic">Ingrese una contraseña que pueda recordar.</p>
                             @error('password')
@@ -62,7 +62,7 @@
                             </label>
                             <input
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                id="name" type="text" placeholder="">
+                                id="name" name="name" type="text" placeholder="">
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -77,7 +77,7 @@
                                 </label>
                                 <input
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    id="apellidos" type="text" placeholder="">
+                                    id="apellidos" name="apellidos" type="text" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                             </label>
                             <input
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="edad" type="number" min="0" max="99" placeholder="">
+                                id="edad" name="edad" type="number" min="0" max="99" placeholder="">
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-2">
@@ -109,7 +109,7 @@
                             </label>
                             <input
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="email" type="email" placeholder="" @error('email') is-invalid @enderror"
+                                id="email" name="email" type="email" placeholder="" @error('email') is-invalid @enderror"
                                 name="email" value="{{ old('email') }}" required autocomplete="email">
                         </div>
                         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
@@ -119,7 +119,7 @@
                             </label>
                             <input
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="telefono" type="tel" placeholder="">
+                                id="telefono" name="telefono" type="tel" placeholder="">
                         </div>
                     </div>
                     {{-- boton de enviar form y cancelar --}}
