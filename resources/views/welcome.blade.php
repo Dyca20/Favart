@@ -13,8 +13,8 @@
 </head>
 
 <body class="">
-    {{-- Muestra el Navbar, está en la carpeta Layout no en la de layouts. --}}
-    @include('layout.layout')
+    {{-- Muestra el Navbar, está en la carpeta layouts con el nombre customer. --}}
+    @include('layouts.Customer')
     <main>
         <section class="flex justify-around pt-36 font-light">
             <div>
