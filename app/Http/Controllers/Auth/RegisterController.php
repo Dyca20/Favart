@@ -73,6 +73,8 @@ class RegisterController extends Controller
 
     protected function register(Request $data)
     {
+
+        //IF validacion {
         $idPersona = Persona::insertGetId([
             'id_Direccion' => 1,
             'nombre' => $data['name'],
@@ -95,5 +97,8 @@ class RegisterController extends Controller
         ]);
       
         return  redirect()->route('login');
+        //} else{
+            //mensaje de error return back();
+        //}
     }
 }
