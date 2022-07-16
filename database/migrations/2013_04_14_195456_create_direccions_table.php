@@ -28,7 +28,7 @@ class CreateDireccionsTable extends Migration
             $table->integer('id_Provincia')->unsigned();
             $table->foreign('id_Provincia')->references('id_Provincia')->on('provincias');
 
-            $table->string('señas_Exactas',50);
+            $table->string('señas_Exactas',255);
             $table->timestamps();
         });
 

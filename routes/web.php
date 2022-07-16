@@ -9,9 +9,9 @@ Route::get('/', function () {
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
-Route::get('/welcome', [App\Http\Controllers\PrincipalController::class, 'getWelcomePage'])->name('welcome');
+Route::get('/welcome', [App\Http\Controllers\PrincipalController::class, 'getWelcomePage'])->name('welcome')->middleware('auth');
 Route::get('/catalog', [App\Http\Controllers\PrincipalController::class, 'getCatalogPage'])->name('catalog');
-Route::get('/perfil', [App\Http\Controllers\PrincipalController::class, 'getPerfilPage'])->name('perfil');
+Route::get('/perfil', [App\Http\Controllers\PrincipalController::class, 'getPerfilPage'])->name('perfil')->middleware('auth');
 
 
 
