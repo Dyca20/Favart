@@ -15,6 +15,14 @@ class PrincipalController extends Controller
     {
         return view('welcome');
     }
+    public function getCatalogPage()
+    {
+        return view('catalog');
+    }
+    public function getPerfilPage()
+    {
+        return view('perfil');
+    }
 
     /**
      * Show the form for creating a new resource.
