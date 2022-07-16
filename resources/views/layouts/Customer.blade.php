@@ -47,7 +47,7 @@
                                 <h4 class="font-normal text-white hover:text-pink-600 ">Historial</h4>
                             </div>
                         </a>
-                        <a href="/#" class="px-2 hover:bg-pink-100">
+                        <a href="{{ route('perfil') }}" class="px-2 hover:bg-pink-100">
                             <div class="flex flex-row space-x-3">
                                 <h4 class="font-normal text-white hover:text-pink-600">Bienvenido Usuario</h4>
                                 {{-- Acá se tendría que hacer un {{User::user_id -> name o similar}} --}}

@@ -59,41 +59,97 @@ class RegisterController extends Controller
     {
 
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:25'],
-            'primer_Apellido' => ['required', 'string', 'max:25'],
-            'segundo_Apellido' => ['required', 'string', 'max:25'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'edad' => ['required', 'int', 'max:2'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-
+    
         ]);
     }
 
-
-
     protected function register(Request $data)
     {
-        $idPersona = Persona::insertGetId([
-            'id_Direccion' => 1,
-            'nombre' => $data['name'],
-            'primer_Apellido' => $data['apellidos'],
-            'segundo_Apellido' => $data['apellidos'],
-            'edad'  => $data['edad']
-        ]);
-
-        User::create([
-            'id_Persona' => $idPersona,
-            'nombre_Usuario' => $data['nombre_Usuario'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'rolUsuario' => 1
-        ]);
-
-        Telefono::create([
-            'id_Persona' => $idPersona,
-            'numero_Telefono' => $data['telefono']
-        ]);
       
-        return  redirect()->route('login');
+
+        $validacion = Validator::make($data->all(), $this->reglas_registro(), $this->mensajes_registro());
+
+        if ($validacion->fails()) :
+            return back()->withErrors($validacion)->withInput();
+        else :
+        
+            $idPersona = Persona::insertGetId([
+                'id_Direccion' => 1,
+                'nombre' => $data['name'],
+                'primer_Apellido' => $data['apellidos'],
+                'segundo_Apellido' => $data['apellidos'],
+                'edad'  => $data['edad']
+            ]);
+
+            User::create([
+                'id_Persona' => $idPersona,
+                'nombre_Usuario' => $data['nombre_Usuario'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'rolUsuario' => 1
+            ]);
+
+            Telefono::create([
+                'id_Persona' => $idPersona,
+                'numero_Telefono' => $data['telefono']
+            ]);
+        
+            return  redirect()->route('login');
+        endif;
+    }
+
+    private function reglas_registro(){
+        
+        $reglas = [
+            'nombre_Usuario' => ['required', 'string', 'min:5', 'max:25'],
+            'password' => ['required', 'string', 'min:8' ,'required_with:password_confirmation','same:password_confirmation'],
+            'password_confirmation' => [ 'min:8'],
+            'name' => ['required', 'string', 'min:2','max:25'],
+            'apellidos' => ['required', 'string', 'min:5', 'max:25'],
+            'direccion' => ['required', 'string', 'min:10', 'max:255'],
+            'email' => ['required', 'email', 'min:5', 'max:255', 'unique:users'],
+            'edad' => ['required', 'numeric', 'max:2'],
+            'telefono' => ['required', 'numeric', 'min:8','max:8'],
+        ];
+       return $reglas;
+    }
+
+    private function mensajes_registro(){
+
+        $mensaje = [
+            'nombre_Usuario.required' => 'El nombre de usuario es requerido',
+            'nombre_Usuario.min' => 'El nombre de usuario debe ser de al menos 5 carácteres',
+            'nombre_Usuario.max' => 'El nombre de usuario debe máximo de 25 carácteres',
+            'password.required' => 'La contraseña es requerida',
+            'password.min' => 'La contraseña debe ser al menos de 8 carácteres' ,
+            'password.required_with' => 'La contraseña debe ser confirmada' ,
+            'password.same' => 'Las contraseñas no coinciden' ,
+            'password_confirmation.min' => 'La confirmación no cumple el mínimo de 8 carácteres' ,
+            'name.required' => 'El nombre es requerido' ,
+            'name.min' => 'El nombre debe ser al menos de 2 carácteres' ,
+            'name.max' => 'El nombre es demasiado largo, utiliza un nombre más corto' ,
+            'apellidos.required' => 'Los apellidos son requeridos' ,
+            'apellidos.min' => 'Los apellidos deben ser al menos de 5 carácteres' ,
+            'apellidos.max' => 'Los apellidos deben ser máximo de 25 carácteres' ,
+            'direccion.required' => 'La dirección es requerida' ,
+            'direccion.min' => 'La dirección es muy corta' ,
+            'direccion.max' => 'La dirección es muy larga' ,
+            'email.required' => 'El correo electrónico es requerido' ,
+            'email.min' => 'El correo electrónico debe contener al menos 5 carácteres' ,
+            'email.max' => 'El correo electrónico es demasiado largo' ,
+            'email.unique' => 'Ya existe una cuenta asociada a ese correo electrónico' ,
+            'email.email' => 'El correo electrónico debe contener la forma ejemplo@ejemplo.com' ,
+            'edad.max' => 'La edad es muy alta.' ,
+            'edad.required' => 'La edad es requerida' ,
+            'edad.min' => 'La edad es muy pequeña' ,
+            'edad.numeric' => 'La edad debe ser un número entero' ,
+            'telefono.required' => 'El número de teléfono es requerido' ,
+            'telefono.min' => 'Los números de teléfono deben ser de 8 dígitos' ,
+            'telefono.max' => 'Los números de teléfono deben ser de 8 dígitos' ,
+            'telefono.numeric' => 'Este campo solo admite números' ,
+
+        ];
+
+        return $mensaje;
     }
 }
