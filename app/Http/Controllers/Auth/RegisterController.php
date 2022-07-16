@@ -69,8 +69,6 @@ class RegisterController extends Controller
         ]);
     }
 
-
-
     protected function register(Request $data)
     {
 
