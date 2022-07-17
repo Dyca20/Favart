@@ -108,8 +108,8 @@ class RegisterController extends Controller
             'apellidos' => ['required', 'string', 'min:5', 'max:25'],
             'direccion' => ['required', 'string', 'min:10', 'max:255'],
             'email' => ['required', 'email', 'min:5', 'max:255', 'unique:users'],
-            'edad' => ['required', 'numeric', 'max:2'],
-            'telefono' => ['required', 'numeric', 'min:8','max:8'],
+            'edad' => ['required', 'numeric', 'max:100'],
+            'telefono' => 'required | numeric| min:8 ',
         ];
        return $reglas;
     }

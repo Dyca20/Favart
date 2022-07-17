@@ -16,17 +16,23 @@
     @include('layouts.Customer')
     <div class="pt-10 mt-6">
         <a href="#">
-            <h1 class="text-4xl font-bold text-center ">¡Hola! Usuario <span class="text-rose-400 text-6xl">.<span>
+            <h1 class="text-4xl font-bold text-center ">¡Hola! {{Auth::User()->Persona->nombre}} <span class="text-rose-400 text-6xl">.<span>
             </h1>
         </a>
     </div>
-    {{-- formulario de registro --}}
+            
+
     <div class="flex mb-4 justify-start p-36 pt-0 max-w-6xl">
         <div class="mt-10 w-fit">
             <h3 class="font-bold text-2xl">Datos del perfil</h3>
             <p class="text-gray-600 pt-2 pb-6">Editar datos</p>
-            <form method="POST" action="{{ route('register') }}" class="w-full max-w-lg">
+            
+            <form method="POST" action="{{url( $usuario->id_Usuario.'/perfil')}}" enctype="multipart/form-data">  
+
+           
+
                 @csrf
+                
                 <div class="flex flex-wrap -mx-3 mb-0">
                     <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -35,7 +41,8 @@
                         </label>
                         <input
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="nombre_Usuario" name="nombre_Usuario" type="text" placeholder="Usuario">
+                            id="nombre_Usuario" name="nombre_Usuario" value="{{$usuario->nombre_Usuario}}" type="text"  >
+                            
                     </div>
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -43,15 +50,15 @@
                             Contraseña
                         </label>
                         <input
-                            class="form-control @error('password') is-invalid @enderror appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id='password' name="password" required autocomplete="new-password" type="password"
-                            placeholder="******************">
+                            class="form-control block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id='password' name="password"   type="password"
+                            >
                         <p class="text-gray-600 text-xs italic">Ingrese una contraseña que pueda recordar.</p>
-                        @error('password')
+                        <!-- @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                        @enderror -->
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-8">
                         <div class="w-full px-3">
@@ -62,33 +69,33 @@
                             <input
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 id="password-confirm" type="password" class="form-control" name="password_confirmation"
-                                required autocomplete="new-password" type="text" placeholder="******************">
+                                  type="text" >
                         </div>
                     </div>
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="name"
-                            @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required
-                            autocomplete="name" autofocus>
+                             name="name"  
+                             autofocus>
                             Nombre
                         </label>
                         <input
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="name" name="name" type="text" placeholder="">
-                        @error('name')
+                            id="name" name="name" value="{{$usuario->Persona->nombre}}" type="text" >
+                        <!-- @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                        @enderror -->
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-0">
-                        <div class="w-full px-3">
+                        <div class="w-full px-3" >
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                 for="apellidos">
                                 Apellidos
                             </label>
                             <input
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="apellidos" name="apellidos" type="text" placeholder="">
+                                id="apellidos" name="apellidos" value="{{$usuario->Persona->primer_Apellido}}" type="text" >
                         </div>
                     </div>
                 </div>
@@ -100,7 +107,8 @@
                         </label>
                         <input
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="direccion" type="text" placeholder="">
+                            id="direccion" name="direccion" type="text" >
+                            <!-- //value="{{$usuario->persona->direccion}}"//  -->
                     </div>
                     <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -109,7 +117,7 @@
                         </label>
                         <input
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="edad" name="edad" type="number" min="0" max="99" placeholder="">
+                            id="edad" name="edad" value="{{$usuario->Persona->edad}}" type="number" min="0" max="99" >
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-2">
@@ -120,9 +128,9 @@
                         </label>
                         <input
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="email" name="email" type="email" placeholder=""
-                            @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required
-                            autocomplete="email">
+                            id="email" name="email" type="email" 
+                            value="{{$usuario->email}}" 
+                           >
                     </div>
                     <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -131,16 +139,16 @@
                         </label>
                         <input
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="telefono" name="telefono" type="tel" placeholder="">
+                            id="telefono" name="telefono" value="{{$telefono->numero_Telefono}}" type="tel" >
                     </div>
                 </div>
-                {{-- boton de enviar form y cancelar --}}
+                
                 <div class="flex flex-wrap -mx-3 mb-2">
                     <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
                         <button
                             class="bg-rose-400 hover:bg-zinc-500 text-white font-bold px-4 py-2 rounded shadow-lg hover:transition duration-500"
                             type="submit">
-                            {{ __('Guardar') }}
+                           Guardar
                         </button>
                     </div>
                     <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
@@ -155,3 +163,4 @@
         </div>
     </div>
 </body>
+</html>
