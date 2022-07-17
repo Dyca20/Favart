@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    
     <title>FavArt</title>
 
     <!-- Fonts -->
@@ -25,7 +25,7 @@
                     <div class="flex items-center justify-between text-white text-3xl px-5 font-medium"><b>Fav Art</b>
                     </div>
                     <div class="flex flex-row flex-auto m-auto pt-1">
-                        <a href="/#" class="px-2 hover:bg-pink-100 ">
+                        <a href="/welcome" class="px-2 hover:bg-pink-100 ">
                             <div class="flex flex-row space-x-3 ">
                                 <h4 class="font-normal text-white hover:text-pink-600">Principal</h4>
                             </div>
@@ -47,9 +47,9 @@
                                 <h4 class="font-normal text-white hover:text-pink-600 ">Historial</h4>
                             </div>
                         </a>
-                        <a href="{{ route('perfil') }}" class="px-2 hover:bg-pink-100">
+                        <a href="{{ url('/'.Auth::User()->id_Usuario).'/perfil'}}" class="px-2 hover:bg-pink-100">
                             <div class="flex flex-row space-x-3">
-                                <h4 class="font-normal text-white hover:text-pink-600">Bienvenido Usuario</h4>
+                                <h4 class="font-normal text-white hover:text-pink-600">{{Auth::User()->nombre_Usuario}}</h4>
                                 {{-- Acá se tendría que hacer un {{User::user_id -> name o similar}} --}}
                                 {{-- Además tiene que ir ubicado a la derecha del todo, aún no está puesto. --}}
                             </div>
