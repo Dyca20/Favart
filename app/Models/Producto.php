@@ -22,4 +22,9 @@ class Producto extends Model
     public function Crear_Producto(){
         return true;
     }
+
+    public function Producto_Compra()
+    {
+        return $this->belongsToMany(Producto::class, 'id_Producto', 'id_Producto');
+    }
 }

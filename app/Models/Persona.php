@@ -17,16 +17,20 @@ class Persona extends Model
         'apellidos',
         'edad',
     ];
-    public function usuario()
+    public function user()
     {
-        return $this->hasOne(Usuario::class, 'id_Persona', 'id_Persona');
+        return $this->hasOne(User::class, 'id_Persona', 'id_Persona');
     }
-    public function Crear_Cliente()
+    public function Crear_Persona()
     {
         return true;
     }
     public function telefono()
     {
         return $this->hasOne(Telefono::class, 'id_Persona', 'id_Persona');
+    }
+
+    public function direccion(){
+        return $this->belongsTo(Direccion::class,'id_Direccion','id_Direccion');
     }
 }

@@ -38,6 +38,11 @@ class User extends Authenticatable
     public function persona(){
         return $this->belongsTo(Persona::class,'id_Persona','id_Persona');
     }
+
+    public function carrito_de_compra()
+    {
+        return $this->hasOne(Carrito_de_Compra::class, 'id_Usuario', 'id_Usuario');
+    }
     /**
      * 
      * The attributes that should be hidden for serialization.

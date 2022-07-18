@@ -20,6 +20,8 @@ class CreateCarritoDeComprasTable extends Migration
             $table->foreign('id_Usuario')->references('id_Usuario')->on('users');
 
             $table->float('resumen_Precio');
+
+            $table->integer('cantidad');
             $table->timestamps();
         });
     }
