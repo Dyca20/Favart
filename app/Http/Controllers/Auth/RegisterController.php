@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Persona;
 use App\Models\Telefono;
+use App\Models\Direccion;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -73,11 +74,16 @@ class RegisterController extends Controller
             return back()->withErrors($validacion)->withInput();
         else :
         
+            $idDireccion = Direccion::insertGetId([
+                
+                'señas_Exactas' => $data['direccion'],
+                
+            ]);
+
             $idPersona = Persona::insertGetId([
-                'id_Direccion' => 1,
+                'id_Direccion' => $idDireccion,
                 'nombre' => $data['name'],
-                'primer_Apellido' => $data['apellidos'],
-                'segundo_Apellido' => $data['apellidos'],
+                'apellidos' => $data['apellidos'],
                 'edad'  => $data['edad']
             ]);
 
