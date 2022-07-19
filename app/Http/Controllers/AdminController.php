@@ -20,6 +20,11 @@ class AdminController extends Controller
         return view('admin/welcome');
     }
 
+    public function getHistoryPage()
+    {
+        return view('admin/history');
+    }
+
     public function getManageInventoryPage()
     {
         $productos = Producto::all();
@@ -100,12 +105,13 @@ class AdminController extends Controller
             $product->imagen =  $product->imagen;
             $product->detalles = $data->detalles;
             $product->categoria = $data->categoria;
-            $product->save(); 
-          
+            $product->save();
+
             return  redirect()->route('manageInventory');
 
-/*             return  redirect()->route('admin/'.$product-> id_producto.'/editProduct');
- */        endif;
+        /*             return  redirect()->route('admin/'.$product-> id_producto.'/editProduct');
+ */
+        endif;
     }
 
     /**

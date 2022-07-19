@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>FavArt - Catálogo</title>
+    <title>FavArt - Historial</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -14,12 +14,12 @@
 
 <body class="bg-rose-50">
     {{-- Muestra el Navbar, está en la carpeta layouts con el nombre customer. --}}
-    @include('layouts.Customer')
+    @include('layouts.Admin')
 
     <main class="flex flex-col">
         <div class="flex flex-col ml-20 pt-20 pb-10">
-            <h1 class="text-4xl font-semibold">Historial de compra</h1>
-            <p class="font-normal">A continuación se muestra su historial de compras:</p>
+            <h1 class="text-4xl font-semibold">Historial de compra y venta</h1>
+            <p class="font-normal">Se muestra el registro historico de compras y ventas:</p>
         </div>
         <div class="flex ml-20 space-x-3 w-auto m-0">
             <div class="w-3/4 m-auto overflow-x-auto relative">
@@ -49,6 +49,9 @@
                                 Fecha
                             </th>
                             <th scope="col" class="py-3 px-6">
+                                Usuario
+                            </th>
+                            <th scope="col" class="py-3 px-6">
                                 Precio Total
                             </th>
                             <th scope="col" class="py-3 px-6">
@@ -65,9 +68,18 @@
                                 10-08-2022
                             </td>
                             <td class="py-4 px-6">
+                                maria.zeledon
+                            </td>
+                            <td class="py-4 px-6">
                                 ₡12000
                             </td>
                             <td class="py-4 px-6 space-x-2">
+                                <a href="#"
+                                    class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-cyan-200">
+                                    <span
+                                        class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0">
+                                        Editar
+                                    </span></a>|
                                 <a href="#"
                                     class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-500 to-red-500 group-hover:from-red-500 group-hover:to-red-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-cyan-200">
                                     <span
@@ -84,9 +96,18 @@
                                 10-08-2022
                             </td>
                             <td class="py-4 px-6">
+                                maria.zeledon
+                            </td>
+                            <td class="py-4 px-6">
                                 ₡12000
                             </td>
                             <td class="py-4 px-6 space-x-2">
+                                <a href="#"
+                                    class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-cyan-200">
+                                    <span
+                                        class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0">
+                                        Editar
+                                    </span></a>|
                                 <a href="#"
                                     class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-500 to-red-500 group-hover:from-red-500 group-hover:to-red-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-cyan-200">
                                     <span
@@ -103,9 +124,18 @@
                                 10-08-2022
                             </td>
                             <td class="py-4 px-6">
+                                maria.zeledon
+                            </td>
+                            <td class="py-4 px-6">
                                 ₡12000
                             </td>
                             <td class="py-4 px-6 space-x-2">
+                                <a href="#"
+                                    class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-cyan-200">
+                                    <span
+                                        class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0">
+                                        Editar
+                                    </span></a>|
                                 <a href="#"
                                     class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-500 to-red-500 group-hover:from-red-500 group-hover:to-red-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-cyan-200">
                                     <span
@@ -122,28 +152,18 @@
                                 10-08-2022
                             </td>
                             <td class="py-4 px-6">
+                                maria.zeledon
+                            </td>
+                            <td class="py-4 px-6">
                                 ₡12000
                             </td>
                             <td class="py-4 px-6 space-x-2">
                                 <a href="#"
-                                    class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-500 to-red-500 group-hover:from-red-500 group-hover:to-red-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-cyan-200">
+                                    class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-cyan-200">
                                     <span
                                         class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0">
-                                        Eliminar
-                                    </span></a>
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b  hover:bg-gray-5">
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
-                                Anillo de acero, argolli...
-                            </th>
-                            <td class="py-4 px-6">
-                                10-08-2022
-                            </td>
-                            <td class="py-4 px-6">
-                                ₡12000
-                            </td>
-                            <td class="py-4 px-6 space-x-2">
+                                        Editar
+                                    </span></a>|
                                 <a href="#"
                                     class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-500 to-red-500 group-hover:from-red-500 group-hover:to-red-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-cyan-200">
                                     <span

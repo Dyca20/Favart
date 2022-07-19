@@ -25,7 +25,7 @@
                     <div class="flex items-center justify-between text-white text-3xl px-5 font-medium"><b>Fav Art</b>
                     </div>
                     <div class="flex flex-row flex-auto m-auto pt-1">
-                    <a href="/admin/welcome" class="px-2 hover:bg-pink-100">
+                        <a href="/admin/welcome" class="px-2 hover:bg-pink-100">
                             <div class="flex flex-row space-x-3 ">
                                 <h4 class="font-normal text-white hover:text-pink-600">Principal</h4>
                             </div>
@@ -41,7 +41,7 @@
                                 <h4 class="font-normal text-white hover:text-pink-600 ">Contabilidad</h4>
                             </div>
                         </a>
-                        <a href="/#" class="px-2 hover:bg-pink-100">
+                        <a href="/admin/history" class="px-2 hover:bg-pink-100">
                             <div class="flex flex-row space-x-3">
                                 <h4 class="font-normal text-white hover:text-pink-600 ">Historial</h4>
                             </div>
