@@ -1087,6 +1087,12 @@ input:checked + .toggle-bg {
 .ml-0 {
   margin-left: 0px;
 }
+.mr-10 {
+  margin-right: 2.5rem;
+}
+.mr-3 {
+  margin-right: 0.75rem;
+}
 .block {
   display: block;
 }
@@ -1259,6 +1265,12 @@ input:checked + .toggle-bg {
 }
 .w-3\/12 {
   width: 25%;
+}
+.w-36 {
+  width: 9rem;
+}
+.w-2\/3 {
+  width: 66.666667%;
 }
 .min-w-full {
   min-width: 100%;
@@ -1440,6 +1452,9 @@ input:checked + .toggle-bg {
 }
 .grid-cols-7 {
   grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+.grid-rows-2 {
+  grid-template-rows: repeat(2, minmax(0, 1fr));
 }
 .flex-row {
   flex-direction: row;
@@ -1911,6 +1926,10 @@ input:checked + .toggle-bg {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
 }
+.px-36 {
+  padding-left: 9rem;
+  padding-right: 9rem;
+}
 .pt-20 {
   padding-top: 5rem;
 }
@@ -1964,6 +1983,12 @@ input:checked + .toggle-bg {
 }
 .pt-5 {
   padding-top: 1.25rem;
+}
+.pt-12 {
+  padding-top: 3rem;
+}
+.pb-8 {
+  padding-bottom: 2rem;
 }
 .text-left {
   text-align: left;

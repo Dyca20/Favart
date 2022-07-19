@@ -5,20 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Distrito extends Model
+class Direccion extends Model
 {
     use HasFactory;
     public $timestamps = false;
 
+    protected $primaryKey = 'id_Direccion';
     protected $fillable = [
-        'id_Direccion',
-        'id_Barrio',
         'señas_Exactas',
     ];
-    public function canton(){
-        return $this->hasOne(Canton::class);
-}
-     public function Crear_Distrito(){
+
+    public function persona()
+    {
+        return $this->hasOne(Persona::class, 'id_Direccion', 'id_Direccion');
+    }
+
+
+    public function Crear_Direccion()
+    {
         return true;
     }
 }

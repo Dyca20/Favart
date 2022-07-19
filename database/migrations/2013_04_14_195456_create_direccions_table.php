@@ -16,7 +16,7 @@ class CreateDireccionsTable extends Migration
         Schema::create('direccions', function (Blueprint $table) {
             $table->increments('id_Direccion');
             
-            $table->integer('id_Barrio')->unsigned();
+          /*   $table->integer('id_Barrio')->unsigned();
             $table->foreign('id_Barrio')->references('id_Barrio')->on('barrios');
 
             $table->integer('id_Distrito')->unsigned();
@@ -26,22 +26,22 @@ class CreateDireccionsTable extends Migration
             $table->foreign('id_Canton')->references('id_Canton')->on('cantons');
 
             $table->integer('id_Provincia')->unsigned();
-            $table->foreign('id_Provincia')->references('id_Provincia')->on('provincias');
+            $table->foreign('id_Provincia')->references('id_Provincia')->on('provincias'); */
 
             $table->string('señas_Exactas',255);
             $table->timestamps();
         });
 
-        DB::table("direccions")
+        /* DB::table("direccions")
         ->insert([
             "id_direccion" => "1",
-            "id_Barrio" => "1",
+             "id_Barrio" => "1",
             "id_Distrito" => "1",
             "id_Canton" => "1",
             "id_Provincia" => "5",
-            "señas_Exactas" => "Casa de los contenedores",
-        ]);
-    }
+            "señas_Exactas" => "Guanacaste, liberia, guardia , casa de los contenedores",
+        ]);*/
+    } 
 
     /**
      * Reverse the migrations.

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\ApiJsController;
 use App\Http\Controllers\Controller;
+use App\Models\Direccion;
 use App\Models\Telefono;
 
 class PrincipalController extends Controller
@@ -35,22 +36,20 @@ class PrincipalController extends Controller
     public function getPerfilPage($id)
     {
         $usuario = $this->obtenerUsuario($id);
+        $direccion = $this->obtenerDireccion($usuario->Persona->id_direccion);
         $telefono = Telefono::where('id_Persona', $usuario->id_Persona)->first();
-        $data = ['usuario' => $usuario, 'telefono' => $telefono];
+        $data = ['usuario' => $usuario, 'telefono' => $telefono, 'direccion' => $direccion];
         return view('perfil', $data);
     }
 
-    public function postPerfilPage(Request $request, $id)
+    public function postPerfilPage(Request $data, $id)
     {
 
+        $reglas =  $this->reglas_registroEditar($data->password);
+        $mensaje = $this->mensajes_registroeditar($data->password);
 
+        $validacion = Validator::make($data->all(), $reglas, $mensaje);
 
-
-
-        $reglas =  $this->reglas_registroEditar($request->password);
-        $mensaje = $this->mensajes_registroeditar($request->password);
-
-        $validacion = Validator::make($request->all(), $reglas, $mensaje);
 
         //  if ($validacion->fails()) :
         //        return back()->withErrors($validacion)->withInput();
@@ -59,25 +58,27 @@ class PrincipalController extends Controller
         //      else :
         $persona = $this->obtenerPersona($id);
         $usuario = $this->obtenerUsuario($persona->id_Persona);
-
+        $direccion = $this->obtenerDireccion($persona->id_direccion);
         $telefono = $this->obtenerTelefono($persona->id_Persona);
 
-        $usuario->email = $request->email;
-        $usuario->nombre_Usuario = $request->nombre_Usuario;
-        if ($request->password != null) :
-            $usuario->password = Hash::make($request->password);
+        $usuario->email = $data->email;
+        $usuario->nombre_Usuario = $data->nombre_Usuario;
+        if ($data->password != null) :
+            $usuario->password = Hash::make($data->password);
         endif;
         $usuario->save();
 
-        $persona->nombre = $request->name;
-        $persona->primer_Apellido = $request->apellidos;
-        $persona->segundo_Apellido = $request->apellidos;
-        $persona->edad = $request->edad;
+        $persona->nombre = $data->name;
+        $persona->apellidos = $data->apellidos;
+        $persona->edad = $data->edad;
         $persona->save();
 
+        $direccion->señas_Exactas = $data->direccion;
+        $direccion->save();
 
-        $telefono->numero_Telefono = $request->telefono;
+        $telefono->numero_Telefono = $data->telefono;
         $telefono->save();
+
 
 
         return  view('/welcome');
@@ -99,6 +100,11 @@ class PrincipalController extends Controller
         return $persona;
     }
 
+    protected function obtenerDireccion($id)
+    {
+        $direccion = Direccion::findOrFail($id);
+        return $direccion;
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -112,10 +118,10 @@ class PrincipalController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $data
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $data)
     {
         //
     }
@@ -145,11 +151,11 @@ class PrincipalController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $data
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $data, $id)
     {
         //
     }

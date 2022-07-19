@@ -21,8 +21,7 @@ class CreatePersonasTable extends Migration
             $table->foreign('id_direccion')->references('id_direccion')->on('direccions');
 
             $table->string('nombre', 25);
-            $table->string('primer_Apellido', 25);
-            $table->string('segundo_Apellido', 25);
+            $table->string('apellidos', 30);
             $table->string('edad', 3);
             $table->timestamps();
         });
