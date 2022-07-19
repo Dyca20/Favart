@@ -1041,8 +1041,14 @@ input:checked + .toggle-bg {
 .mt-20 {
   margin-top: 5rem;
 }
+.mr-10 {
+  margin-right: 2.5rem;
+}
 .ml-6 {
   margin-left: 1.5rem;
+}
+.mr-3 {
+  margin-right: 0.75rem;
 }
 .ml-3 {
   margin-left: 0.75rem;
@@ -1113,8 +1119,8 @@ input:checked + .toggle-bg {
 .h-auto {
   height: auto;
 }
-.h-12 {
-  height: 3rem;
+.h-16 {
+  height: 4rem;
 }
 .h-9 {
   height: 2.25rem;
@@ -1157,8 +1163,14 @@ input:checked + .toggle-bg {
 .w-36 {
   width: 9rem;
 }
-.w-12 {
-  width: 3rem;
+.w-2\/3 {
+  width: 66.666667%;
+}
+.w-3\/4 {
+  width: 75%;
+}
+.w-16 {
+  width: 4rem;
 }
 .w-96 {
   width: 24rem;

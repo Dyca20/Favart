@@ -25,18 +25,17 @@
                     <div class="flex items-center justify-between text-white text-3xl px-5 font-medium"><b>Fav Art</b>
                     </div>
                     <div class="flex flex-row flex-auto m-auto pt-1">
-                        <a href="/#" class="px-2 hover:bg-pink-100 ">
+                    <a href="/admin/welcome" class="px-2 hover:bg-pink-100">
                             <div class="flex flex-row space-x-3 ">
                                 <h4 class="font-normal text-white hover:text-pink-600">Principal</h4>
                             </div>
                         </a>
-                        <a href="/#" class="px-2 hover:bg-pink-100">
+                        <a href="/admin/manageInventory" class="px-2 hover:bg-pink-100">
                             <div class="flex flex-row space-x-3">
-
                                 <h4 class="font-normal text-white hover:text-pink-600">Gestionar Inventario</h4>
                             </div>
                         </a>
-                        <a href="/admin/inventory" class="px-2 hover:bg-pink-100">
+                        <a href="/admin/" class="px-2 hover:bg-pink-100">
                             <div class="flex flex-row space-x-3">
 
                                 <h4 class="font-normal text-white hover:text-pink-600 ">Contabilidad</h4>
@@ -60,6 +59,7 @@
 
         </nav>
     </header>
+    @yield('content')
 
 </body>
 

@@ -13,7 +13,6 @@
 </head>
 
 <body class="">
-    {{-- Muestra el Navbar, está en la carpeta layouts con el nombre admin. --}}
     @include('layouts.Admin')
     <main>
         <section class="grid-rows-2 px-36 pt-12 font-light w-full">
@@ -25,15 +24,15 @@
                     <h1 class="text-4xl font-semibold text-gray-800"><b> Gestionar Inventario </b></h1>
                 </div>
             </div>
-            <div class="grid  lg:grid-cols-1 md:grid-cols-1 p-4">
+            <div class="grid  lg:grid-cols-1 md:grid-cols-1 p-2">
                 <div class="flex justify-between py-y px-6 whitespace-nowrap text-sm font-medium">
-                    <div> <a href="#" class="text-indigo-600 hover:text-indigo-900">Agregar</a></div>
+                    <div> <a href="/admin/addProduct" class="text-indigo-600 hover:text-indigo-900">Agregar</a></div>
 
-                    <div class="flex">
+                    <div class="flex items-center w-2/3">
 
-                        <label class="text-gray-700  font-bold px-2" for="usuario">Buscar</label>
+                        <label class="text-gray-700 font-bold px-2 mr-3" for="usuario">Buscar</label>
 
-                        <input type="text" id="buscar_producto_por_id" name="buscar_producto_por_id" class="bg-gray-50 rounded w-full h-6 text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-rose-300 transition duration-500 px-3 pb-3">
+                        <input type="text" id="buscar_producto" name="buscar_producto" class="bg-gray-50 rounded w-3/4 h-8 text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-rose-300 transition duration-500 px-3 pb-3">
                     </div>
 
 
@@ -75,32 +74,31 @@
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-12 w-12">
-                                        <img class="h-12 w-12 rounded-full" src="{{ URL::asset('/images/carousel/post_3.jpg') }}" alt="">
+                                    <div class="flex-shrink-0 h-16 w-16">
+                                        <img class="h-16 w-16 rounded-full" src="{{ URL::asset('/images/productos/'.$producto -> imagen) }}" alt="">
                                     </div>
                                     <div class="ml-4">
                                         <div class="text-sm font-medium text-gray-700">
-                                          {{ $producto -> id_producto }}
+                                            {{ $producto -> id_producto }}
                                         </div>
                                     </div>
                                 </div>
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                            {{ $producto -> nombre }}
+                                {{ $producto -> nombre }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                            {{ $producto -> cantidad }}
+                                {{ $producto -> cantidad }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                            {{ $producto -> precio }}
+                                {{ $producto -> precio }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                            {{ $producto -> categoria }}
+                                {{ $producto -> categoria }}
                             </td>
-
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Editar /</a>
+                                <a href="{{ url('admin/'.$producto -> id_producto.'/editProduct')}}" class="text-indigo-600 hover:text-indigo-900">Editar /</a>
                                 <a href="#" class="text-indigo-600 hover:text-indigo-900">Detalles /</a>
                                 <a href="#" class="text-indigo-600 hover:text-indigo-900">Eliminar </a>
                             </td>

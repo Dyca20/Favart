@@ -53,24 +53,17 @@ class LoginController extends Controller
 
         if (Auth::attempt($credenciales)) {
 
-            $request->session()->regenerate();
-            return  redirect()->route('welcome');
+            if (Auth::User()->rolUsuario == 2) {
+                return  redirect()->route('welcomeAdmin');
+            } else {
+                return  redirect()->route('welcome');
+            }
 
-/*             $this->redirectPath($request->usuario);
- */        }
+            $this->redirectPath($request->usuario);
+        }
         return redirect()->route('login')->withErrors([
             'usuario' => 'Error',
         ])->onlyInput('usuario');
     }
 
-/*     public function redirectPath($usuario)
-    {
-
-        $user = User::where('nombre_Usuario', $usuario)->get();
-
-        if (($user->rolUsuario) == 2) {
-            return '/admin/panel';
-        }
-        return  redirect()->route('welcome');
-    } */
 }
