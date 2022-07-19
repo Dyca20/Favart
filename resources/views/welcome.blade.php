@@ -26,7 +26,7 @@
                 <p class="font-normal"> Se realizan envíos a todo el país. 🇨🇷</p><br>
                 {{-- boton rosado de ver catálogo --}}
                 <div class="flex flex-row mt-5 space-x-8">
-                    <a href="/catalogo"
+                    <a href="/catalog"
                         class="z-40 bg-red-400 shadow-2xl shadow-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full">Ver
                         Catálogo</a>
                     {{-- botón de contacto --}}

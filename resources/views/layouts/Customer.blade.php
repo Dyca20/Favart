@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <title>FavArt</title>
 
     <!-- Fonts -->
@@ -36,20 +36,21 @@
                                 <h4 class="font-normal text-white hover:text-pink-600">Comprar</h4>
                             </div>
                         </a>
-                        <a href="/#" class="px-2 hover:bg-pink-100">
+                        <a href="{{ url('/catalog') }}" class="px-2 hover:bg-pink-100">
                             <div class="flex flex-row space-x-3">
-
                                 <h4 class="font-normal text-white hover:text-pink-600 ">Catálogo</h4>
                             </div>
                         </a>
-                        <a href="/#" class="px-2 hover:bg-pink-100">
+                        <a href="{{ url('/history') }}" class="px-2 hover:bg-pink-100">
                             <div class="flex flex-row space-x-3">
-                                <h4 class="font-normal text-white hover:text-pink-600 ">Historial</h4>
+                                <h4 class="font-normal text-white hover:text-pink-600 ">Historial de compra</h4>
                             </div>
                         </a>
-                        <a href="{{ url('/'.Auth::User()->id_Usuario).'/perfil'}}" class="px-2 hover:bg-pink-100">
+                        <a href="{{ url('/' . Auth::User()->id_Usuario) . '/perfil' }}"
+                            class="px-2 hover:bg-pink-100">
                             <div class="flex flex-row space-x-3">
-                                <h4 class="font-normal text-white hover:text-pink-600">{{Auth::User()->nombre_Usuario}}</h4>
+                                <h4 class="font-normal text-white hover:text-pink-600">
+                                    {{ Auth::User()->nombre_Usuario }}</h4>
                                 {{-- Acá se tendría que hacer un {{User::user_id -> name o similar}} --}}
                                 {{-- Además tiene que ir ubicado a la derecha del todo, aún no está puesto. --}}
                             </div>
