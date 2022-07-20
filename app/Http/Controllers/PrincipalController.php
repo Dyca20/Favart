@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use Auth;
-use App\Models\Persona;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\ApiJsController;
 use App\Http\Controllers\Controller;
 use App\Models\Direccion;
 use App\Models\Telefono;
+use App\Models\Persona;
+use App\Models\User;
 
 class PrincipalController extends Controller
 {

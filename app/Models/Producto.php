@@ -10,7 +10,7 @@ class Producto extends Model
     use HasFactory;
     public $timestamps = false;
 
-    protected $primaryKey = 'id_Producto';
+    protected $primaryKey = 'id_producto';
 
     protected $fillable = [
         'cantidad',
@@ -27,6 +27,6 @@ class Producto extends Model
 
     public function Producto_Compra()
     {
-        return $this->belongsToMany(Producto::class, 'id_Producto', 'id_Producto');
+        return $this->belongsToMany(Producto::class, 'id_producto', 'id_producto');
     }
 }

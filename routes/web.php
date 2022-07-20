@@ -25,6 +25,8 @@ Route::post('/admin/addProduct', [App\Http\Controllers\AdminController::class, '
 
 Route::get('/admin/{id}/editProduct', [App\Http\Controllers\AdminController::class, 'getProductoPage'])->name('getProduct');
 Route::post('/admin/{id}/editProduct', [App\Http\Controllers\AdminController::class, 'postProductoPage'])->name('postProduct');
+Route::get('/admin/{id}/perfil', [App\Http\Controllers\AdminController::class, 'getPerfilPage'])->name('getPerfilAdmin');
+Route::post('/admin/{id}/perfil', [App\Http\Controllers\AdminController::class, 'postPerfilPage'])->name('postPerfilAdmin');
 
 
 /* Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'create'])->name('registrar');

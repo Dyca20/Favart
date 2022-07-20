@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Producto;
-use App\Models\Producto_Compra;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Models\Direccion;
+use App\Models\Telefono;
+use App\Models\Persona;
+use App\Models\User;
+use App\Models\Producto;
 
 class AdminController extends Controller
 {
@@ -78,12 +82,6 @@ class AdminController extends Controller
         return view('admin/editProduct', $data);
     }
 
-    public function obtenerProducto($id)
-    {
-        $producto = Producto::findOrFail($id);
-        return $producto;
-    }
-
     public function postProductoPage(Request $data, $id)
     {
 
@@ -97,87 +95,95 @@ class AdminController extends Controller
             return back()->withErrors($validacion)->withInput();
 
         else :
-            $product = $this->obtenerProducto($id);
+            $producto = $this->obtenerProducto($id);
 
-            $product->cantidad = $data->cantidad;
-            $product->nombre = $data->nombre_Producto;
-            $product->precio = $data->precio;
-            $product->imagen =  $product->imagen;
-            $product->detalles = $data->detalles;
-            $product->categoria = $data->categoria;
-            $product->save();
+            $producto->cantidad = $data->cantidad;
+            $producto->nombre = $data->nombre_Producto;
+            $producto->precio = $data->precio;
+            $producto->imagen =  $producto->imagen;
+            $producto->detalles = $data->detalles;
+            $producto->categoria = $data->categoria;
+            $producto->save();
 
             return  redirect()->route('manageInventory');
 
-        /*             return  redirect()->route('admin/'.$product-> id_producto.'/editProduct');
- */
+            return  redirect()->route('admin/' . $producto->id_producto . '/editProduct');
+
         endif;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getPerfilPage($id)
     {
-        //
+        $usuario = $this->obtenerUsuario($id);
+        $direccion = $this->obtenerDireccion($usuario->Persona->id_direccion);
+        $telefono = Telefono::where('id_Persona', $usuario->id_Persona)->first();
+        $data = ['usuario' => $usuario, 'telefono' => $telefono, 'direccion' => $direccion];
+        return view('admin/perfil', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function postPerfilPage(Request $data, $id)
     {
-        //
-    }
+      /*   $reglas =  $this->reglas_registroEditar($data->password);
+        $mensaje = $this->mensajes_registroeditar($data->password);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $validacion = Validator::make($data->all(), $reglas, $mensaje); */
+        //  if ($validacion->fails()) :
+        //        return back()->withErrors($validacion)->withInput();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        //      else :
+        $persona = $this->obtenerPersona($id);
+        $usuario = $this->obtenerUsuario($persona->id_Persona);
+        $direccion = $this->obtenerDireccion($persona->id_direccion);
+        $telefono = $this->obtenerTelefono($persona->id_Persona);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+        $usuario->email = $data->email;
+        $usuario->nombre_Usuario = $data->nombre_Usuario;
+        if ($data->password != null) :
+            $usuario->password = Hash::make($data->password);
+        endif;
+        $usuario->save();
+
+        $persona->nombre = $data->name;
+        $persona->apellidos = $data->apellidos;
+        $persona->edad = $data->edad;
+        $persona->save();
+
+        $direccion->señas_Exactas = $data->direccion;
+        $direccion->save();
+
+        $telefono->numero_Telefono = $data->telefono;
+        $telefono->save();
+
+
+
+        return  view('admin/welcome');
+        //     endif;
+    }
+    public function obtenerUsuario($id)
     {
-        //
+        $usuario = User::findOrFail($id);
+        return $usuario;
+    }
+    public function obtenerTelefono($id)
+    {
+        $telefono = Telefono::findOrFail($id);
+        return $telefono;
+    }
+    protected function obtenerPersona($id)
+    {
+        $persona = Persona::findOrFail($id);
+        return $persona;
+    }
+    protected function obtenerDireccion($id)
+    {
+        $direccion = Direccion::findOrFail($id);
+        return $direccion;
+    }
+    public function obtenerProducto($id)
+    {
+        $producto = Producto::findOrFail($id);
+        return $producto;
     }
 
     private function reglas_ProductoEditar()
