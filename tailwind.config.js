@@ -953,6 +953,6 @@ module.exports = {
     'disabled',
   ],
   plugins: [
-    require('flowbite/plugin')
+    require('flowbite/plugin'),
   ],
 }

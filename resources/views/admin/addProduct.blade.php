@@ -20,7 +20,7 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nombre_Producto">
                             Nombre del Producto
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nombre_Producto" name="nombre_Producto" type="text" placeholder="Producto" required>
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nombre_Producto" name="nombre_Producto" type="text" placeholder="Producto" value="{{ old('nombre_Producto') }}">
                         @error('nombre_Producto')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -32,7 +32,7 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="categoria">
                             Categoría
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="categoria" name="categoria" type="text" placeholder="Categoría" required>
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="categoria" name="categoria" type="text" placeholder="Categoría" value="{{ old('categoria') }}">
                         @error('categoria')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -44,7 +44,7 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="precio">
                             Precio
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="precio" name="precio" type="number" min="0" max="100000" placeholder="Precio" required>
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="precio" name="precio" type="number" min="0" max="100000" placeholder="Precio" value="{{ old('precio') }}">
                         @error('precio')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -56,7 +56,7 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="cantidad">
                             Cantidad
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="cantidad" name="cantidad" type="number" min="0" max="1000" placeholder="Cantidad" required>
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="cantidad" name="cantidad" type="number" min="0" max="1000" placeholder="Cantidad" value="{{ old('cantidad') }}">
                         @error('cantidad')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -69,7 +69,7 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="detalles">
                             Detalles
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="detalles" name="detalles" type="text" placeholder="Detalles" required>
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="detalles" name="detalles" type="text" placeholder="Detalles" value="{{ old('detalles') }}">
                         @error('detalles')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -81,7 +81,7 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="imagen">
                             Imagen
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="imagen" name="imagen" type="file" placeholder="Imagen" required>
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="imagen" name="imagen" type="file" placeholder="Imagen" >
                         @error('imagen')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

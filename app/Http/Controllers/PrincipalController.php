@@ -5,19 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ValidationsController;
 use App\Models\Direccion;
 use App\Models\Telefono;
 use App\Models\Persona;
 use App\Models\User;
 
-class PrincipalController extends Controller
+class PrincipalController extends ValidationsController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function getWelcomePage()
     {
 
@@ -49,38 +45,38 @@ class PrincipalController extends Controller
         $validacion = Validator::make($data->all(), $reglas, $mensaje);
 
 
-        //  if ($validacion->fails()) :
-        //        return back()->withErrors($validacion)->withInput();
+        if ($validacion->fails()) :
+            return back()->withErrors($validacion)->withInput();
 
 
-        //      else :
-        $persona = $this->obtenerPersona($id);
-        $usuario = $this->obtenerUsuario($persona->id_Persona);
-        $direccion = $this->obtenerDireccion($persona->id_direccion);
-        $telefono = $this->obtenerTelefono($persona->id_Persona);
+        else :
+            $persona = $this->obtenerPersona($id);
+            $usuario = $this->obtenerUsuario($persona->id_Persona);
+            $direccion = $this->obtenerDireccion($persona->id_direccion);
+            $telefono = $this->obtenerTelefono($persona->id_Persona);
 
-        $usuario->email = $data->email;
-        $usuario->nombre_Usuario = $data->nombre_Usuario;
-        if ($data->password != null) :
-            $usuario->password = Hash::make($data->password);
+            $usuario->email = $data->email;
+            $usuario->nombre_Usuario = $data->nombre_Usuario;
+            if ($data->password != null) :
+                $usuario->password = Hash::make($data->password);
+            endif;
+            $usuario->save();
+
+            $persona->nombre = $data->name;
+            $persona->apellidos = $data->apellidos;
+            $persona->edad = $data->edad;
+            $persona->save();
+
+            $direccion->señas_Exactas = $data->direccion;
+            $direccion->save();
+
+            $telefono->numero_Telefono = $data->telefono;
+            $telefono->save();
+
+
+
+            return  view('/welcome');
         endif;
-        $usuario->save();
-
-        $persona->nombre = $data->name;
-        $persona->apellidos = $data->apellidos;
-        $persona->edad = $data->edad;
-        $persona->save();
-
-        $direccion->señas_Exactas = $data->direccion;
-        $direccion->save();
-
-        $telefono->numero_Telefono = $data->telefono;
-        $telefono->save();
-
-
-
-        return  view('/welcome');
-        //     endif;
     }
     public function obtenerUsuario($id)
     {
@@ -102,162 +98,5 @@ class PrincipalController extends Controller
     {
         $direccion = Direccion::findOrFail($id);
         return $direccion;
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $data
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $data)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $data
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $data, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    private function reglas_registroEditar($contraseña)
-    {
-
-        $reglas = '';
-        if ($contraseña != null) :
-            $reglas = [
-                'nombre_Usuario' => ['required', 'string', 'min:5', 'max:25'],
-                'password' => ['required', 'string', 'min:8', 'required_with:password_confirmation', 'same:password_confirmation'],
-                'password_confirmation' => ['min:8'],
-                'name' => ['required', 'string', 'min:2', 'max:25'],
-                'apellidos' => ['required', 'string', 'min:5', 'max:25'],
-                'email' => ['required', 'email', 'min:5', 'max:255', 'unique:users'],
-                'edad' => ['required', 'numeric', 'max:100'],
-                'telefono' => 'required | numeric| min:8 ',
-            ];
-        else :
-            $reglas = [
-                'nombre_Usuario' => ['required', 'string', 'min:5', 'max:25'],
-                'name' => ['required', 'string', 'min:2', 'max:25'],
-                'apellidos' => ['required', 'string', 'min:5', 'max:25'],
-                'email' => ['required', 'email', 'min:5', 'max:255', 'unique:users'],
-                'edad' => ['required', 'numeric', 'max:100'],
-                'telefono' => 'required | numeric| min:8 ',
-            ];
-        endif;
-        return $reglas;
-    }
-
-    private function mensajes_registroeditar($contraseña)
-    {
-
-        $mensaje = '';
-        if ($contraseña != null) :
-            $mensaje = [
-                'nombre_Usuario.required' => 'El nombre de usuario es requerido',
-                'nombre_Usuario.min' => 'El nombre de usuario debe ser de al menos 5 carácteres',
-                'nombre_Usuario.max' => 'El nombre de usuario debe máximo de 25 carácteres',
-                'password.required' => 'La contraseña es requerida',
-                'password.min' => 'La contraseña debe ser al menos de 8 carácteres',
-                'password.required_with' => 'La contraseña debe ser confirmada',
-                'password.same' => 'Las contraseñas no coinciden',
-                'password_confirmation.min' => 'La confirmación no cumple el mínimo de 8 carácteres',
-                'name.required' => 'El nombre es requerido',
-                'name.min' => 'El nombre debe ser al menos de 2 carácteres',
-                'name.max' => 'El nombre es demasiado largo, utiliza un nombre más corto',
-                'apellidos.required' => 'Los apellidos son requeridos',
-                'apellidos.min' => 'Los apellidos deben ser al menos de 5 carácteres',
-                'apellidos.max' => 'Los apellidos deben ser máximo de 25 carácteres',
-                'email.required' => 'El correo electrónico es requerido',
-                'email.min' => 'El correo electrónico debe contener al menos 5 carácteres',
-                'email.max' => 'El correo electrónico es demasiado largo',
-                'email.unique' => 'Ya existe una cuenta asociada a ese correo electrónico',
-                'email.email' => 'El correo electrónico debe contener la forma ejemplo@ejemplo.com',
-                'edad.max' => 'La edad es muy alta.',
-                'edad.required' => 'La edad es requerida',
-                'edad.min' => 'La edad es muy pequeña',
-                'edad.numeric' => 'La edad debe ser un número entero',
-                'telefono.required' => 'El número de teléfono es requerido',
-                'telefono.min' => 'Los números de teléfono deben ser de 8 dígitos',
-                'telefono.max' => 'Los números de teléfono deben ser de 8 dígitos',
-                'telefono.numeric' => 'Este campo solo admite números',
-
-            ];
-        else :
-            $mensaje = [
-                'nombre_Usuario.required' => 'El nombre de usuario es requerido',
-                'nombre_Usuario.min' => 'El nombre de usuario debe ser de al menos 5 carácteres',
-                'nombre_Usuario.max' => 'El nombre de usuario debe máximo de 25 carácteres',
-                'name.required' => 'El nombre es requerido',
-                'name.min' => 'El nombre debe ser al menos de 2 carácteres',
-                'name.max' => 'El nombre es demasiado largo, utiliza un nombre más corto',
-                'apellidos.required' => 'Los apellidos son requeridos',
-                'apellidos.min' => 'Los apellidos deben ser al menos de 5 carácteres',
-                'apellidos.max' => 'Los apellidos deben ser máximo de 25 carácteres',
-                'email.required' => 'El correo electrónico es requerido',
-                'email.min' => 'El correo electrónico debe contener al menos 5 carácteres',
-                'email.max' => 'El correo electrónico es demasiado largo',
-                'email.unique' => 'Ya existe una cuenta asociada a ese correo electrónico',
-                'email.email' => 'El correo electrónico debe contener la forma ejemplo@ejemplo.com',
-                'edad.max' => 'La edad es muy alta.',
-                'edad.required' => 'La edad es requerida',
-                'edad.min' => 'La edad es muy pequeña',
-                'edad.numeric' => 'La edad debe ser un número entero',
-                'telefono.required' => 'El número de teléfono es requerido',
-                'telefono.min' => 'Los números de teléfono deben ser de 8 dígitos',
-                'telefono.max' => 'Los números de teléfono deben ser de 8 dígitos',
-                'telefono.numeric' => 'Este campo solo admite números',
-            ];
-        endif;
-        return $mensaje;
     }
 }

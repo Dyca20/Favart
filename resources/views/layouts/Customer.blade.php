@@ -31,12 +31,6 @@
                                     <h4 class="font-normal text-white hover:text-pink-600">Principal</h4>
                                 </div>
                             </a>
-                            <a href="/#" class="px-2 hover:bg-pink-100">
-                                <div class="flex flex-row space-x-3">
-
-                                    <h4 class="font-normal text-white hover:text-pink-600">Comprar</h4>
-                                </div>
-                            </a>
                             <a href="{{ url('/catalog') }}" class="px-2 hover:bg-pink-100">
                                 <div class="flex flex-row space-x-3">
                                     <h4 class="font-normal text-white hover:text-pink-600 ">Catálogo</h4>
@@ -54,14 +48,13 @@
                             </a>
                         </div>
                         <div class="flex mr-4 items-center">
+                            @if(Auth::check())
                             <div class="mr-4">
                                 <a href="{{ url('/' . Auth::User()->id_Usuario) . '/perfil' }}" class="px-2 mx-2">
                                     <div class="flex flex-row space-x-3">
                                         <h4 class="font-normal text-white hover:text-pink-600">
                                             {{ Auth::User()->nombre_Usuario }}
                                         </h4>
-                                        {{-- Acá se tendría que hacer un {{User::user_id -> name o similar}} --}}
-                                        {{-- Además tiene que ir ubicado a la derecha del todo, aún no está puesto. --}}
                                     </div>
                                 </a>
                             </div>
@@ -72,12 +65,11 @@
                                         <h4 class="font-normal text-white hover:text-pink-600">
                                             {{ __('Admin') }}
                                         </h4>
-                                        {{-- Acá se tendría que hacer un {{User::user_id -> name o similar}} --}}
-                                        {{-- Además tiene que ir ubicado a la derecha del todo, aún no está puesto. --}}
                                     </div>
                                 </a>
                                 @endif
                             </div>
+
                             <div class="dropdown-menu dropdown-menu-end ml-4 mr-4 " aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <h4 class="font-normal text-white hover:text-pink-600">
@@ -90,11 +82,30 @@
                                     @csrf
                                 </form>
                             </div>
+                            @else
+                            <div class="mr-4">
+                                <a href="login" class="px-2 mx-2">
+                                    <div class="flex flex-row space-x-3">
+                                        <h4 class="font-normal text-white hover:text-pink-600">
+                                            Login </h4>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="mx-2">
+
+                                <a href="register" class="px-2 mx-2">
+                                    <div class="flex flex-row space-x-3">
+                                        <h4 class="font-normal text-white hover:text-pink-600">
+                                            Registrarse
+                                        </h4>
+                                    </div>
+                                </a>
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
-                {{-- nombre del perfil en la derecha del navbar --}}
-
         </nav>
     </header>
 

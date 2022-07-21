@@ -11,34 +11,11 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-
-    ARIADNE
-
-    |
-    */
 
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
@@ -49,6 +26,9 @@ class LoginController extends Controller
         $credenciales = $request->validate([
             'nombre_Usuario' => ['required'],
             'password' => ['required'],
+        ], [
+            'nombre_Usuario.required' => 'El nombre de usuario es requerido',
+            'password.required' => 'La contraseña es requerida'
         ]);
 
         if (Auth::attempt($credenciales)) {
@@ -62,8 +42,7 @@ class LoginController extends Controller
             $this->redirectPath($request->usuario);
         }
         return redirect()->route('login')->withErrors([
-            'usuario' => 'Error',
-        ])->onlyInput('usuario');
+            'nombre_Usuario' => 'El usuario no está registrado',
+        ])->onlyInput('nombre_Usuario');
     }
-
 }
