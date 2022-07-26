@@ -25,14 +25,26 @@
                 </div>
             </div>
             <div class="grid  lg:grid-cols-1 md:grid-cols-1 p-2">
-                <div class="flex justify-between py-y px-6 whitespace-nowrap text-sm font-medium">
+                <div class="flex justify-between py-y px-6 whitespace-nowrap text-base font-medium">
                     <div> <a href="/admin/addProduct" class="text-indigo-600 hover:text-indigo-900">Agregar</a></div>
 
-                    <div class="flex items-center w-2/3">
+                    <div class="flex items-center w-2/3 max-w-xs">
 
-                        <label class="text-gray-700 font-bold px-2 mr-3" for="usuario">Buscar</label>
+                        <form method="POST" action="{{ url('admin/buscador') }}" enctype="multipart/form-data">
+                            @csrf
+                            <input type="text" id="buscar_producto" name="buscar_producto" class="bg-gray-50 rounded w-3/4 h-10 text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-rose-300 transition duration-500 px-3 pb-3">
+                            <button class="bg-rose-400 hover:bg-zinc-500 text-white font-bold px-4 py-2 rounded shadow-lg hover:transition duration-500  mb-3" type="submit">
+                                Buscar
+                            </button>
+                        </form>
 
-                        <input type="text" id="buscar_producto" name="buscar_producto" class="bg-gray-50 rounded w-3/4 h-8 text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-rose-300 transition duration-500 px-3 pb-3">
+                    </div>
+                    <div class="flex items-center max-w-xs">
+                        <a href="{{url('admin/manageInventory')}}">
+                            <button class="bg-rose-400 hover:bg-zinc-500 text-white font-bold px-4 py-2 rounded shadow-lg hover:transition duration-500" type="button">
+                                Mostrar Todo
+                            </button>
+                        </a>
                     </div>
 
 
@@ -46,7 +58,7 @@
 
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                                Código
+                                Imagen
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
                                 Nombre
@@ -58,7 +70,7 @@
                                 Precio
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                                Categoria
+                                Categorias
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
                                 Opciones
@@ -74,19 +86,15 @@
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-16 w-16">
-                                        <img class="h-16 w-16 rounded-full" src="{{ URL::asset('/images/productos/'.$producto -> imagen) }}" alt="">
+                                    <div class="flex-shrink-0 h-20 w-20">
+                                        <img class="h-20 w-20 rounded-full" src="{{ URL::asset('/images/productos/'.$producto -> imagen) }}" alt="">
                                     </div>
-                                    <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-700">
-                                            {{ $producto -> id_producto }}
-                                        </div>
-                                    </div>
+
                                 </div>
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                {{ $producto -> nombre }}
+                                {{ $producto -> nombre_Producto }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                                 {{ $producto -> cantidad }}
@@ -104,15 +112,13 @@
                             </td>
                         </tr>
                         @endforeach()
-
-                        <!-- More people... -->
                     </tbody>
                 </table>
+
             </div>
             </div>
 
 
         </section>
     </main>
-    <script src="./js/Admin.js"></script>
 </body>

@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
-class CreateDireccionsTable extends Migration
+
+class CreateCategoriasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateDireccionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('direccions', function (Blueprint $table) {
-            $table->increments('id_Direccion');
-         
-            $table->string('señas_Exactas',255);
+        Schema::create('categorias', function (Blueprint $table) {
+            $table->Increments('id_categoria');
+            $table->string('nombreCategoria');
             $table->timestamps();
         });
-
-        
-    } 
+    }
 
     /**
      * Reverse the migrations.
@@ -30,6 +27,6 @@ class CreateDireccionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('direccions');
+        Schema::dropIfExists('categorias');
     }
 }

@@ -175,6 +175,32 @@ class ValidationsController extends Controller
         return $reglas;
     }
 
+    protected function rules_AddCategory()
+    {
+
+        $reglas = '';
+        $reglas = [
+            'nombreCategoria' => ['required', 'string', 'min:2', 'max:25', 'unique:categorias'],
+        ];
+
+        return $reglas;
+    }
+
+    protected function messages_AddCategory()
+    {
+
+        $mensaje = '';
+
+        $mensaje = [
+
+            'nombreCategoria.required' => 'La categoria es requerido',
+            'nombreCategoria.unique' => 'La categoria ya existe',
+            'nombreCategoria.min' => 'La categoria debe ser al menos de 2 carácteres',
+            'nombreCategoria.max' => 'La categoria es demasiado largo, utiliza un nombre más corto',
+        ];
+
+        return $mensaje;
+    }
     protected function mensajes_ProductoEditar()
     {
 
@@ -200,17 +226,16 @@ class ValidationsController extends Controller
 
         return $mensaje;
     }
-    
+
     protected function reglas_addproduct()
     {
 
         $reglas = '';
         $reglas = [
-            'nombre_Producto' => ['required', 'string', 'min:4', 'max:25'],
-            'categoria' => ['required', 'string', 'min:2', 'max:25'],
+            'nombre_Producto' => ['required', 'string', 'min:4', 'max:50', 'unique:productos'],
             'precio' => ['required', 'numeric', 'max:100000'],
             'cantidad' => ['required', 'numeric', 'max:1000'],
-            'detalles' => ['required', 'string', 'min:5', 'max:255'],
+            'detalles' => ['required', 'string', 'min:30', 'max:255'],
             'imagen' => ['required'],
 
         ];
@@ -225,11 +250,12 @@ class ValidationsController extends Controller
 
         $mensaje = [
             'nombre_Producto.required' => 'El nombre del producto es requerido',
-            'nombre_Producto.min' => 'El nombre del producto  debe ser de al menos 5 carácteres',
-            'nombre_Producto.max' => 'El nombre del producto  debe máximo de 25 carácteres',
-            'categoria.required' => 'La categoria es requerido',
-            'categoria.min' => 'La categoria debe ser al menos de 2 carácteres',
-            'categoria.max' => 'La categoria es demasiado largo, utiliza un nombre más corto',
+            'nombre_Producto.min' => 'El nombre del producto debe ser de al menos 5 carácteres',
+            'nombre_Producto.max' => 'El nombre del producto debe máximo de 50 carácteres',
+            'nombre_Producto.unique' => 'El nombre del producto ya existe',
+            'detalles.required' => 'Los detalles del producto son requeridos',
+            'detalles.min' => 'Los detalles del producto debe ser de al menos 30 carácteres',
+            'detalles.max' => 'Los detalles del producto debe máximo de 255 carácteres',
             'cantidad.max' => 'La cantidad máxima esta predefinida en 1000',
             'cantidad.required' => 'La cantidad es requerida',
             'cantidad.min' => 'La cantidad no puede ser 0',

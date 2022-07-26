@@ -9,7 +9,6 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="/css/app.css">
 
 </head>
@@ -50,13 +49,11 @@
                         </div>
                         <div class="flex mr-4 items-center">
                             <div class="mr-4">
-                                <a href="{{ url('admin/' . Auth::User()->id_Usuario) . '/perfil' }}" class="px-2 mx-2">
+                                <a href="{{ url('admin/' . Auth::User()->id_Usuario. '/perfil') }}" class="px-2 mx-2">
                                     <div class="flex flex-row space-x-3">
                                         <h4 class="font-normal text-white hover:text-pink-600">
                                             {{ Auth::User()->nombre_Usuario }}
                                         </h4>
-                                        {{-- Acá se tendría que hacer un {{User::user_id -> name o similar}} --}}
-                                        {{-- Además tiene que ir ubicado a la derecha del todo, aún no está puesto. --}}
                                     </div>
                                 </a>
                             </div>
@@ -66,8 +63,7 @@
                                         <h4 class="font-normal text-white hover:text-pink-600">
                                             {{ __('Cliente') }}
                                         </h4>
-                                        {{-- Acá se tendría que hacer un {{User::user_id -> name o similar}} --}}
-                                        {{-- Además tiene que ir ubicado a la derecha del todo, aún no está puesto. --}}
+             
                                     </div>
                                 </a>
                             </div>
@@ -87,12 +83,12 @@
 
                     </div>
                 </div>
-                {{-- nombre del perfil en la derecha del navbar --}}
 
         </nav>
     </header>
     @yield('content')
-
+ 
 </body>
+
 
 </html>

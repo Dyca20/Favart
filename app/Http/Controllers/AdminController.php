@@ -5,20 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ValidationsController;
+use App\Models\Categoria;
 use App\Models\Direccion;
 use App\Models\Telefono;
 use App\Models\Persona;
 use App\Models\User;
 use App\Models\Producto;
+use App\Models\Producto_Compra;
+use App\Models\ProductoCategoria;
 
 class AdminController extends ValidationsController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    /* Metodos get para generar la vista */
+
     public function getWelcomePage()
     {
         return view('admin/welcome');
@@ -32,6 +34,7 @@ class AdminController extends ValidationsController
     public function getManageInventoryPage()
     {
         $productos = Producto::all();
+
         return view('admin/inventory', array('productos' => $productos));
     }
 
@@ -40,11 +43,65 @@ class AdminController extends ValidationsController
         return view('admin/addProduct');
     }
 
-    protected function validator(array $data)
+    public function getEditProductPage($id)
     {
-
-        return Validator::make($data, []);
+        $producto = $this->obtenerProducto($id);
+        $data = ['producto' => $producto];
+        return view('admin/editProduct', $data);
     }
+
+    public function getAddCategoryPage($id)
+    {
+        $producto = $this->obtenerProducto($id);
+        $dataCategorias = '';
+
+        $categorias = Categoria::all();
+        $categoriaFormateadas = array();
+
+        $categoriasDelProducto = ProductoCategoria::where('id_producto', $id)->get();
+        $categoriasDelProductoNombres = array();
+
+        foreach ($categorias as $categoria) {
+            $categoria = ['id_categoria' => $categoria->id_categoria, 'nombre_categoria' => $categoria->nombreCategoria];
+            array_push($categoriaFormateadas,  $categoria);
+        }
+
+        foreach ($categoriasDelProducto as $categoriaProducto) {
+
+            $id_categoria = $categoriaProducto->id_categoria;
+            $nombre_categoria = Categoria::find($categoriaProducto->id_categoria)->nombreCategoria;
+            $categoria = ['id_categoria' => $id_categoria, 'nombre_categoria' => $nombre_categoria];
+            $dataCategorias .= $nombre_categoria . ' ';
+            array_push($categoriasDelProductoNombres,  $categoria);
+        }
+
+        foreach ($categoriaFormateadas as $index => $item) {
+            foreach ($categoriasDelProductoNombres as $index2 => $item2) {
+
+                if ($item['id_categoria'] == $item2['id_categoria']) {
+                    unset($categoriaFormateadas[$index]);
+                }
+            }
+        }
+
+        $categorias = $categoriaFormateadas;
+        $producto->categoria = $dataCategorias;
+        $producto->save();
+
+        $data = ['producto' => $producto];
+        return view('admin/category', array('categorias' => $categorias,  'categoriasProducto' => $categoriasDelProductoNombres), $data);
+    }
+
+    public function getEditPerfilPage($id)
+    {
+        $usuario = $this->obtenerUsuario($id);
+        $direccion = $this->obtenerDireccion($usuario->Persona->id_direccion);
+        $telefono = Telefono::where('id_Persona', $usuario->id_Persona)->first();
+        $data = ['usuario' => $usuario, 'telefono' => $telefono, 'direccion' => $direccion];
+        return view('admin/perfil', $data);
+    }
+    /* Operaciones para los productos */
+
     public function postAddProductPage(Request $data)
     {
 
@@ -59,29 +116,21 @@ class AdminController extends ValidationsController
             $name = time() . $file->getClientOriginalName();
             $file->move(public_path() . '/images/productos', $name);
 
-            Producto::create([
-                'nombre' => $data['nombre_Producto'],
-                'categoria' => $data['categoria'],
+            $idProducto = Producto::insertGetId([
+                'nombre_Producto' => $data['nombre_Producto'],
                 'precio' => $data['precio'],
                 'cantidad' => $data['cantidad'],
                 'detalles' => $data['detalles'],
                 'imagen' => $name,
             ]);
 
-            return  redirect()->route('manageInventory');
+            return  redirect('admin/' . $idProducto . '/addCategory');
         endif;
 
         return view('admin/addProduct');
     }
 
-    public function getProductoPage($id)
-    {
-        $producto = $this->obtenerProducto($id);
-        $data = ['producto' => $producto];
-        return view('admin/editProduct', $data);
-    }
-
-    public function postProductoPage(Request $data, $id)
+    public function postEditProductPage(Request $data, $id)
     {
 
         $reglas =  $this->reglas_ProductoEditar();
@@ -98,7 +147,7 @@ class AdminController extends ValidationsController
             $producto = $this->obtenerProducto($id);
 
             $producto->cantidad = $data->cantidad;
-            $producto->nombre = $data->nombre_Producto;
+            $producto->nombre_Producto = $data->nombre_Producto;
             $producto->precio = $data->precio;
             $producto->imagen =  $producto->imagen;
             $producto->detalles = $data->detalles;
@@ -111,16 +160,60 @@ class AdminController extends ValidationsController
         endif;
     }
 
-    public function getPerfilPage($id)
+    /* Operaciones para las categorias */
+
+    public function postAddCategoryPage(Request $request, $id)
     {
-        $usuario = $this->obtenerUsuario($id);
-        $direccion = $this->obtenerDireccion($usuario->Persona->id_direccion);
-        $telefono = Telefono::where('id_Persona', $usuario->id_Persona)->first();
-        $data = ['usuario' => $usuario, 'telefono' => $telefono, 'direccion' => $direccion];
-        return view('admin/perfil', $data);
+
+        $reglas =  $this->rules_AddCategory();
+        $mensaje = $this->messages_AddCategory();
+
+        $validacion = Validator::make($request->all(), $reglas, $mensaje);
+        $request->all();
+
+        if ($validacion->fails()) :
+            return back()->withErrors($validacion)->withInput();
+
+        else :
+            Categoria::create([
+                'nombreCategoria' => $request['nombreCategoria'],
+            ]);
+
+            return  redirect('admin/' . $id . '/addCategory');
+
+
+        endif;
     }
 
-    public function postPerfilPage(Request $data, $id)
+    public function postAddProductCategoryPage($id_producto, $id_categoria)
+    {
+
+        ProductoCategoria::create([
+            'id_producto' => $id_producto,
+            'id_categoria' => $id_categoria,
+        ]);
+        return  redirect('admin/' . $id_producto . '/addCategory');
+    }
+
+    public function postDeleteProductCategoryPage($id_producto, $id_categoria)
+    {
+
+        DB::table('producto_categorias')->where('id_categoria', '=', $id_categoria)->where('id_producto', '=', $id_producto)->delete();
+
+        return  redirect('admin/' . $id_producto . '/addCategory');
+    }
+
+    public function postDeleteCategoryPage($id_producto, $id_categoria)
+    {
+
+        DB::table('categorias')->where('id_categoria', '=', $id_categoria)->delete();
+        return  redirect('admin/' . $id_producto . '/addCategory');
+    }
+
+
+    /* Operaciones para el perfil */
+
+    public function postEditPerfilPage(Request $data, $id)
     {
         $reglas =  $this->reglas_registroEditar($data->password);
         $mensaje = $this->mensajes_registroeditar($data->password);
@@ -154,11 +247,10 @@ class AdminController extends ValidationsController
             $telefono->numero_Telefono = $data->telefono;
             $telefono->save();
 
-
-
             return  view('admin/welcome');
         endif;
     }
+
     public function obtenerUsuario($id)
     {
         $usuario = User::findOrFail($id);
@@ -183,5 +275,16 @@ class AdminController extends ValidationsController
     {
         $producto = Producto::findOrFail($id);
         return $producto;
+    }
+
+
+    /* Operaciones para buscador */
+
+    public function getSearcherPage(Request $request)
+    {
+
+        $productos    =   Producto::where("nombre_Producto", 'like', $request->buscar_producto."%")->take(10)->get();
+
+        return view('admin/inventory', array('productos' => $productos));
     }
 }

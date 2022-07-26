@@ -12,6 +12,7 @@
         <div class="mt-10 w-full mr-10">
             <h3 class="font-bold text-2xl">Datos del producto</h3>
             <p class="text-gray-600 pt-2 pb-6">Editar datos</p>
+
             <form method="POST" action="{{url('/admin/'.$producto -> id_producto.'/editProduct')}}" enctype="multipart/form-data">
 
                 @csrf
@@ -22,7 +23,7 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nombre_Producto">
                             Nombre del Producto
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nombre_Producto" name="nombre_Producto" value="{{$producto->nombre}}" type="text">
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nombre_Producto" name="nombre_Producto" value="{{$producto->nombre_Producto}}" type="text">
                         @error('nombre_Producto')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -34,12 +35,11 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="categoria">
                             Categoría
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="categoria" name="categoria" value="{{$producto->categoria}}" type="text">
-                           @error('categoria')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
+                        <a href="{{url('admin/' . $producto -> id_producto . '/addCategory')}}">
+                            <button class="bg-rose-400 hover:bg-zinc-500 text-white font-bold px-4 py-2 rounded shadow-lg hover:transition duration-500  mb-3" type="button">
+                                Editar Categorias
+                            </button>
+                        </a>
                     </div>
 
                     <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
@@ -47,7 +47,7 @@
                             Precio
                         </label>
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="precio" name="precio" type="number" value="{{$producto->precio}}" min="0" max="100000">
-                                               @error('precio')
+                        @error('precio')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -59,7 +59,7 @@
                             Cantidad
                         </label>
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="cantidad" name="cantidad" type="number" min="0" max="1000" value="{{$producto->cantidad}}">
-                             @error('cantidad')
+                        @error('cantidad')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -72,7 +72,7 @@
                             Detalles
                         </label>
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="detalles" name="detalles" type="text" value="{{$producto->detalles}}">
-                             @error('detalles')
+                        @error('detalles')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
