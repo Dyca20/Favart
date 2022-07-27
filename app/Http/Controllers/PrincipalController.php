@@ -10,6 +10,8 @@ use App\Models\Direccion;
 use App\Models\Telefono;
 use App\Models\Persona;
 use App\Models\User;
+use App\Models\Producto;
+
 
 class PrincipalController extends ValidationsController
 {
@@ -19,9 +21,12 @@ class PrincipalController extends ValidationsController
 
         return view('welcome');
     }
+    
     public function getCatalogPage()
     {
-        return view('catalog');
+        $productos = Producto::all();
+
+        return view('catalog', array('productos' => $productos));
     }
     public function getHistoryPage()
     {
