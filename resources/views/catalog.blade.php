@@ -92,12 +92,12 @@
         <section class="flex pt-0 p-16 space-x-6">
             @foreach($productos as $producto)
 
-            <div class="max-w-xs bg-white rounded-lg shadow-sm hover:shadow-md hover:-translate-y-1 bg-whiteborder-gray-700">
+            <div class="max-w-xs rounded-lg hover:shadow-md hover:-translate-y-1 bg-white border-gray-700">
                 <a href="#" data-modal-toggle="{{ $producto -> nombre_Producto }}">
-                    <div class="relative h-48 w-56 overflow-hidden">
-                        <img class="p-2 rounded-t-lg absolute crop" src="{{ URL::asset('images/productos/'.$producto -> imagen) }}" alt="product image">
+                    <img class="p-2 rounded-t-lg" src="{{ URL::asset('images/productos/'.$producto -> imagen) }}" alt="product image">
 
-                    </div>
+
+
                     <hr class="pb-2">
                 </a>
                 <div class="px-5 pb-5">
@@ -111,7 +111,7 @@
                         </h5>
                     </a>
                     <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-gray-900 ">₡{{ $producto -> precio }}</span>
+                        <span class="text-xl font-bold text-gray-900 ">₡{{ $producto -> precio }}</span>
                         <a href="/#"><button type="button" class="text-white bg-red-400 hover:bg-red-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 ">
                                 <svg aria-hidden="true" class="mr-2 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
@@ -139,14 +139,17 @@
                         </div>
                         <!-- Modal body -->
                         <div class="flex flex-row">
-                            <div class="w-9/12">
-                                {{-- imagen del producto --}}
-                                <img class=" object-cover" src="{{ URL::asset('images/productos/'.$producto -> imagen) }}">
+
+                            {{-- imagen del producto --}}
+                            <div class="relative h-80 w-1/2 overflow-hidden content-center">
+
+                                <img class="absolute crop object-cover" src="{{ URL::asset('images/productos/'.$producto -> imagen) }}" alt="product image">
+
                             </div>
                             <div class="p-6 space-y-3">
                                 <div class="flex flex-row justify-between">
                                     <h2 class="text-base leading-relaxed text-gray-500">
-                                        <strong>Categoría:</strong> <a class="text-blue-600 hover:underline" href="/#"> {{ $producto -> Categorias }}</a>
+                                        <strong>Categorías:</strong> <a class="text-blue-600 hover:underline" href="/#"> {{ $producto -> categoria }}</a>
                                     </h2>
                                     {{-- precio --}}
                                     <h2 class="text-base leading-relaxed text-gray-500 mr-6">
@@ -161,30 +164,31 @@
                                 </h2>
                                 {{-- accecorios diosponibles --}}
                                 <div class="flex flex-row space-x-6">
-                                    <div class="flex flex-col items-center ">
-                                        <img class="w-24 h-24 shadow-lg hover:scale-[3] hover:transition" src="{{ URL::asset('images/carousel/post_2.jpg') }}">
+
+                                    @foreach($categorias as $categoriaProducto)
+                                    @if($categoriaProducto -> id_producto == $producto -> id_producto)
+
+                                    @foreach($accesorios as $accesorio)
+                                    @foreach($categorias as $categoriaAccesorio)
+                                    @if($categoriaAccesorio -> id_producto == $accesorio -> id_producto)
+
+                                    @if($categoriaProducto -> id_categoria == $categoriaAccesorio -> id_categoria)
+
+                                    <idv class="flex flex-col items-center ">
+                                        <img class="w-24 h-24 shadow-lg hover:scale-[3] hover:transition" src="{{ URL::asset('images/productos/'.$accesorio -> imagen) }}">
                                         <p class="text-sm font-semibold text-gray-600 pt-3">
-                                            Accecorio 1
+                                            {{ $accesorio -> nombre_Producto }}
                                         </p>
                                         <a href="/#"><span class=" bg-pink-100 text-red-400 text-sm font-medium mr-2 px-2.5 
                                                 py-0.5 rounded">Añadir</span></a>
                                     </div>
-                                    <div class="flex flex-col items-center">
-                                        <img class="w-24 h-24 shadow-lg hover:scale-[3] hover:transition" src="{{ URL::asset('images/carousel/post_3.jpg') }}">
-                                        <p class="text-sm font-semibold text-gray-600 pt-3">
-                                            Accecorio 2
-                                        </p>
-                                        <a href="/#"><span class="bg-pink-100 text-red-400 text-sm font-medium mr-2 px-2.5 
-                                            py-0.5 rounded">Añadir</span></a>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <img class="w-24 h-24 shadow-lg hover:scale-[3] hover:transition" src="{{ URL::asset('images/carousel/post_2.jpg') }}">
-                                        <p class="text-sm font-semibold text-gray-600 pt-3">
-                                            Accecorio 3
-                                        </p>
-                                        <a href="/#"><span class="bg-pink-100 text-red-400 text-sm font-medium mr-2 px-2.5 
-                                            py-0.5 rounded">Añadir</span></a>
-                                    </div>
+                                    @endif
+                                    @endif
+                                    @endforeach
+                                    @endforeach
+                                    @endif
+                                    @endforeach
+
                                 </div>
                             </div>
                         </div>

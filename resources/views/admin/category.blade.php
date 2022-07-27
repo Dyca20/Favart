@@ -44,7 +44,11 @@
 
                                 <a href="{{ url('admin/'.$producto -> id_producto.'/'.$categoria['id_categoria'].'/addProductCategory')}}" class="text-indigo-600 hover:text-indigo-900">Agregar -></a><br>
 
+                                @if( $categoria['id_categoria'] == 1)
+
+                                @else
                                 <a href="{{ url('admin/'.$producto -> id_producto.'/'.$categoria['id_categoria'].'/deleteCategory')}}" class="text-indigo-600 hover:text-indigo-900">Eliminar</a><br>
+                                    @endif
 
                             </td>
                         </tr>
@@ -98,8 +102,10 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <a href="{{ url('admin/'.$producto -> id_producto.'/'.$categoriaProducto['id_categoria'].'/deleteProductCategory')}}" class="text-indigo-600 hover:text-indigo-900">
-                                    <- Eliminar</a><br>
+                                    <- Eliminar </a><br>
+
                             </td>
+
                         </tr>
                         @endforeach
                         <tr>

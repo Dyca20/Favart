@@ -13,7 +13,6 @@ use App\Models\Telefono;
 use App\Models\Persona;
 use App\Models\User;
 use App\Models\Producto;
-use App\Models\Producto_Compra;
 use App\Models\ProductoCategoria;
 
 class AdminController extends ValidationsController
@@ -151,7 +150,6 @@ class AdminController extends ValidationsController
             $producto->precio = $data->precio;
             $producto->imagen =  $producto->imagen;
             $producto->detalles = $data->detalles;
-            $producto->categoria = $data->categoria;
             $producto->save();
 
             return  redirect()->route('manageInventory');
@@ -283,7 +281,7 @@ class AdminController extends ValidationsController
     public function getSearcherPage(Request $request)
     {
 
-        $productos    =   Producto::where("nombre_Producto", 'like', $request->buscar_producto."%")->take(10)->get();
+        $productos    =   Producto::where("nombre_Producto", 'like', $request->buscar_producto . "%")->take(10)->get();
 
         return view('admin/inventory', array('productos' => $productos));
     }

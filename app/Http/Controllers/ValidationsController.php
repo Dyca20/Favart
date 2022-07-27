@@ -165,7 +165,6 @@ class ValidationsController extends Controller
         $reglas = '';
         $reglas = [
             'nombre_Producto' => ['required', 'string', 'min:4', 'max:25'],
-            'categoria' => ['required', 'string', 'min:2', 'max:25'],
             'precio' => ['required', 'numeric', 'max:100000'],
             'cantidad' => ['required', 'numeric', 'max:1000'],
             'detalles' => ['required', 'string', 'min:5', 'max:255'],
@@ -173,6 +172,31 @@ class ValidationsController extends Controller
         ];
 
         return $reglas;
+    }
+
+    protected function mensajes_ProductoEditar()
+    {
+
+        $mensaje = '';
+
+        $mensaje = [
+            'nombre_Producto.required' => 'El nombre del producto es requerido',
+            'nombre_Producto.min' => 'El nombre del producto  debe ser de al menos 5 carácteres',
+            'nombre_Producto.max' => 'El nombre del producto  debe máximo de 25 carácteres',
+            'cantidad.required' => 'La cantidad es requerida',
+            'cantidad.min' => 'La cantidad no puede ser 0',
+            'cantidad.numeric' => 'La cantidad debe ser un número entero',
+            'precio.required' => 'El precio es requerido',
+            'precio.min' => 'El precio no puede ser 0',
+            'precio.max' => 'El precio máximo esta predefinido en ₡100 000',
+            'precio.numeric' => 'Este campo solo admite números',
+            'detalles.required' => 'Los detalles del producto son requeridos',
+            'detalles.min' => 'Los detalles del producto debe ser de al menos 30 carácteres',
+            'detalles.max' => 'Los detalles del producto debe máximo de 255 carácteres',
+
+        ];
+
+        return $mensaje;
     }
 
     protected function rules_AddCategory()
@@ -201,31 +225,7 @@ class ValidationsController extends Controller
 
         return $mensaje;
     }
-    protected function mensajes_ProductoEditar()
-    {
 
-        $mensaje = '';
-
-        $mensaje = [
-            'nombre_Producto.required' => 'El nombre del producto es requerido',
-            'nombre_Producto.min' => 'El nombre del producto  debe ser de al menos 5 carácteres',
-            'nombre_Producto.max' => 'El nombre del producto  debe máximo de 25 carácteres',
-            'categoria.required' => 'La categoria es requerido',
-            'categoria.min' => 'La categoria debe ser al menos de 2 carácteres',
-            'categoria.max' => 'La categoria es demasiado largo, utiliza un nombre más corto',
-            'cantidad.max' => 'La cantidad máxima esta predefinida en 1000',
-            'cantidad.required' => 'La cantidad es requerida',
-            'cantidad.min' => 'La cantidad no puede ser 0',
-            'cantidad.numeric' => 'La cantidad debe ser un número entero',
-            'precio.required' => 'El precio es requerido',
-            'precio.min' => 'El precio no puede ser 0',
-            'precio.max' => 'El precio máximo esta predefinido en ₡100 000',
-            'precio.numeric' => 'Este campo solo admite números',
-
-        ];
-
-        return $mensaje;
-    }
 
     protected function reglas_addproduct()
     {

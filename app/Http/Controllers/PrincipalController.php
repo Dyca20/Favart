@@ -11,22 +11,38 @@ use App\Models\Telefono;
 use App\Models\Persona;
 use App\Models\User;
 use App\Models\Producto;
-
+use App\Models\ProductoCategoria;
+use App\Models\Categoria;
 
 class PrincipalController extends ValidationsController
 {
-   
+
     public function getWelcomePage()
     {
 
         return view('welcome');
     }
-    
+
     public function getCatalogPage()
     {
         $productos = Producto::all();
+        $productosAccesorios = array();
+        $productosCategorias = ProductoCategoria::all();
 
-        return view('catalog', array('productos' => $productos));
+        $accesorios = ProductoCategoria::where('id_categoria', 1)->get();
+
+
+        foreach ($productos as $index => $item) {
+            foreach ($accesorios as $index2 => $item2) {
+
+                if ($item['id_producto'] == $item2['id_producto']) {                   
+                    array_push($productosAccesorios, $item);  
+                    unset($productos[$index]);
+                }
+            }
+        }
+
+        return view('catalog', array('productos' => $productos , 'accesorios' => $productosAccesorios , 'categorias' => $productosCategorias ));
     }
     public function getHistoryPage()
     {
