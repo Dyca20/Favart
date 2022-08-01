@@ -73,6 +73,9 @@
                                 Categorias
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
+                                Detalles
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
                                 Opciones
                             </th>
 
@@ -105,10 +108,14 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                                 {{ $producto -> categoria }}
                             </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                <div class="max-w-xs">
+                                    <p class="text-justify h-10 text-ellipsis overflow-hidden"> {{ $producto -> detalles }}</p>
+                                </div>
+                            </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <a href="{{ url('admin/'.$producto -> id_producto.'/editProduct')}}" class="text-indigo-600 hover:text-indigo-900">Editar /</a>
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Detalles /</a>
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Eliminar </a>
+                                <a href="{{ url('admin/'.$producto -> id_producto.'/deleteProduct')}}" class="text-indigo-600 hover:text-indigo-900">Eliminar </a>
                             </td>
                         </tr>
                         @endforeach()

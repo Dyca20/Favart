@@ -35,14 +35,14 @@ class PrincipalController extends ValidationsController
         foreach ($productos as $index => $item) {
             foreach ($accesorios as $index2 => $item2) {
 
-                if ($item['id_producto'] == $item2['id_producto']) {                   
-                    array_push($productosAccesorios, $item);  
+                if ($item['id_producto'] == $item2['id_producto']) {
+                    array_push($productosAccesorios, $item);
                     unset($productos[$index]);
                 }
             }
         }
 
-        return view('catalog', array('productos' => $productos , 'accesorios' => $productosAccesorios , 'categorias' => $productosCategorias ));
+        return view('catalog', array('productos' => $productos, 'accesorios' => $productosAccesorios, 'categorias' => $productosCategorias));
     }
     public function getHistoryPage()
     {
@@ -119,5 +119,28 @@ class PrincipalController extends ValidationsController
     {
         $direccion = Direccion::findOrFail($id);
         return $direccion;
+    }
+
+    public function getSearcherPage(Request $request)
+    {
+        $productos =  Producto::where("nombre_Producto", 'like', $request->buscar_producto . "%")->take(20)->get();
+
+        $productosAccesorios = array();
+        $productosCategorias = ProductoCategoria::all();
+
+        $accesorios = ProductoCategoria::where('id_categoria', 1)->get();
+
+
+        foreach ($productos as $index => $item) {
+            foreach ($accesorios as $index2 => $item2) {
+
+                if ($item['id_producto'] == $item2['id_producto']) {
+                    array_push($productosAccesorios, $item);
+                    unset($productos[$index]);
+                }
+            }
+        }
+
+        return view('catalog', array('productos' => $productos, 'accesorios' => $productosAccesorios, 'categorias' => $productosCategorias));
     }
 }

@@ -87,6 +87,30 @@
                 </ul>
             </div>
 
+            <div class="flex justify-between py-y px-6 whitespace-nowrap text-base font-medium">
+                
+                    <div class="flex items-center w-2/3 max-w-xs">
+
+                        <form method="POST" action="{{ url('/buscador') }}" enctype="multipart/form-data">
+                            @csrf
+                            <input type="text" id="buscar_producto" name="buscar_producto" class="bg-gray-50 rounded w-3/4 h-10 text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-rose-300 transition duration-500 px-3 pb-3">
+                            <button class="bg-rose-400 hover:bg-zinc-500 text-white font-bold px-4 py-2 rounded shadow-lg hover:transition duration-500 " type="submit">
+                                Buscar
+                            </button>
+                        </form>
+
+                    </div>
+                    <div class="flex items-center ml-2">
+                        <a href="{{url('/catalog')}}">
+                            <button class="bg-rose-400 hover:bg-zinc-500 text-white font-bold px-4 py-2 rounded shadow-lg hover:transition duration-500" type="button">
+                                Mostrar Todo
+                            </button>
+                        </a>
+                    </div>
+
+
+                </div>
+
         </div>
 
         <section class="flex pt-0 p-16 space-x-6">

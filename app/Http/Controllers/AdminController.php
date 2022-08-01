@@ -14,6 +14,7 @@ use App\Models\Persona;
 use App\Models\User;
 use App\Models\Producto;
 use App\Models\ProductoCategoria;
+use Spatie\ImageOptimizer\OptimizerChainFactory;
 
 class AdminController extends ValidationsController
 {
@@ -115,6 +116,8 @@ class AdminController extends ValidationsController
             $name = time() . $file->getClientOriginalName();
             $file->move(public_path() . '/images/productos', $name);
 
+            $this->optimizarImg($name);
+
             $idProducto = Producto::insertGetId([
                 'nombre_Producto' => $data['nombre_Producto'],
                 'precio' => $data['precio'],
@@ -127,6 +130,13 @@ class AdminController extends ValidationsController
         endif;
 
         return view('admin/addProduct');
+    }
+    public function optimizarImg($name)
+    {
+        $optimizerChain = OptimizerChainFactory::create();
+        $source = public_path() . '/images/productos/'. $name;
+        $optimizerChain->optimize($source);
+
     }
 
     public function postEditProductPage(Request $data, $id)
@@ -144,12 +154,24 @@ class AdminController extends ValidationsController
         else :
 
             $producto = $this->obtenerProducto($id);
-
             $producto->cantidad = $data->cantidad;
             $producto->nombre_Producto = $data->nombre_Producto;
             $producto->precio = $data->precio;
-            $producto->imagen =  $producto->imagen;
             $producto->detalles = $data->detalles;
+
+            if (is_null($data->imagen)) :
+
+            else :
+                unlink('images/productos/' . $producto->imagen);
+
+                $file = $data->file('imagen');
+                $name = time() . $file->getClientOriginalName();
+                $file->move(public_path() . '/images/productos', $name);
+
+                $producto->imagen =  $name;
+
+            endif;
+
             $producto->save();
 
             return  redirect()->route('manageInventory');
@@ -157,6 +179,18 @@ class AdminController extends ValidationsController
 
         endif;
     }
+
+    public function postDeleteProductPage($id)
+    {
+
+        $producto = $this->obtenerProducto($id);
+
+        unlink('images/productos/' . $producto->imagen);
+        DB::table('productos')->where('id_producto', '=', $id)->delete();
+
+        return  redirect()->route('manageInventory');
+    }
+
 
     /* Operaciones para las categorias */
 
@@ -281,7 +315,7 @@ class AdminController extends ValidationsController
     public function getSearcherPage(Request $request)
     {
 
-        $productos    =   Producto::where("nombre_Producto", 'like', $request->buscar_producto . "%")->take(10)->get();
+        $productos =  Producto::where("nombre_Producto", 'like', $request->buscar_producto . "%")->take(10)->get();
 
         return view('admin/inventory', array('productos' => $productos));
     }

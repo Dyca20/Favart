@@ -10,10 +10,11 @@ Route::get('/', function () {
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
+
 Route::get('/welcome', [App\Http\Controllers\PrincipalController::class, 'getWelcomePage'])->name('welcome');
 
 Route::get('/catalog', [App\Http\Controllers\PrincipalController::class, 'getCatalogPage'])->name('catalog');
-
+Route::post('/buscador', [App\Http\Controllers\PrincipalController::class, 'getSearcherPage'])->name('getSearcherCatalog');
 
 
 Route::get('/history', [App\Http\Controllers\PrincipalController::class, 'getHistoryPage'])->name('history')->middleware('auth');
@@ -37,6 +38,9 @@ Route::get('/admin/{id_producto}/{id_categoria}/deleteCategory', [App\Http\Contr
 
 Route::get('/admin/{id}/editProduct', [App\Http\Controllers\AdminController::class, 'getEditProductPage'])->name('getEditProduct')->middleware(['auth', 'admin']);
 Route::post('/admin/{id}/editProduct', [App\Http\Controllers\AdminController::class, 'postEditProductPage'])->name('postEditProduct')->middleware(['auth', 'admin']);
+
+Route::get('/admin/{id}/deleteProduct', [App\Http\Controllers\AdminController::class, 'postDeleteProductPage'])->name('postDeleteProduct')->middleware(['auth', 'admin']);
+
 Route::get('/admin/{id}/perfil', [App\Http\Controllers\AdminController::class, 'getEditPerfilPage'])->name('getEditPerfilAdmin')->middleware(['auth', 'admin']);
 Route::post('/admin/{id}/perfil', [App\Http\Controllers\AdminController::class, 'postEditPerfilPage'])->name('postEditPerfilAdmin')->middleware(['auth', 'admin']);
 
