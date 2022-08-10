@@ -41,7 +41,7 @@
                                     <h4 class="font-normal text-white hover:text-pink-600 ">Historial de compra</h4>
                                 </div>
                             </a>
-                            <a href="{{ url('/catalog') }}" class="px-2 hover:bg-pink-100">
+                            <a href="{{ url('/carrito') }}" class="px-2 hover:bg-pink-100">
                                 <div class="flex flex-row space-x-3">
                                     <h4 class="font-normal text-white hover:text-pink-600 ">Carrito</h4>
                                 </div>

@@ -27,89 +27,37 @@
             <!-- Dropdown menu -->
             <div id="dropdown" class="z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow  hidden" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(319px, 70px);">
                 <ul class="py-1 text-sm text-gray-700 " aria-labelledby="dropdownDefault">
+                @foreach($categoria as $categoriaProducto)
                     <li>
-                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 ">Collares</a>
+                        <a href="{{ url('/catalog/searcher/'.$categoriaProducto -> id_categoria )}}" class="block py-2 px-4 hover:bg-gray-100 ">{{$categoriaProducto -> nombreCategoria}}</a>
                     </li>
-                    <li>
-                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 ">Grabados</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 ">Lentes</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 ">Tobilleras</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 ">Hombres</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 ">Bebés</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 px-4 hover:bg-gray-100">Pulseras</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 ">Anillos</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 ">Juegos</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 ">Aretes</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 ">Exhibidores</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 ">Llaveros</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 ">Bucket
-                            Hats</a>
-                    </li>
+                    @endforeach
                 </ul>
             </div>
-            <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="text-white bg-slate-600 hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center " type="button">Filtrar <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg></button>
-            <!-- Dropdown menu -->
-            <div id="dropdown" class="z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow  hidden" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(319px, 70px);">
-                <ul class="py-1 text-sm text-gray-700 " aria-labelledby="dropdownDefault">
-                    <li>
-                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 ">Collares</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 ">Grabados</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 ">Lentes</a>
-                    </li>
-                </ul>
-            </div>
-
+        
             <div class="flex justify-between py-y px-6 whitespace-nowrap text-base font-medium">
-                
-                    <div class="flex items-center w-2/3 max-w-xs">
 
-                        <form method="POST" action="{{ url('/buscador') }}" enctype="multipart/form-data">
-                            @csrf
-                            <input type="text" id="buscar_producto" name="buscar_producto" class="bg-gray-50 rounded w-3/4 h-10 text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-rose-300 transition duration-500 px-3 pb-3">
-                            <button class="bg-rose-400 hover:bg-zinc-500 text-white font-bold px-4 py-2 rounded shadow-lg hover:transition duration-500 " type="submit">
-                                Buscar
-                            </button>
-                        </form>
+                <div class="flex items-center w-2/3 max-w-xs">
 
-                    </div>
-                    <div class="flex items-center ml-2">
-                        <a href="{{url('/catalog')}}">
-                            <button class="bg-rose-400 hover:bg-zinc-500 text-white font-bold px-4 py-2 rounded shadow-lg hover:transition duration-500" type="button">
-                                Mostrar Todo
-                            </button>
-                        </a>
-                    </div>
-
+                    <form method="POST" action="{{ url('/catalog/searcher') }}" enctype="multipart/form-data">
+                        @csrf
+                        <input type="text" id="buscar_producto" name="buscar_producto" class="bg-gray-50 rounded w-3/4 h-10 text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-rose-300 transition duration-500 px-3 pb-3">
+                        <button class="bg-rose-400 hover:bg-zinc-500 text-white font-bold px-4 py-2 rounded shadow-lg hover:transition duration-500 " type="submit">
+                            Buscar
+                        </button>
+                    </form>
 
                 </div>
+                <div class="flex items-center ml-2">
+                    <a href="{{url('/catalog')}}">
+                        <button class="bg-rose-400 hover:bg-zinc-500 text-white font-bold px-4 py-2 rounded shadow-lg hover:transition duration-500" type="button">
+                            Mostrar Todo
+                        </button>
+                    </a>
+                </div>
+
+
+            </div>
 
         </div>
 
@@ -136,7 +84,7 @@
                     </a>
                     <div class="flex justify-between items-center">
                         <span class="text-xl font-bold text-gray-900 ">₡{{ $producto -> precio }}</span>
-                        <a href="/#"><button type="button" class="text-white bg-red-400 hover:bg-red-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 ">
+                        <a href="{{url('/addProductCarrito/'.$producto -> id_producto)}}"><button type="button" class="text-white bg-red-400 hover:bg-red-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 ">
                                 <svg aria-hidden="true" class="mr-2 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
                                     </path>
@@ -205,30 +153,30 @@
                                         </p>
                                         <a href="/#"><span class=" bg-pink-100 text-red-400 text-sm font-medium mr-2 px-2.5 
                                                 py-0.5 rounded">Añadir</span></a>
-                                    </div>
-                                    @endif
-                                    @endif
-                                    @endforeach
-                                    @endforeach
-                                    @endif
-                                    @endforeach
-
                                 </div>
+                                @endif
+                                @endif
+                                @endforeach
+                                @endforeach
+                                @endif
+                                @endforeach
+
                             </div>
                         </div>
-                        <!-- Modal footer -->
-                        <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200">
-                            <a href="/#"> <button type="button" class="text-white bg-red-400 hover:bg-red-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 ">
-                                    <svg aria-hidden="true" class="mr-2 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
-                                        </path>
-                                    </svg>
-                                    Añadir al carrito
-                                </button></a>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200">
+                        <a href="{{url('/addProductCarrito/'.$producto -> id_producto)}}"> <button type="button" class="text-white bg-red-400 hover:bg-red-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 ">
+                                <svg aria-hidden="true" class="mr-2 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
+                                    </path>
+                                </svg>
+                                Añadir al carrito
+                            </button></a>
 
-                        </div>
                     </div>
                 </div>
+            </div>
             </div>
             @endforeach()
 
@@ -237,7 +185,7 @@
 
         </section>
     </main>
-    <script src="./js/app.js"></script>
+    <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
 </body>
 
 </html>

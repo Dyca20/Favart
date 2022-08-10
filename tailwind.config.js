@@ -8,6 +8,10 @@ module.exports = {
   presets: [],
   darkMode: 'media', // or 'class'
   theme: {
+
+    maxWidth: {
+      'xxs': '300px',
+    },
     extend: {},
     screens: {
       sm: '640px',

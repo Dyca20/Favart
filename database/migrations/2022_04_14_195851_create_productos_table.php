@@ -21,6 +21,7 @@ class CreateProductosTable extends Migration
             $table->binary('imagen');
             $table->string('detalles', 255);
             $table->string('categoria', 255)->nullable();
+            $table->float('descuento')->nullable();
 
             $table->timestamps();
         });

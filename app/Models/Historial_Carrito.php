@@ -5,19 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Carrito_de_Compra extends Model
+class Historial_Carrito extends Model
 {
     use HasFactory;
     public $timestamps = false;
 
     
-    protected $primaryKey = 'id_Carrito';
+    protected $primaryKey = 'id_historial';
     protected $fillable = [
         'id_Usuario',
         'resumen_Precio',
         'total',
         'cantidad',
         'descuento',
+        'fecha',
     ];
 
     public function user()
@@ -25,12 +26,16 @@ class Carrito_de_Compra extends Model
         return $this->belongsTo(User::class, 'id_Usuario', 'id_Usuario');
     }
 
-    public function producto_compra()
+    public function Producto_Historial()
     {
-        return $this->hasOne(Producto_Compra::class, 'id_Carrito', 'id_Carrito');
+        return $this->hasOne(Producto_Historial::class, 'id_historial', 'id_historial');
     }
 
-    public function Crear_Carrito()
+    public function pedido()
+    {
+        return $this->hasOne(Pedido::class, 'id_historial', 'id_historial');
+    }
+    public function Crear_Historial_Carrito()
     {
         return true;
     }

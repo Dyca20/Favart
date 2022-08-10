@@ -21,16 +21,10 @@
                     <img src="{{ URL::asset('/images/LogoFavart.png') }}" alt="logo" class="w-auto object-cover ">
                 </div>
                 <div class="ml-6">
-                    <h1 class="text-4xl font-semibold text-gray-800"><b> Carrito de Compras </b></h1>
+                    <h1 class="text-4xl font-semibold text-gray-800"><b> Historial Carrito de Compras</b></h1>
                 </div>
             </div>
-            <div class="grid  lg:grid-cols-1 md:grid-cols-1 p-2">
-                <div class="flex justify-between py-y px-6 whitespace-nowrap text-base font-medium">
 
-                    <div> <a href="/catalog" class="text-indigo-600 hover:text-indigo-900">Seguir comprando!</a></div>
-
-                </div>
-            </div>
 
 
             <div class="col-span-2 flex flex-auto items-center justify-between  pb-5 px-5 bg-white rounded shadow-sm">
@@ -55,9 +49,6 @@
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
                                 Total
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                                Opciones
                             </th>
 
                             <th scope="col" class="relative px-6 py-3">
@@ -92,39 +83,30 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                                 ₡ {{ ($producto->precio - $producto->precio * ($producto->descuento /100)) *  $producto -> cantidad }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="{{ url( '/sumProductCarrito/'.$producto -> id_producto)}}" class="text-indigo-600 hover:text-indigo-900">👆 /</a>
-                                <a href="{{ url( '/subProductCarrito/'.$producto -> id_producto)}}" class="text-indigo-600 hover:text-indigo-900">👇 /</a>
-                                <a href="{{ url( '/delProductCarrito/'.$producto -> id_producto)}}" class="text-indigo-600 hover:text-indigo-900">❌ </a>
-                            </td>
+
                         </tr>
                         @endforeach()
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
                                 Totales
-
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                                {{ $carrito -> cantidad}}
+                                {{ $historial -> cantidad}}
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                                {{'₡'. $carrito -> resumen_Precio}}
+                                {{'₡'. $historial -> resumen_Precio}}
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                                Desc. total: {{' ₡'. $carrito -> descuento}}
+                                Desc. total: {{' ₡'. $historial -> descuento}}
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                                Precio Total: {{' ₡'. $carrito -> total}}
+                                Precio Total: {{' ₡'. $historial -> total}}
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                                <a href="{{url('/finishCarrito')}}"><button type="button" class="text-white bg-red-400 hover:bg-red-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 ">
-                                        <svg aria-hidden="true" class="mr-2 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
-                                            </path>
-                                        </svg>
-                                        Finalizar Pedido
+                                <a href="{{url('/history')}}"><button type="button" class="text-white bg-red-400 hover:bg-red-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 ">
+                                        Volver
                                     </button></a>
 
                         </tr>

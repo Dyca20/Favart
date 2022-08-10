@@ -14,11 +14,13 @@ class Producto extends Model
 
     protected $fillable = [
         'cantidad',
+        'cantidad_Carrito',
         'nombre_Producto',
         'precio',
         'imagen',
         'detalles',
         'categoria',
+        'descuento',
     ];
     public function Crear_Producto()
     {
@@ -28,6 +30,10 @@ class Producto extends Model
     public function Producto_Compra()
     {
         return $this->hasMany(Producto_Compra::class, 'id_producto', 'id_producto');
+    }
+    public function Producto_Historial()
+    {
+        return $this->hasMany(Producto_Historial::class, 'id_producto', 'id_producto');
     }
 
     public function Producto_Categoria()

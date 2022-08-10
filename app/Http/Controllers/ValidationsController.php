@@ -168,6 +168,8 @@ class ValidationsController extends Controller
             'precio' => ['required', 'numeric', 'max:100000'],
             'cantidad' => ['required', 'numeric', 'max:1000'],
             'detalles' => ['required', 'string', 'min:5', 'max:255'],
+            'descuento' => ['required', 'numeric', 'min:0' , 'max:100'],
+
 
         ];
 
@@ -193,6 +195,10 @@ class ValidationsController extends Controller
             'detalles.required' => 'Los detalles del producto son requeridos',
             'detalles.min' => 'Los detalles del producto debe ser de al menos 30 carácteres',
             'detalles.max' => 'Los detalles del producto debe máximo de 255 carácteres',
+            'descuento.max' => 'El decuento máximo es de 100 %',
+            'descuento.required' => 'El descuento es requerido',
+            'descuento.min' => 'El descuento minimo es 0 %',
+            'descuento.numeric' => 'El descuento debe ser un número entero',
 
         ];
 
@@ -236,6 +242,7 @@ class ValidationsController extends Controller
             'precio' => ['required', 'numeric', 'max:100000'],
             'cantidad' => ['required', 'numeric', 'max:1000'],
             'detalles' => ['required', 'string', 'min:30', 'max:255'],
+            'descuento' => ['required', 'numeric', 'min:0' , 'max:100'],
             'imagen' => ['required'],
 
         ];
@@ -256,6 +263,10 @@ class ValidationsController extends Controller
             'detalles.required' => 'Los detalles del producto son requeridos',
             'detalles.min' => 'Los detalles del producto debe ser de al menos 30 carácteres',
             'detalles.max' => 'Los detalles del producto debe máximo de 255 carácteres',
+            'descuento.max' => 'El decuento máximo es de 100 %',
+            'descuento.required' => 'El descuento es requerido',
+            'descuento.min' => 'El descuento minimo es 0 %',
+            'descuento.numeric' => 'El descuento debe ser un número entero',
             'cantidad.max' => 'La cantidad máxima esta predefinida en 1000',
             'cantidad.required' => 'La cantidad es requerida',
             'cantidad.min' => 'La cantidad no puede ser 0',

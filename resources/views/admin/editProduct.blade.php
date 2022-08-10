@@ -80,6 +80,18 @@
                     </div>
 
                     <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="descuento">
+                            Descuento
+                        </label>
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="descuento" name="descuento" type="number" min="0" max="100" value="{{$producto->descuento}}">
+                        @error('descuento')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="imagen">
                             Imagen
                         </label>

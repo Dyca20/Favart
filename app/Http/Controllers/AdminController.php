@@ -123,6 +123,7 @@ class AdminController extends ValidationsController
                 'precio' => $data['precio'],
                 'cantidad' => $data['cantidad'],
                 'detalles' => $data['detalles'],
+                'descuento' => $data['descuento'],
                 'imagen' => $name,
             ]);
 
@@ -158,6 +159,8 @@ class AdminController extends ValidationsController
             $producto->nombre_Producto = $data->nombre_Producto;
             $producto->precio = $data->precio;
             $producto->detalles = $data->detalles;
+            $producto->descuento = $data->descuento;
+
 
             if (is_null($data->imagen)) :
 

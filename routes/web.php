@@ -14,10 +14,23 @@ Auth::routes();
 Route::get('/welcome', [App\Http\Controllers\PrincipalController::class, 'getWelcomePage'])->name('welcome');
 
 Route::get('/catalog', [App\Http\Controllers\PrincipalController::class, 'getCatalogPage'])->name('catalog');
-Route::post('/buscador', [App\Http\Controllers\PrincipalController::class, 'getSearcherPage'])->name('getSearcherCatalog');
+Route::post('/catalog/searcher', [App\Http\Controllers\PrincipalController::class, 'getSearcherPage'])->name('getSearcherCatalog');
+Route::get('/catalog/searcher/{idCategoria}', [App\Http\Controllers\PrincipalController::class, 'getSearcherCategoryPage'])->name('getSearcherCategoryCatalog');
+
+Route::get('/carrito', [App\Http\Controllers\PrincipalController::class, 'getCarritoPage'])->name('carrito')->middleware('auth');
+
+Route::get('/sumProductCarrito/{id_producto}', [App\Http\Controllers\PrincipalController::class, 'getSumProductCarrito'])->name('sumProductCarrito')->middleware('auth');
+Route::get('/subProductCarrito/{id_producto}', [App\Http\Controllers\PrincipalController::class, 'getSubProductCarrito'])->name('subProductCarrito')->middleware('auth');
+Route::get('/addProductCarrito/{id_producto}', [App\Http\Controllers\PrincipalController::class, 'getAddProductCarrito'])->name('addProductCarrito')->middleware('auth');
+Route::get('/delProductCarrito/{id_producto}', [App\Http\Controllers\PrincipalController::class, 'getDelProductCarrito'])->name('delProductCarrito')->middleware('auth');
+
+
+Route::get('/finishCarrito', [App\Http\Controllers\PrincipalController::class, 'getFinishCarrito'])->name('finishCarrito')->middleware('auth');
 
 
 Route::get('/history', [App\Http\Controllers\PrincipalController::class, 'getHistoryPage'])->name('history')->middleware('auth');
+Route::get('/carritoHistorial/{id_historial}', [App\Http\Controllers\PrincipalController::class, 'getCarritoHistorialPage'])->name('carritoHistorial')->middleware('auth');
+
 Route::get('/{id}/perfil', [App\Http\Controllers\PrincipalController::class, 'getPerfilPage'])->name('getPerfil')->middleware('auth');
 Route::post('/{id}/perfil', [App\Http\Controllers\PrincipalController::class, 'postPerfilPage'])->name('postPerfil')->middleware('auth');
 
@@ -45,4 +58,3 @@ Route::get('/admin/{id}/perfil', [App\Http\Controllers\AdminController::class, '
 Route::post('/admin/{id}/perfil', [App\Http\Controllers\AdminController::class, 'postEditPerfilPage'])->name('postEditPerfilAdmin')->middleware(['auth', 'admin']);
 
 Route::post('/admin/buscador', [App\Http\Controllers\AdminController::class, 'getSearcherPage'])->name('getSearcher')->middleware(['auth', 'admin']);
-

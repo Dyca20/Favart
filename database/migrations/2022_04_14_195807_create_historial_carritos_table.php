@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCarritoDeComprasTable extends Migration
+class CreateHistorialCarritosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,21 @@ class CreateCarritoDeComprasTable extends Migration
      */
     public function up()
     {
-        Schema::create('carrito_de_compras', function (Blueprint $table) {
-            $table->increments('id_Carrito');
+        Schema::create('historial_carritos', function (Blueprint $table) {
+            $table->increments('id_historial');
 
             $table->integer('id_Usuario')->unsigned();
             $table->foreign('id_Usuario')->references('id_Usuario')->on('users');
 
-            $table->float('resumen_Precio')->nullable();
+            $table->float('resumen_Precio');
 
-            $table->float('total')->nullable();
+            $table->float('total');
 
-            $table->integer('cantidad')->nullable();
+            $table->integer('cantidad');
 
             $table->float('descuento');
+            
+            $table->date('fecha');
 
             $table->timestamps();
         });
