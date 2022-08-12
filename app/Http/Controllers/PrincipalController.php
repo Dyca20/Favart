@@ -161,12 +161,12 @@ class PrincipalController extends ValidationsController
 
         if (is_null($carritoDelUsuario)) :
 
-            $id_carrito = CarritoDeCompra::insertGetId([
+            $idCarrito = CarritoDeCompra::insertGetId([
                 'idUsuario' => Auth::User()->idUsuario,
             ]);
             if (1 <= $producto['cantidad']) :
                 ProductoCompra::create([
-                    'idCarrito' => $id_carrito,
+                    'idCarrito' => $idCarrito,
                     'idProducto' => $idProducto,
                     'cantidadCarrito' => 1,
                 ]);
@@ -407,17 +407,17 @@ class PrincipalController extends ValidationsController
 
         $historialUsuario = HistorialCarrito::where('idUsuario', Auth::User()->idUsuario)->where('idHistorial', $idHistorial)->first();
 
-        $productos_historial = ProductoHistorial::where('idHistorial', '=', $idHistorial . "%")->get();
+        $productosHistorial = ProductoHistorial::where('idHistorial', '=', $idHistorial . "%")->get();
 
         $productosCarrito = array();
 
         foreach ($productos as $producto) :
 
-            foreach ($productos_historial as $producto_historial) {
+            foreach ($productosHistorial as $productoHistorial) {
 
-                if ($producto['idProducto'] == $producto_historial['idProducto']) {
+                if ($producto['idProducto'] == $productoHistorial['idProducto']) {
 
-                    $producto['cantidad'] = $producto_historial['cantidadCarrito'];
+                    $producto['cantidad'] = $productoHistorial['cantidadCarrito'];
 
                     array_push($productosCarrito, $producto);
                 }

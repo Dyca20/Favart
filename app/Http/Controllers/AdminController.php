@@ -235,7 +235,7 @@ class AdminController extends ValidationsController
     public function postDeleteProductCategoryPage($idProducto, $idCategoria)
     {
 
-        DB::table('producto_categorias')->where('idCategoria', '=', $idCategoria)->where('idProducto', '=', $idProducto)->delete();
+        DB::table('productocategorias')->where('idCategoria', '=', $idCategoria)->where('idProducto', '=', $idProducto)->delete();
 
         return  redirect('admin/' . $idProducto . '/addCategory');
     }
@@ -278,10 +278,10 @@ class AdminController extends ValidationsController
             $persona->edad = $data->edad;
             $persona->save();
 
-            $direccion->señas_Exactas = $data->direccion;
+            $direccion->señasExactas = $data->direccion;
             $direccion->save();
 
-            $telefono->numero_Telefono = $data->telefono;
+            $telefono->numeroTelefono = $data->telefono;
             $telefono->save();
 
             return  view('admin/welcome');

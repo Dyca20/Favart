@@ -16,9 +16,9 @@ use App\Http\Controllers\ValidationsController;
 
 class RegisterController extends ValidationsController
 {
-    
+
     use RegistersUsers;
-   
+
     protected $redirectTo = RouteServiceProvider::HOME;
 
     public function __construct()
@@ -30,7 +30,6 @@ class RegisterController extends ValidationsController
     {
 
         $validacion =  Validator::make($data->all(), $this->reglas_registro(),  $this->mensajes_registro());
-
         if ($validacion->fails()) :
             return back()->withErrors($validacion)->withInput();
         else :
