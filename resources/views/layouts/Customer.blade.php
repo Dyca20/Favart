@@ -50,10 +50,10 @@
                         <div class="flex mr-4 items-center">
                             @if(Auth::check())
                             <div class="mr-4">
-                                <a href="{{ url('/' . Auth::User()->id_Usuario) . '/perfil' }}" class="px-2 mx-2">
+                                <a href="{{ url('/' . Auth::User()->idUsuario) . '/perfil' }}" class="px-2 mx-2">
                                     <div class="flex flex-row space-x-3">
                                         <h4 class="font-normal text-white hover:text-pink-600">
-                                            {{ Auth::User()->nombre_Usuario }}
+                                            {{ Auth::User()->nombreUsuario }}
                                         </h4>
                                     </div>
                                 </a>

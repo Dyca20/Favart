@@ -24,10 +24,10 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $credenciales = $request->validate([
-            'nombre_Usuario' => ['required'],
+            'nombreUsuario' => ['required'],
             'password' => ['required'],
         ], [
-            'nombre_Usuario.required' => 'El nombre de usuario es requerido',
+            'nombreUsuario.required' => 'El nombre de usuario es requerido',
             'password.required' => 'La contraseña es requerida'
         ]);
 
@@ -42,7 +42,7 @@ class LoginController extends Controller
             $this->redirectPath($request->usuario);
         }
         return redirect()->route('login')->withErrors([
-            'nombre_Usuario' => 'El usuario no está registrado',
-        ])->onlyInput('nombre_Usuario');
+            'nombreUsuario' => 'El usuario no está registrado',
+        ])->onlyInput('nombreUsuario');
     }
 }

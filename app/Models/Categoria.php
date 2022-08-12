@@ -10,17 +10,17 @@ class Categoria extends Model
     use HasFactory;
     public $timestamps = false;
 
-    protected $primaryKey = 'id_categoria';
+    protected $primaryKey = 'idCategoria';
     protected $fillable = [
         'nombreCategoria',
     ];
 
-    public function Producto_Categoria()
+    public function ProductoCategoria()
     {
-        return $this->hasOne(Producto_Categoria::class, 'id_categoria', 'id_categoria');
+        return $this->hasOne(ProductoCategoria::class, 'idCategoria', 'idCategoria');
     }
 
-    public function Crear_Categoria()
+    public function CrearCategoria()
     {
         return true;
     }

@@ -164,7 +164,7 @@ class ValidationsController extends Controller
 
         $reglas = '';
         $reglas = [
-            'nombre_Producto' => ['required', 'string', 'min:4', 'max:25'],
+            'nombreProducto' => ['required', 'string', 'min:4', 'max:25'],
             'precio' => ['required', 'numeric', 'max:100000'],
             'cantidad' => ['required', 'numeric', 'max:1000'],
             'detalles' => ['required', 'string', 'min:5', 'max:255'],
@@ -182,9 +182,9 @@ class ValidationsController extends Controller
         $mensaje = '';
 
         $mensaje = [
-            'nombre_Producto.required' => 'El nombre del producto es requerido',
-            'nombre_Producto.min' => 'El nombre del producto  debe ser de al menos 5 carácteres',
-            'nombre_Producto.max' => 'El nombre del producto  debe máximo de 25 carácteres',
+            'nombreProducto.required' => 'El nombre del producto es requerido',
+            'nombreProducto.min' => 'El nombre del producto  debe ser de al menos 5 carácteres',
+            'nombreProducto.max' => 'El nombre del producto  debe máximo de 25 carácteres',
             'cantidad.required' => 'La cantidad es requerida',
             'cantidad.min' => 'La cantidad no puede ser 0',
             'cantidad.numeric' => 'La cantidad debe ser un número entero',
@@ -238,7 +238,7 @@ class ValidationsController extends Controller
 
         $reglas = '';
         $reglas = [
-            'nombre_Producto' => ['required', 'string', 'min:4', 'max:50', 'unique:productos'],
+            'nombreProducto' => ['required', 'string', 'min:4', 'max:50', 'unique:productos'],
             'precio' => ['required', 'numeric', 'max:100000'],
             'cantidad' => ['required', 'numeric', 'max:1000'],
             'detalles' => ['required', 'string', 'min:30', 'max:255'],
@@ -256,10 +256,10 @@ class ValidationsController extends Controller
         $mensaje = '';
 
         $mensaje = [
-            'nombre_Producto.required' => 'El nombre del producto es requerido',
-            'nombre_Producto.min' => 'El nombre del producto debe ser de al menos 5 carácteres',
-            'nombre_Producto.max' => 'El nombre del producto debe máximo de 50 carácteres',
-            'nombre_Producto.unique' => 'El nombre del producto ya existe',
+            'nombreProducto.required' => 'El nombre del producto es requerido',
+            'nombreProducto.min' => 'El nombre del producto debe ser de al menos 5 carácteres',
+            'nombreProducto.max' => 'El nombre del producto debe máximo de 50 carácteres',
+            'nombreProducto.unique' => 'El nombre del producto ya existe',
             'detalles.required' => 'Los detalles del producto son requeridos',
             'detalles.min' => 'Los detalles del producto debe ser de al menos 30 carácteres',
             'detalles.max' => 'Los detalles del producto debe máximo de 255 carácteres',

@@ -15,13 +15,13 @@ class CreatePedidosTable extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
            
-            $table->increments('id_Pedido');
+            $table->increments('idPedido');
 
-            $table->integer('id_Usuario')->unsigned();
-            $table->foreign('id_Usuario')->references('id_Usuario')->on('users');
+            $table->integer('idUsuario')->unsigned();
+            $table->foreign('idUsuario')->references('idUsuario')->on('users');
 
-            $table->integer('id_Carrito')->unsigned();
-            $table->foreign('id_Carrito')->references('id_Carrito')->on('carrito_de_compras');
+            $table->integer('idHistorial')->unsigned();
+            $table->foreign('idHistorial')->references('idHistorial')->on('historialCarritos');
 
             $table->date('fecha', 6);
             $table->string('estado', 25);

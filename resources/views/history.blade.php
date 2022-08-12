@@ -55,6 +55,9 @@
                             <th scope="col" class="py-3 px-6">
                                 Cantidad
                             </th>
+                            <th class="py-4 px-6">
+                                Estado
+                            </th>
                             <th scope="col" class="py-3 px-6">
                                 Acciones
                             </th>
@@ -64,27 +67,30 @@
                         @foreach($historiales as $historial)
                         <tr class="bg-white border-b  hover:bg-gray-5">
 
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap max-w-xs">
-                                <p class="text-justify h-10 overflow-hidden">
+                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap max-w-xxs">
+                                <p class="text-justify overflow-hidden">
                                     @foreach($productosHistorial as $productoHistorial)
-                                    @foreach($productoHistorial as $productoH)
-                                    @if($productoH -> id_historial == $historial -> id_historial)
-                                    @foreach($productos as $producto)
+                                    @for($i=0; $i < 3; $i++) 
+                                    @if(count($productoHistorial) <= $i)
+                                    @break
+                                    @endif
+                                    @if($productoHistorial[$i] -> idHistorial == $historial -> idHistorial)
+                                        @foreach($productos as $producto)
 
-                                    @if($producto -> id_producto == $productoH -> id_producto)
-                                    {{$producto -> nombre_Producto. '. '}}
-                                    @endif
-                                    @endforeach
-                                    @endif
-                                    @endforeach
-                                    @endforeach
+                                        @if($producto -> idProducto == $productoHistorial[$i] -> idProducto)
+                                        {{$producto -> nombreProducto. '. '}}
+                                        @endif
+                                        @endforeach
+                                        @endif
+                                        @endfor
+                                        @endforeach
                                 </p>
                             </th>
                             <td class="py-4 px-6">
                                 {{$historial -> fecha}}
                             </td>
                             <td class="py-4 px-6">
-                                {{$historial -> resumen_Precio}}
+                                {{$historial -> resumenPrecio}}
                             </td>
                             <td class="py-4 px-6">
                                 {{$historial -> descuento}}
@@ -95,10 +101,13 @@
                             <td class="py-4 px-6">
                                 {{$historial -> cantidad}}
                             </td>
+                            <td class="py-4 px-6">
+                                estado
+                            </td>
                             <td class="py-4 px-6 space-x-2">
-                            <a href="{{url('/carritoHistorial/'.$historial -> id_historial)}}" class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-500 to-red-500 group-hover:from-red-500 group-hover:to-red-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-cyan-200">
+                                <a href="{{url('/carritoHistorial/'.$historial -> idHistorial)}}" class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-500 to-red-500 group-hover:from-red-500 group-hover:to-red-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-cyan-200">
                                     <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0">
-                                        Ver Productos
+                                        Productos
                                     </span></a>
                             </td>
                         </tr>

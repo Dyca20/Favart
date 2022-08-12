@@ -36,27 +36,27 @@ class RegisterController extends ValidationsController
         else :
 
             $idDireccion = Direccion::insertGetId([
-                'señas_Exactas' => $data['direccion'],
+                'señasExactas' => $data['direccion'],
             ]);
 
             $idPersona = Persona::insertGetId([
-                'id_Direccion' => $idDireccion,
+                'idDireccion' => $idDireccion,
                 'nombre' => $data['name'],
                 'apellidos' => $data['apellidos'],
                 'edad'  => $data['edad']
             ]);
 
             User::create([
-                'id_Persona' => $idPersona,
-                'nombre_Usuario' => $data['nombre_Usuario'],
+                'idPersona' => $idPersona,
+                'nombreUsuario' => $data['nombreUsuario'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 'rolUsuario' => 1
             ]);
 
             Telefono::create([
-                'id_Persona' => $idPersona,
-                'numero_Telefono' => $data['telefono']
+                'idPersona' => $idPersona,
+                'numeroTelefono' => $data['telefono']
             ]);
 
             return  redirect()->route('login');

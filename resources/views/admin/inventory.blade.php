@@ -32,7 +32,7 @@
 
                         <form method="POST" action="{{ url('admin/buscador') }}" enctype="multipart/form-data">
                             @csrf
-                            <input type="text" id="buscar_producto" name="buscar_producto" class="bg-gray-50 rounded w-3/4 h-10 text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-rose-300 transition duration-500 px-3 pb-3">
+                            <input type="text" id="buscarProducto" name="buscarProducto" class="bg-gray-50 rounded w-3/4 h-10 text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-rose-300 transition duration-500 px-3 pb-3">
                             <button class="bg-rose-400 hover:bg-zinc-500 text-white font-bold px-4 py-2 rounded shadow-lg hover:transition duration-500  mb-3" type="submit">
                                 Buscar
                             </button>
@@ -97,7 +97,7 @@
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                {{ $producto -> nombre_Producto }}
+                                {{ $producto -> nombreProducto }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                                 {{ $producto -> cantidad }}
@@ -114,8 +114,8 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="{{ url('admin/'.$producto -> id_producto.'/editProduct')}}" class="text-indigo-600 hover:text-indigo-900">Editar /</a>
-                                <a href="{{ url('admin/'.$producto -> id_producto.'/deleteProduct')}}" class="text-indigo-600 hover:text-indigo-900">Eliminar </a>
+                                <a href="{{ url('admin/'.$producto -> idProducto.'/editProduct')}}" class="text-indigo-600 hover:text-indigo-900">Editar /</a>
+                                <a href="{{ url('admin/'.$producto -> idProducto.'/deleteProduct')}}" class="text-indigo-600 hover:text-indigo-900">Eliminar </a>
                             </td>
                         </tr>
                         @endforeach()

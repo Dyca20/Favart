@@ -10,20 +10,20 @@ class Factura extends Model
     use HasFactory;
     public $timestamps = false;
 
-    protected $primaryKey = 'id_Factura';
+    protected $primaryKey = 'idFactura';
     protected $fillable = [
-        'id_Pedido',
+        'idPedido',
         'fecha',
-        'medio_Pago',
+        'medioPago',
         'resumen',
     ];
 
-    public function pedido()
+    public function Pedido()
     {
-        return $this->belongsTo(Pedido::class, 'id_Pedido', 'id_Pedido');
+        return $this->belongsTo(Pedido::class, 'idPedido', 'idPedido');
     }
 
-    public function Crear_Factura()
+    public function CrearFactura()
     {
         return true;
     }

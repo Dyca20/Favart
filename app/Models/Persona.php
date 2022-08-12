@@ -10,27 +10,27 @@ class Persona extends Model
     use HasFactory;
     public $timestamps = false;
 
-    protected $primaryKey = 'id_Persona';
+    protected $primaryKey = 'idPersona';
     protected $fillable = [
-        'id_Direccion',
+        'idDireccion',
         'nombre',
         'apellidos',
         'edad',
     ];
-    public function user()
+    public function User()
     {
-        return $this->hasOne(User::class, 'id_Persona', 'id_Persona');
+        return $this->hasOne(User::class, 'idPersona', 'idPersona');
     }
-    public function Crear_Persona()
+    public function CrearPersona()
     {
         return true;
     }
-    public function telefono()
+    public function Telefono()
     {
-        return $this->hasOne(Telefono::class, 'id_Persona', 'id_Persona');
+        return $this->hasOne(Telefono::class, 'idPersona', 'idPersona');
     }
-
-    public function direccion(){
-        return $this->belongsTo(Direccion::class,'id_Direccion','id_Direccion');
+    public function Direccion()
+    {
+        return $this->belongsTo(Direccion::class, 'idDireccion', 'idDireccion');
     }
 }

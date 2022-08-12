@@ -35,7 +35,7 @@
                                     <h4 class="font-normal text-white hover:text-pink-600">Gestionar Inventario</h4>
                                 </div>
                             </a>
-                            <a href="/admin/" class="px-2 hover:bg-pink-100">
+                            <a href="/admin/accounting" class="px-2 hover:bg-pink-100">
                                 <div class="flex flex-row space-x-3">
 
                                     <h4 class="font-normal text-white hover:text-pink-600 ">Contabilidad</h4>
@@ -49,10 +49,10 @@
                         </div>
                         <div class="flex mr-4 items-center">
                             <div class="mr-4">
-                                <a href="{{ url('admin/' . Auth::User()->id_Usuario. '/perfil') }}" class="px-2 mx-2">
+                                <a href="{{ url('admin/' . Auth::User()->idUsuario. '/perfil') }}" class="px-2 mx-2">
                                     <div class="flex flex-row space-x-3">
                                         <h4 class="font-normal text-white hover:text-pink-600">
-                                            {{ Auth::User()->nombre_Usuario }}
+                                            {{ Auth::User()->nombreUsuario }}
                                         </h4>
                                     </div>
                                 </a>

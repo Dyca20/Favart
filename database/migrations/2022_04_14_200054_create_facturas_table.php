@@ -14,13 +14,13 @@ class CreateFacturasTable extends Migration
     public function up()
     {
         Schema::create('facturas', function (Blueprint $table) {
-            $table->increments('id_Factura');
+            $table->increments('idFactura');
             
-            $table->integer('id_Pedido')->unsigned();
-            $table->foreign('id_Pedido')->references('id_Pedido')->on('pedidos');
+            $table->integer('idPedido')->unsigned();
+            $table->foreign('idPedido')->references('idPedido')->on('pedidos');
 
             $table->date('fecha');
-            $table->string('medio_Pago');
+            $table->string('medioPago');
             $table->string('resumen', 50);
             $table->timestamps();
         });

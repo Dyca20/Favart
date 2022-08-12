@@ -15,10 +15,10 @@ class CreatePersonasTable extends Migration
     {
         Schema::create('personas', function (Blueprint $table) {
            
-            $table->increments('id_Persona');
+            $table->increments('idPersona');
 
-            $table->integer('id_direccion')->unsigned();
-            $table->foreign('id_direccion')->references('id_direccion')->on('direccions');
+            $table->integer('idDireccion')->unsigned();
+            $table->foreign('idDireccion')->references('idDireccion')->on('direccions');
 
             $table->string('nombre', 25);
             $table->string('apellidos', 30);

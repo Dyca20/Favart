@@ -35,7 +35,10 @@ Route::get('/{id}/perfil', [App\Http\Controllers\PrincipalController::class, 'ge
 Route::post('/{id}/perfil', [App\Http\Controllers\PrincipalController::class, 'postPerfilPage'])->name('postPerfil')->middleware('auth');
 
 Route::get('/admin/welcome', [App\Http\Controllers\AdminController::class, 'getWelcomePage'])->name('welcomeAdmin')->middleware(['auth', 'admin']);
+
 Route::get('/admin/history', [App\Http\Controllers\AdminController::class, 'getHistoryPage'])->name('historyAdmin')->middleware(['auth', 'admin']);
+Route::get('/admin/carritoHistorial/{id_historial}/{id_Usuario}', [App\Http\Controllers\AdminController::class, 'getCarritoHistorialPage'])->name('AdmincarritoHistorial')->middleware('auth');
+
 Route::get('/admin/manageInventory', [App\Http\Controllers\AdminController::class, 'getManageInventoryPage'])->name('manageInventory')->middleware(['auth', 'admin']);
 
 Route::get('/admin/addProduct', [App\Http\Controllers\AdminController::class, 'getAddProductPage'])->name('getAddProduct')->middleware(['auth', 'admin']);

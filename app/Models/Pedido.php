@@ -10,25 +10,25 @@ class Pedido extends Model
     use HasFactory;
     public $timestamps = false;
 
-    protected $primaryKey = 'id_Pedido';
+    protected $primaryKey = 'idPedido';
     protected $fillable = [
-        'id_Usuario',
-        'id_historial',
+        'idUsuario',
+        'idHistorial',
         'fecha',
         'estado',
     ];
 
     public function user()
     {
-        return $this->belongsTo(user::class, 'id_Usuario', 'id_Usuario');
+        return $this->belongsTo(User::class, 'idUsuario', 'idUsuario');
     }
-    public function Historial_Carrito()
+    public function HistorialCarrito()
     {
-        return $this->belongsTo(Historial_Carrito::class, 'id_historial', 'id_historial');
+        return $this->belongsTo(HistorialCarrito::class, 'idHistorial', 'idHistorial');
     }
     public function factura()
     {
-        return $this->hasOne(Carrito_de_Compra::class, 'id_Pedido', 'id_Pedido');
+        return $this->hasOne(CarritoDeCompra::class, 'idPedido', 'idPedido');
     }
     public function Crear_Pedido()
     {

@@ -14,11 +14,11 @@ class CreateTelefonosTable extends Migration
     public function up()
     {
         Schema::create('telefonos', function (Blueprint $table) {
-            $table->increments('id_Telefono');
-            $table->string('numero_Telefono', 25);
+            $table->increments('idTelefono');
+            $table->string('numeroTelefono', 25);
             
-            $table->integer('id_Persona')->unsigned();
-            $table->foreign('id_Persona')->references('id_Persona')->on('personas');
+            $table->integer('idPersona')->unsigned();
+            $table->foreign('idPersona')->references('idPersona')->on('personas');
             
             $table->timestamps();
         });

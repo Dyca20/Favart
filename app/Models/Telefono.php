@@ -10,18 +10,18 @@ class Telefono extends Model
     use HasFactory;
     public $timestamps = false;
 
-    protected $primaryKey = 'id_Telefono';
+    protected $primaryKey = 'idTelefono';
     protected $fillable = [
         
-        'numero_Telefono', 
-        'id_Persona', 
+        'numeroTelefono', 
+        'idPersona', 
     ];
    
-    public function persona(){
-        return $this->belongsTo(Persona::class,'id_Persona','id_Persona');
+    public function Persona(){
+        return $this->belongsTo(Persona::class,'idPersona','idPersona');
     }
     
-    public function Crear_Telefono(){
+    public function CrearTelefono(){
         return true;
     }
 }

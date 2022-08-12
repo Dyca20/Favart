@@ -16,31 +16,16 @@
                 <div class="flex flex-wrap -mx-3 mb-0">
 
                     <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nombre_Producto">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nombreProducto">
                             Nombre del Producto
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nombre_Producto" name="nombre_Producto" type="text" placeholder="Producto" value="{{ old('nombre_Producto') }}">
-                        @error('nombre_Producto')
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nombreProducto" name="nombreProducto" type="text" placeholder="Producto" value="{{ old('nombreProducto') }}">
+                        @error('nombreProducto')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
-
-<!--                     <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="categoria">
-                            Categoría
-                        </label>
-                        <div class="flex">
-                            <input class="appearance-none flex w-1/2 bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="categoria" name="categoria" type="text" placeholder="Categoría" value="{{ old('categoria') }}">
-
-                        </div>
-                        @error('categoria')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div> -->
 
                     <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="precio">

@@ -29,7 +29,7 @@
                 <ul class="py-1 text-sm text-gray-700 " aria-labelledby="dropdownDefault">
                 @foreach($categoria as $categoriaProducto)
                     <li>
-                        <a href="{{ url('/catalog/searcher/'.$categoriaProducto -> id_categoria )}}" class="block py-2 px-4 hover:bg-gray-100 ">{{$categoriaProducto -> nombreCategoria}}</a>
+                        <a href="{{ url('/catalog/searcher/'.$categoriaProducto -> idCategoria )}}" class="block py-2 px-4 hover:bg-gray-100 ">{{$categoriaProducto -> nombreCategoria}}</a>
                     </li>
                     @endforeach
                 </ul>
@@ -41,7 +41,7 @@
 
                     <form method="POST" action="{{ url('/catalog/searcher') }}" enctype="multipart/form-data">
                         @csrf
-                        <input type="text" id="buscar_producto" name="buscar_producto" class="bg-gray-50 rounded w-3/4 h-10 text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-rose-300 transition duration-500 px-3 pb-3">
+                        <input type="text" id="buscarProducto" name="buscarProducto" class="bg-gray-50 rounded w-3/4 h-10 text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-rose-300 transition duration-500 px-3 pb-3">
                         <button class="bg-rose-400 hover:bg-zinc-500 text-white font-bold px-4 py-2 rounded shadow-lg hover:transition duration-500 " type="submit">
                             Buscar
                         </button>
@@ -65,7 +65,7 @@
             @foreach($productos as $producto)
 
             <div class="max-w-xs rounded-lg hover:shadow-md hover:-translate-y-1 bg-white border-gray-700">
-                <a href="#" data-modal-toggle="{{ $producto -> nombre_Producto }}">
+                <a href="#" data-modal-toggle="{{ $producto -> nombreProducto }}">
                     <img class="p-2 rounded-t-lg" src="{{ URL::asset('images/productos/'.$producto -> imagen) }}" alt="product image">
 
 
@@ -74,7 +74,7 @@
                 </a>
                 <div class="px-5 pb-5">
                     <a href="#">
-                        <h5 class="text-xl font-semibold tracking-tight text-gray-900">{{ $producto -> nombre_Producto }}
+                        <h5 class="text-xl font-semibold tracking-tight text-gray-900">{{ $producto -> nombreProducto }}
                         </h5>
                     </a>
                     <a href="#">
@@ -84,7 +84,7 @@
                     </a>
                     <div class="flex justify-between items-center">
                         <span class="text-xl font-bold text-gray-900 ">₡{{ $producto -> precio }}</span>
-                        <a href="{{url('/addProductCarrito/'.$producto -> id_producto)}}"><button type="button" class="text-white bg-red-400 hover:bg-red-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 ">
+                        <a href="{{url('/addProductCarrito/'.$producto -> idProducto)}}"><button type="button" class="text-white bg-red-400 hover:bg-red-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 ">
                                 <svg aria-hidden="true" class="mr-2 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
                                     </path>
@@ -94,15 +94,15 @@
                     </div>
                 </div>
             </div>
-            <div id="{{ $producto -> nombre_Producto }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full" aria-modal="true" role="dialog">
+            <div id="{{ $producto -> nombreProducto }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full" aria-modal="true" role="dialog">
                 <div class="relative p-4 w-full max-w-3xl h-full md:h-auto">
                     <div class="relative bg-white rounded-lg shadow">
                         <div class="flex justify-between items-start p-4 rounded-t border-b ">
                             <h3 class="text-xl font-semibold text-gray-900 ">
-                                {{ $producto -> nombre_Producto }}
+                                {{ $producto -> nombreProducto }}
                             </h3>
                             {{-- La X de cerrar el modal. --}}
-                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center " data-modal-toggle="{{ $producto -> nombre_Producto }}">
+                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center " data-modal-toggle="{{ $producto -> nombreProducto }}">
                                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                                 </svg>
@@ -138,18 +138,18 @@
                                 <div class="flex flex-row space-x-6">
 
                                     @foreach($categorias as $categoriaProducto)
-                                    @if($categoriaProducto -> id_producto == $producto -> id_producto)
+                                    @if($categoriaProducto -> idProducto == $producto -> idProducto)
 
                                     @foreach($accesorios as $accesorio)
                                     @foreach($categorias as $categoriaAccesorio)
-                                    @if($categoriaAccesorio -> id_producto == $accesorio -> id_producto)
+                                    @if($categoriaAccesorio -> idProducto == $accesorio -> idProducto)
 
-                                    @if($categoriaProducto -> id_categoria == $categoriaAccesorio -> id_categoria)
+                                    @if($categoriaProducto -> idCategoria == $categoriaAccesorio -> idCategoria)
 
                                     <idv class="flex flex-col items-center ">
                                         <img class="w-24 h-24 shadow-lg hover:scale-[3] hover:transition" src="{{ URL::asset('images/productos/'.$accesorio -> imagen) }}">
                                         <p class="text-sm font-semibold text-gray-600 pt-3">
-                                            {{ $accesorio -> nombre_Producto }}
+                                            {{ $accesorio -> nombreProducto }}
                                         </p>
                                         <a href="/#"><span class=" bg-pink-100 text-red-400 text-sm font-medium mr-2 px-2.5 
                                                 py-0.5 rounded">Añadir</span></a>
@@ -166,7 +166,7 @@
                     </div>
                     <!-- Modal footer -->
                     <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200">
-                        <a href="{{url('/addProductCarrito/'.$producto -> id_producto)}}"> <button type="button" class="text-white bg-red-400 hover:bg-red-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 ">
+                        <a href="{{url('/addProductCarrito/'.$producto -> idProducto)}}"> <button type="button" class="text-white bg-red-400 hover:bg-red-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 ">
                                 <svg aria-hidden="true" class="mr-2 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
                                     </path>
