@@ -13,12 +13,12 @@ class CreateProductoHistorialsTable extends Migration
      */
     public function up()
     {
-        Schema::create('productohistorials', function (Blueprint $table) {
+        Schema::create('producto_historials', function (Blueprint $table) {
 
             $table->increments('idProductoHistorial');
 
             $table->integer('idHistorial')->unsigned();
-            $table->foreign('idHistorial')->references('idHistorial')->on('historialcarritos');
+            $table->foreign('idHistorial')->references('idHistorial')->on('historial_carritos');
             
             $table->integer('idProducto')->unsigned();
             $table->foreign('idProducto')->references('idProducto')->on('productos');
@@ -36,6 +36,6 @@ class CreateProductoHistorialsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('productohistorials');
+        Schema::dropIfExists('producto_historials');
     }
 }

@@ -22,6 +22,7 @@ class CreateProductosTable extends Migration
             $table->string('detalles', 255);
             $table->string('categoria', 255)->nullable();
             $table->float('descuento')->nullable();
+            $table->boolean('estado')->nullable();
 
             $table->timestamps();
         });

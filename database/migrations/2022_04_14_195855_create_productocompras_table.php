@@ -13,12 +13,12 @@ class CreateProductoComprasTable extends Migration
      */
     public function up()
     {
-        Schema::create('productocompras', function (Blueprint $table) {
+        Schema::create('producto_compras', function (Blueprint $table) {
 
             $table->increments('idCarritoProducto');
 
             $table->integer('idCarrito')->unsigned();
-            $table->foreign('idCarrito')->references('idCarrito')->on('carritodecompras');
+            $table->foreign('idCarrito')->references('idCarrito')->on('carrito_de_compras');
 
             $table->integer('idProducto')->unsigned();
             $table->foreign('idProducto')->references('idProducto')->on('productos');
@@ -36,6 +36,6 @@ class CreateProductoComprasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('productocompras');
+        Schema::dropIfExists('producto_compras');
     }
 }

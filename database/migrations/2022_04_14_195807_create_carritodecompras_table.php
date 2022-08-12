@@ -13,7 +13,7 @@ class CreateCarritoDeComprasTable extends Migration
      */
     public function up()
     {
-        Schema::create('carritodecompras', function (Blueprint $table) {
+        Schema::create('carrito_de_compras', function (Blueprint $table) {
             $table->increments('idCarrito');
 
             $table->integer('idUsuario')->unsigned();
@@ -25,7 +25,7 @@ class CreateCarritoDeComprasTable extends Migration
 
             $table->integer('cantidad')->nullable();
 
-            $table->float('descuento');
+            $table->float('descuento')->nullable();
 
             $table->timestamps();
         });
@@ -38,6 +38,6 @@ class CreateCarritoDeComprasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carritodecompras');
+        Schema::dropIfExists('carrito_de_compras');
     }
 }

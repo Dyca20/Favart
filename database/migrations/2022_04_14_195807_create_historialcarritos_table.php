@@ -13,7 +13,7 @@ class CreateHistorialCarritosTable extends Migration
      */
     public function up()
     {
-        Schema::create('historialcarritos', function (Blueprint $table) {
+        Schema::create('historial_carritos', function (Blueprint $table) {
             $table->increments('idHistorial');
 
             $table->integer('idUsuario')->unsigned();
@@ -40,6 +40,6 @@ class CreateHistorialCarritosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('historialcarritos');
+        Schema::dropIfExists('historial_carritos');
     }
 }

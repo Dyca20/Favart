@@ -125,6 +125,7 @@ class AdminController extends ValidationsController
                 'cantidad' => $data['cantidad'],
                 'detalles' => $data['detalles'],
                 'descuento' => $data['descuento'],
+                'estado' => 1,
                 'imagen' => $name,
             ]);
 

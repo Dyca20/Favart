@@ -21,7 +21,7 @@ class CreatePedidosTable extends Migration
             $table->foreign('idUsuario')->references('idUsuario')->on('users');
 
             $table->integer('idHistorial')->unsigned();
-            $table->foreign('idHistorial')->references('idHistorial')->on('historialCarritos');
+            $table->foreign('idHistorial')->references('idHistorial')->on('historial_Carritos');
 
             $table->date('fecha', 6);
             $table->string('estado', 25);

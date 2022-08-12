@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreatePersonasTable extends Migration
@@ -25,6 +26,15 @@ class CreatePersonasTable extends Migration
             $table->string('edad', 3);
             $table->timestamps();
         });
+
+        DB::table("personas")
+        ->insert([
+            "idPersona" => 1,
+            "idDireccion" => 1,
+            "nombre" => "Francini",
+            "apellidos" => "Murillo Porras",
+            "edad" => 25,
+        ]);
     }
 
     /**
