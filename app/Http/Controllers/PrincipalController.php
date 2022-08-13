@@ -114,12 +114,9 @@ class PrincipalController extends ValidationsController
         $productoCompra = ProductoCompra::where('idProducto', $idProducto)->get()->first();
         $producto = Producto::where('idProducto', $idProducto)->get()->first();
 
-        if (1 <= $producto['cantidad']) :
-
+        if ($productoCompra['cantidadCarrito'] <= $producto['cantidad']) :
             $productoCompra['cantidadCarrito'] += 1;
-            $producto['cantidad'] -= 1;
             $productoCompra->save();
-            $producto->save();
         endif;
 
         return redirect('/carrito');
@@ -130,14 +127,10 @@ class PrincipalController extends ValidationsController
         $producto = Producto::where('idProducto', $idProducto)->get()->first();
 
         if ($productoCompra['cantidadCarrito'] == 1) :
-            $producto['cantidad'] += 1;
             $productoCompra->delete();
-            $producto->save();
         else :
             $productoCompra['cantidadCarrito'] -= 1;
-            $producto['cantidad'] += 1;
             $productoCompra->save();
-            $producto->save();
         endif;
 
         return redirect('/carrito');
@@ -146,9 +139,6 @@ class PrincipalController extends ValidationsController
     public function getDelProductCarrito($idProducto)
     {
         $productoCompra = ProductoCompra::where('idProducto', $idProducto)->get()->first();
-        $producto = Producto::where('idProducto', $idProducto)->get()->first();
-        $producto['cantidad'] += $productoCompra['cantidadCarrito'];
-        $producto->save();
         $productoCompra->delete();
         return redirect('/carrito');
     }
@@ -170,8 +160,6 @@ class PrincipalController extends ValidationsController
                     'idProducto' => $idProducto,
                     'cantidadCarrito' => 1,
                 ]);
-                $producto['cantidad'] -= 1;
-                $producto->save();
             endif;
         else :
 
@@ -180,10 +168,7 @@ class PrincipalController extends ValidationsController
                 $productoCompra = ProductoCompra::where('idProducto', $idProducto)->get()->first();
 
                 if ($productoCompra['cantidadCarrito'] <= 1) :
-
                     $productoCompra['cantidadCarrito'] += 1;
-                    $producto['cantidad'] -= 1;
-                    $producto->save();
                     $productoCompra->save();
 
                 endif;
@@ -194,8 +179,6 @@ class PrincipalController extends ValidationsController
                         'idProducto' => $idProducto,
                         'cantidadCarrito' => 1,
                     ]);
-                    $producto['cantidad'] -= 1;
-                    $producto->save();
                 endif;
             endif;
 
@@ -207,34 +190,56 @@ class PrincipalController extends ValidationsController
     {
         $carritoDelUsuario = CarritoDeCompra::where('idUsuario', Auth::User()->idUsuario)->first();
         $productosComprados = ProductoCompra::where('idCarrito',  $carritoDelUsuario->idCarrito)->get();
+        $productos = Producto::all();
 
         if ($productosComprados->isEmpty()) :
         else :
-            $date = Carbon::now();
-
-            $idHistorial = HistorialCarrito::insertGetId([
-                'idUsuario' => $carritoDelUsuario->idUsuario,
-                'resumenPrecio' => $carritoDelUsuario->resumenPrecio,
-                'total' => $carritoDelUsuario->total,
-                'cantidad' => $carritoDelUsuario->cantidad,
-                'descuento' => $carritoDelUsuario->descuento,
-                'fecha' => $date,
-            ]);
-
-            foreach ($productosComprados as $producto) :
-                ProductoHistorial::create([
-                    'idHistorial' => $idHistorial,
-                    'idProducto' => $producto->idProducto,
-                    'cantidadCarrito' => $producto->cantidadCarrito,
-                ]);
-                $producto->delete();
+            $condicion = 1;
+            foreach ($productosComprados as $productoComprado) :
+                foreach ($productos as $producto) :
+                    if ($productoComprado->idProducto == $producto->idProducto) :
+                        if ($productoComprado->cantidadCarrito > $producto->cantidad) :
+                            $condicion += 1;
+                        endif;
+                    endif;
+                endforeach;
             endforeach;
+            if ($condicion == 1) :
 
-            $carritoDelUsuario->delete();
+                $date = Carbon::now();
 
-            CarritoDeCompra::create([
-                'idUsuario' => Auth::User()->idUsuario,
-            ]);
+                $idHistorial = HistorialCarrito::insertGetId([
+                    'idUsuario' => $carritoDelUsuario->idUsuario,
+                    'resumenPrecio' => $carritoDelUsuario->resumenPrecio,
+                    'total' => $carritoDelUsuario->total,
+                    'cantidad' => $carritoDelUsuario->cantidad,
+                    'descuento' => $carritoDelUsuario->descuento,
+                    'fecha' => $date,
+                ]);
+
+                foreach ($productosComprados as $productoComprado) :
+                    ProductoHistorial::create([
+                        'idHistorial' => $idHistorial,
+                        'idProducto' => $productoComprado->idProducto,
+                        'cantidadCarrito' => $productoComprado->cantidadCarrito,
+                    ]);
+                    foreach ($productos as $producto) :
+                        if ($productoComprado->idProducto == $producto->idProducto) :
+                            $cantidad = $producto->cantidad;
+                            $cantidad -= $productoComprado->cantidadCarrito;
+                            $producto->save();
+                        endif;
+                    endforeach;
+                    $productoComprado->delete();
+                endforeach;
+
+                $carritoDelUsuario->delete();
+
+                CarritoDeCompra::create([
+                    'idUsuario' => Auth::User()->idUsuario,
+                ]);
+            else :
+            endif;
         endif;
 
         return redirect('/carrito');
