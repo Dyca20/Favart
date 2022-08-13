@@ -281,7 +281,7 @@ class AdminController extends ValidationsController
     public function getSearcherPage(Request $request)
     {
 
-        $productos    =   Producto::where("nombre_Producto", 'like', $request->buscar_producto . "%")->take(10)->get();
+        $productos = Producto::where("nombre_Producto", 'like', $request->buscar_producto . "%")->take(10)->get();
 
         return view('admin/inventory', array('productos' => $productos));
     }
