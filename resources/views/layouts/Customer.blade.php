@@ -131,20 +131,20 @@
                     <ul
                         class="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white ">
                         <li>
-                            <a href="#"
+                            <a href="/welcome"
                                 class="block py-2 pr-4 pl-3 text-white bg-red-400 rounded md:bg-transparent md:text-red-400 md:p-0 "
                                 aria-current="page">Principal</a>
                         </li>
                         <li>
-                            <a href="#"
+                            <a href="/catalog"
                                 class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-400 md:p-0 ">Catálogo</a>
                         </li>
                         <li>
-                            <a href="#"
+                            <a href="/history"
                                 class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-400 md:p-0 ">Compras</a>
                         </li>
                         <li>
-                            <a href="#"
+                            <a href="/carrito"
                                 class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-400 md:p-0 ">Carrito</a>
                         </li>
                         <li>
