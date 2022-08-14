@@ -5,26 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductoCategoria extends Model
+class ProductoHistorial extends Model
 {
     use HasFactory;
     public $timestamps = false;
 
-    protected $primaryKey = 'idProductoCategoria';
+    protected $primaryKey = 'idProductoHistorial';
     protected $fillable = [
-        'idCategoria',
+        'idHistorial',
         'idProducto',
+        'cantidadCarrito',
     ];
-    public function Categoria()
+    public function ProductoHistorial()
     {
-        return $this->belongsTo(Categoria::class, 'idCategoria', 'idCategoria');
+        return $this->belongsTo(Producto_Historial::class, 'idHistorial', 'idHistorial');
     }
     public function Producto()
     {
         return $this->belongsTo(Producto::class, 'idProducto', 'idProducto');
     }
-
-    public function CrearProductoCategoria()
+    public function CrearProductoHistorial()
     {
         return true;
     }

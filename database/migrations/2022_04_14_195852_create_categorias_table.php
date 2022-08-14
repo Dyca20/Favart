@@ -16,13 +16,13 @@ class CreateCategoriasTable extends Migration
     public function up()
     {
         Schema::create('categorias', function (Blueprint $table) {
-            $table->Increments('id_categoria');
+            $table->Increments('idCategoria');
             $table->string('nombreCategoria');
             $table->timestamps();
         });
         DB::table("categorias")
         ->insert([
-            "id_categoria" => 1,
+            "idCategoria" => 1,
             "nombreCategoria" => "Accesorio",
         ]);
     }

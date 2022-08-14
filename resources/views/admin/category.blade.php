@@ -37,23 +37,23 @@
 
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                {{ $categoria['nombre_categoria'] }}
+                                {{ $categoria['nombreCategoria'] }}
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
 
-                                <a href="{{ url('admin/'.$producto -> id_producto.'/'.$categoria['id_categoria'].'/addProductCategory')}}" class="text-indigo-600 hover:text-indigo-900">Agregar -></a><br>
+                                <a href="{{ url('admin/'.$producto -> idProducto.'/'.$categoria['idCategoria'].'/addProductCategory')}}" class="text-indigo-600 hover:text-indigo-900">Agregar -></a><br>
 
-                                @if( $categoria['id_categoria'] == 1)
+                                @if( $categoria['idCategoria'] == 1)
 
                                 @else
-                                <a href="{{ url('admin/'.$producto -> id_producto.'/'.$categoria['id_categoria'].'/deleteCategory')}}" class="text-indigo-600 hover:text-indigo-900">Eliminar</a><br>
+                                <a href="{{ url('admin/'.$producto -> idProducto.'/'.$categoria['idCategoria'].'/deleteCategory')}}" class="text-indigo-600 hover:text-indigo-900">Eliminar</a><br>
                                     @endif
 
                             </td>
                         </tr>
                         @endforeach
-                        <form method="POST" action="{{ url('admin/'.$producto->id_producto.'/addCategory') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ url('admin/'.$producto->idProducto.'/addCategory') }}" enctype="multipart/form-data">
                             @csrf
 
                             <tr>
@@ -80,7 +80,7 @@
 
             <div class=" items-center justify-between  pb-5 px-5 bg-white rounded shadow-sm">
 
-                <h2 class="text-xl font-semibold text-gray-800 mb-2">Categorías de {{$producto->nombre_Producto}}</h2>
+                <h2 class="text-xl font-semibold text-gray-800 mb-2">Categorías de {{$producto->nombreProducto}}</h2>
 
                 <table class=" divide-y divide-gray-200 table-auto" id="tablaProductos" name="tablaProductos">
                     <thead class="bg-gray-50">
@@ -98,10 +98,10 @@
                         @foreach($categoriasProducto as $categoriaProducto)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                {{ $categoriaProducto['nombre_categoria'] }}
+                                {{ $categoriaProducto['nombreCategoria'] }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="{{ url('admin/'.$producto -> id_producto.'/'.$categoriaProducto['id_categoria'].'/deleteProductCategory')}}" class="text-indigo-600 hover:text-indigo-900">
+                                <a href="{{ url('admin/'.$producto -> idProducto.'/'.$categoriaProducto['idCategoria'].'/deleteProductCategory')}}" class="text-indigo-600 hover:text-indigo-900">
                                     <- Eliminar </a><br>
 
                             </td>

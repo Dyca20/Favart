@@ -10,18 +10,18 @@ class Direccion extends Model
     use HasFactory;
     public $timestamps = false;
 
-    protected $primaryKey = 'id_Direccion';
+    protected $primaryKey = 'idDireccion';
     protected $fillable = [
-        'señas_Exactas',
+        'señasExactas',
     ];
 
-    public function persona()
+    public function Persona()
     {
-        return $this->hasOne(Persona::class, 'id_Direccion', 'id_Direccion');
+        return $this->hasOne(Persona::class, 'idDireccion', 'idDireccion');
     }
 
 
-    public function Crear_Direccion()
+    public function CrearDireccion()
     {
         return true;
     }

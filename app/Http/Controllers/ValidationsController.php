@@ -12,7 +12,7 @@ class ValidationsController extends Controller
     protected function reglas_registro()
     {
         $reglas = [
-            'nombre_Usuario' => ['required', 'string', 'min:5', 'max:25', 'unique:users'],
+            'nombreUsuario' => ['required', 'string', 'min:5', 'max:25', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'required_with:password_confirmation', 'same:password_confirmation'],
             'password_confirmation' => ['min:8'],
             'name' => ['required', 'string', 'min:2', 'max:25'],
@@ -29,10 +29,10 @@ class ValidationsController extends Controller
     {
 
         $mensaje = [
-            'nombre_Usuario.required' => 'El nombre de usuario es requerido',
-            'nombre_Usuario.min' => 'El nombre de usuario debe ser de al menos 5 carácteres',
-            'nombre_Usuario.max' => 'El nombre de usuario debe máximo de 25 carácteres',
-            'nombre_Usuario.unique' => 'Ya existe una cuenta asociada a ese nombre de usuario',
+            'nombreUsuario.required' => 'El nombre de usuario es requerido',
+            'nombreUsuario.min' => 'El nombre de usuario debe ser de al menos 5 carácteres',
+            'nombreUsuario.max' => 'El nombre de usuario debe máximo de 25 carácteres',
+            'nombreUsuario.unique' => 'Ya existe una cuenta asociada a ese nombre de usuario',
             'password.required' => 'La contraseña es requerida',
             'password.min' => 'La contraseña debe ser al menos de 8 carácteres',
             'password.required_with' => 'La contraseña debe ser confirmada',
@@ -73,7 +73,7 @@ class ValidationsController extends Controller
         $reglas = '';
         if ($contraseña != null) :
             $reglas = [
-                'nombre_Usuario' => ['required', 'string', 'min:5', 'max:25'],
+                'nombreUsuario' => ['required', 'string', 'min:5', 'max:25'],
                 'password' => ['required', 'string', 'min:8', 'required_with:password_confirmation', 'same:password_confirmation'],
                 'password_confirmation' => ['min:8'],
                 'name' => ['required', 'string', 'min:2', 'max:25'],
@@ -84,7 +84,7 @@ class ValidationsController extends Controller
             ];
         else :
             $reglas = [
-                'nombre_Usuario' => ['required', 'string', 'min:5', 'max:25'],
+                'nombreUsuario' => ['required', 'string', 'min:5', 'max:25'],
                 'name' => ['required', 'string', 'min:2', 'max:25'],
                 'apellidos' => ['required', 'string', 'min:5', 'max:25'],
                 'email' => ['required', 'email', 'min:5', 'max:255'],
@@ -101,9 +101,9 @@ class ValidationsController extends Controller
         $mensaje = '';
         if ($contraseña != null) :
             $mensaje = [
-                'nombre_Usuario.required' => 'El nombre de usuario es requerido',
-                'nombre_Usuario.min' => 'El nombre de usuario debe ser de al menos 5 carácteres',
-                'nombre_Usuario.max' => 'El nombre de usuario debe máximo de 25 carácteres',
+                'nombreUsuario.required' => 'El nombre de usuario es requerido',
+                'nombreUsuario.min' => 'El nombre de usuario debe ser de al menos 5 carácteres',
+                'nombreUsuario.max' => 'El nombre de usuario debe máximo de 25 carácteres',
                 'password.required' => 'La contraseña es requerida',
                 'password.min' => 'La contraseña debe ser al menos de 8 carácteres',
                 'password.required_with' => 'La contraseña debe ser confirmada',
@@ -132,9 +132,9 @@ class ValidationsController extends Controller
             ];
         else :
             $mensaje = [
-                'nombre_Usuario.required' => 'El nombre de usuario es requerido',
-                'nombre_Usuario.min' => 'El nombre de usuario debe ser de al menos 5 carácteres',
-                'nombre_Usuario.max' => 'El nombre de usuario debe máximo de 25 carácteres',
+                'nombreUsuario.required' => 'El nombre de usuario es requerido',
+                'nombreUsuario.min' => 'El nombre de usuario debe ser de al menos 5 carácteres',
+                'nombreUsuario.max' => 'El nombre de usuario debe máximo de 25 carácteres',
                 'name.required' => 'El nombre es requerido',
                 'name.min' => 'El nombre debe ser al menos de 2 carácteres',
                 'name.max' => 'El nombre es demasiado largo, utiliza un nombre más corto',
@@ -164,10 +164,12 @@ class ValidationsController extends Controller
 
         $reglas = '';
         $reglas = [
-            'nombre_Producto' => ['required', 'string', 'min:4', 'max:25'],
+            'nombreProducto' => ['required', 'string', 'min:4', 'max:25'],
             'precio' => ['required', 'numeric', 'max:100000'],
             'cantidad' => ['required', 'numeric', 'max:1000'],
             'detalles' => ['required', 'string', 'min:5', 'max:255'],
+            'descuento' => ['required', 'numeric', 'min:0' , 'max:100'],
+
 
         ];
 
@@ -180,9 +182,9 @@ class ValidationsController extends Controller
         $mensaje = '';
 
         $mensaje = [
-            'nombre_Producto.required' => 'El nombre del producto es requerido',
-            'nombre_Producto.min' => 'El nombre del producto  debe ser de al menos 5 carácteres',
-            'nombre_Producto.max' => 'El nombre del producto  debe máximo de 25 carácteres',
+            'nombreProducto.required' => 'El nombre del producto es requerido',
+            'nombreProducto.min' => 'El nombre del producto  debe ser de al menos 5 carácteres',
+            'nombreProducto.max' => 'El nombre del producto  debe máximo de 25 carácteres',
             'cantidad.required' => 'La cantidad es requerida',
             'cantidad.min' => 'La cantidad no puede ser 0',
             'cantidad.numeric' => 'La cantidad debe ser un número entero',
@@ -193,6 +195,10 @@ class ValidationsController extends Controller
             'detalles.required' => 'Los detalles del producto son requeridos',
             'detalles.min' => 'Los detalles del producto debe ser de al menos 30 carácteres',
             'detalles.max' => 'Los detalles del producto debe máximo de 255 carácteres',
+            'descuento.max' => 'El decuento máximo es de 100 %',
+            'descuento.required' => 'El descuento es requerido',
+            'descuento.min' => 'El descuento minimo es 0 %',
+            'descuento.numeric' => 'El descuento debe ser un número entero',
 
         ];
 
@@ -232,10 +238,11 @@ class ValidationsController extends Controller
 
         $reglas = '';
         $reglas = [
-            'nombre_Producto' => ['required', 'string', 'min:4', 'max:50', 'unique:productos'],
+            'nombreProducto' => ['required', 'string', 'min:4', 'max:50', 'unique:productos'],
             'precio' => ['required', 'numeric', 'max:100000'],
             'cantidad' => ['required', 'numeric', 'max:1000'],
             'detalles' => ['required', 'string', 'min:30', 'max:255'],
+            'descuento' => ['required', 'numeric', 'min:0' , 'max:100'],
             'imagen' => ['required'],
 
         ];
@@ -249,13 +256,17 @@ class ValidationsController extends Controller
         $mensaje = '';
 
         $mensaje = [
-            'nombre_Producto.required' => 'El nombre del producto es requerido',
-            'nombre_Producto.min' => 'El nombre del producto debe ser de al menos 5 carácteres',
-            'nombre_Producto.max' => 'El nombre del producto debe máximo de 50 carácteres',
-            'nombre_Producto.unique' => 'El nombre del producto ya existe',
+            'nombreProducto.required' => 'El nombre del producto es requerido',
+            'nombreProducto.min' => 'El nombre del producto debe ser de al menos 5 carácteres',
+            'nombreProducto.max' => 'El nombre del producto debe máximo de 50 carácteres',
+            'nombreProducto.unique' => 'El nombre del producto ya existe',
             'detalles.required' => 'Los detalles del producto son requeridos',
             'detalles.min' => 'Los detalles del producto debe ser de al menos 30 carácteres',
             'detalles.max' => 'Los detalles del producto debe máximo de 255 carácteres',
+            'descuento.max' => 'El decuento máximo es de 100 %',
+            'descuento.required' => 'El descuento es requerido',
+            'descuento.min' => 'El descuento minimo es 0 %',
+            'descuento.numeric' => 'El descuento debe ser un número entero',
             'cantidad.max' => 'La cantidad máxima esta predefinida en 1000',
             'cantidad.required' => 'La cantidad es requerida',
             'cantidad.min' => 'La cantidad no puede ser 0',

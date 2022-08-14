@@ -15,14 +15,16 @@ class CreateProductoComprasTable extends Migration
     {
         Schema::create('producto_compras', function (Blueprint $table) {
 
-            $table->increments('id_Carrito_Producto');
+            $table->increments('idCarritoProducto');
 
-            $table->integer('id_Carrito')->unsigned();
-            $table->foreign('id_Carrito')->references('id_Carrito')->on('carrito_de_compras');
+            $table->integer('idCarrito')->unsigned();
+            $table->foreign('idCarrito')->references('idCarrito')->on('carrito_de_compras');
 
-            $table->integer('id_producto')->unsigned();
-            $table->foreign('id_producto')->references('id_producto')->on('productos');
-
+            $table->integer('idProducto')->unsigned();
+            $table->foreign('idProducto')->references('idProducto')->on('productos');
+            
+            $table->integer('cantidadCarrito');
+            
             $table->timestamps();
         });
     }

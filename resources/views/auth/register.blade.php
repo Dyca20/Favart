@@ -17,11 +17,11 @@
                 @csrf
                 <div class="flex flex-wrap -mx-3 mb-0">
                     <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nombre-de-usuario">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nombreUsuario">
                             Nombre de usuario
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nombre_Usuario" name="nombre_Usuario" type="text" placeholder="Usuario" value="{{ old('nombre_Usuario') }}">
-                        @error('nombre_Usuario')
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nombreUsuario" name="nombreUsuario" type="text" placeholder="Usuario" value="{{ old('nombreUsuario') }}">
+                        @error('nombreUsuario')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -92,7 +92,7 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="edad">
                             Edad
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="edad" name="edad" type="number" min="0" max="99" placeholder="Edad" value="{{ old('direccion') }}">
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="edad" name="edad" type="number" min="0" max="99" placeholder="Edad" value="{{ old('edad') }}">
                         @error('edad')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

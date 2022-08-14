@@ -42,7 +42,7 @@
                                     <h4 class="font-normal text-slate-800 hover:text-pink-600 ">Historial de compra</h4>
                                 </div>
                             </a>
-                            <a href="{{ url('/catalog') }}" class="px-2 hover:bg-pink-100">
+                            <a href="{{ url('/carrito') }}" class="px-2 hover:bg-pink-100">
                                 <div class="flex flex-row space-x-3">
                                     <h4 class="font-normal text-slate-800 hover:text-pink-600 ">Carrito</h4>
                                 </div>
@@ -51,15 +51,16 @@
                         <div class="flex mr-4 items-center">
                             @if (Auth::check())
                                 <div class="mr-4">
-                                    <a href="{{ url('/' . Auth::User()->id_Usuario) . '/perfil' }}" class="px-2 mx-2">
-                                        <div class="flex flex-row space-x-3">
-                                            <h4 class="font-normal text-red-400 hover:text-pink-600">
-                                                {{ Auth::User()->nombre_Usuario }}
-                                            </h4>
-                                        </div>
+                                <a href="{{ url('/' . Auth::User()->idUsuario) . '/perfil' }}" class="px-2 mx-2">
+                                    <div class="flex flex-row space-x-3">
+                                        <h4 class="font-normal text-red hover:text-pink-600">
+                                            {{ Auth::User()->nombreUsuario }}
+
+                                        </h4>
+
                                     </a>
                                 </div>
-                                <div class="mx-2">
+                                <!-- <div class="mx-2">
                                     @if (Auth::User()->rolUsuario == 2)
                                         <a href="admin/welcome" class="px-2 mx-2">
                                             <div class="flex flex-row space-x-3">
@@ -69,7 +70,7 @@
                                             </div>
                                         </a>
                                     @endif
-                                </div>
+                                </div> -->
 
                                 <div class="dropdown-menu dropdown-menu-end ml-4 mr-4 "
                                     aria-labelledby="navbarDropdown">
@@ -77,9 +78,7 @@
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         <h4 class="font-normal text-slate-800 hover:text-pink-600">
                                             {{ __('Salir') }}
-                                        </h4>
-
-                                    </a>
+                        
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                         class="d-none">
@@ -152,8 +151,8 @@
 
                             @if (Auth::check())
                                 <a class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-400 md:p-0"
-                                    href="{{ url('/' . Auth::User()->id_Usuario) . '/perfil' }}" class="px-2 mx-2">
-                                    {{ Auth::User()->nombre_Usuario }}
+                                    href="{{ url('/' . Auth::User()->idUsuario) . '/perfil' }}" class="px-2 mx-2">
+                                    {{ Auth::User()->nombreUsuario }}
                                 </a>
                         </li>
                         <li>

@@ -27,17 +27,17 @@
             <h3 class="font-bold text-2xl">Datos del perfil</h3>
             <p class="text-gray-600 pt-2 pb-6">Editar datos</p>
 
-            <form method="POST" action="{{ url($usuario->id_Usuario . '/perfil') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ url($usuario->idUsuario . '/perfil') }}" enctype="multipart/form-data">
 
                 @csrf
 
                 <div class="flex flex-wrap -mx-3 mb-0">
                     <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nombre_Usuario">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nombreUsuario">
                             Nombre de usuario
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nombre_Usuario" name="nombre_Usuario" value="{{ $usuario->nombre_Usuario }}" type="text">
-                        @error('nombre_Usuario')
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nombreUsuario" name="nombreUsuario" value="{{ $usuario->nombreUsuario }}" type="text">
+                        @error('nombreUsuario')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -93,7 +93,7 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="direccion">
                             Dirección
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="direccion" name="direccion" value="{{ $direccion->señas_Exactas }}" type="text">
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="direccion" name="direccion" value="{{ $direccion->señasExactas }}" type="text">
                         @error('direccion')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -128,7 +128,7 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="telefono">
                             Teléfono
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="telefono" name="telefono" value="{{ $telefono->numero_Telefono }}" type="tel">
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="telefono" name="telefono" value="{{ $telefono->numeroTelefono }}" type="tel">
                         @error('telefono')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

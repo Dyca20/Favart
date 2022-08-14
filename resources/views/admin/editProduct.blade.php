@@ -13,18 +13,18 @@
             <h3 class="font-bold text-2xl">Datos del producto</h3>
             <p class="text-gray-600 pt-2 pb-6">Editar datos</p>
 
-            <form method="POST" action="{{url('/admin/'.$producto -> id_producto.'/editProduct')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{url('/admin/'.$producto -> idProducto.'/editProduct')}}" enctype="multipart/form-data">
 
                 @csrf
 
                 <div class="flex flex-wrap -mx-3 mb-0">
 
                     <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nombre_Producto">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nombreProducto">
                             Nombre del Producto
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nombre_Producto" name="nombre_Producto" value="{{$producto->nombre_Producto}}" type="text">
-                        @error('nombre_Producto')
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nombreProducto" name="nombreProducto" value="{{$producto->nombreProducto}}" type="text">
+                        @error('nombreProducto')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -35,7 +35,7 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="categoria">
                             Categoría
                         </label>
-                        <a href="{{url('admin/' . $producto -> id_producto . '/addCategory')}}">
+                        <a href="{{url('admin/' . $producto -> idProducto . '/addCategory')}}">
                             <button class="bg-rose-400 hover:bg-zinc-500 text-white font-bold px-4 py-2 rounded shadow-lg hover:transition duration-500  mb-3" type="button">
                                 Editar Categorias
                             </button>
@@ -77,6 +77,31 @@
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
+                    </div>
+
+                    <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="descuento">
+                            Descuento
+                        </label>
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="descuento" name="descuento" type="number" min="0" max="100" value="{{$producto->descuento}}">
+                        @error('descuento')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="imagen">
+                            Imagen
+                        </label>
+                        <div class="relative h-80 w-1/2 overflow-hidden content-center">
+
+                            <img class="absolute crop object-cover" src="{{ URL::asset('images/productos/'.$producto -> imagen) }}" alt="product image">
+
+                        </div>
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="imagen" name="imagen" type="file" placeholder="Imagen">
+
                     </div>
                 </div>
 

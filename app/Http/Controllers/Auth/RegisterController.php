@@ -16,9 +16,9 @@ use App\Http\Controllers\ValidationsController;
 
 class RegisterController extends ValidationsController
 {
-    
+
     use RegistersUsers;
-   
+
     protected $redirectTo = RouteServiceProvider::HOME;
 
     public function __construct()
@@ -30,33 +30,32 @@ class RegisterController extends ValidationsController
     {
 
         $validacion =  Validator::make($data->all(), $this->reglas_registro(),  $this->mensajes_registro());
-
         if ($validacion->fails()) :
             return back()->withErrors($validacion)->withInput();
         else :
 
             $idDireccion = Direccion::insertGetId([
-                'señas_Exactas' => $data['direccion'],
+                'señasExactas' => $data['direccion'],
             ]);
 
             $idPersona = Persona::insertGetId([
-                'id_Direccion' => $idDireccion,
+                'idDireccion' => $idDireccion,
                 'nombre' => $data['name'],
                 'apellidos' => $data['apellidos'],
                 'edad'  => $data['edad']
             ]);
 
             User::create([
-                'id_Persona' => $idPersona,
-                'nombre_Usuario' => $data['nombre_Usuario'],
+                'idPersona' => $idPersona,
+                'nombreUsuario' => $data['nombreUsuario'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 'rolUsuario' => 1
             ]);
 
             Telefono::create([
-                'id_Persona' => $idPersona,
-                'numero_Telefono' => $data['telefono']
+                'idPersona' => $idPersona,
+                'numeroTelefono' => $data['telefono']
             ]);
 
             return  redirect()->route('login');

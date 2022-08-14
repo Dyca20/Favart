@@ -10,28 +10,32 @@ class Producto extends Model
     use HasFactory;
     public $timestamps = false;
 
-    protected $primaryKey = 'id_producto';
+    protected $primaryKey = 'idProducto';
 
     protected $fillable = [
         'cantidad',
-        'nombre_Producto',
+        'cantidadCarrito',
+        'nombreProducto',
         'precio',
         'imagen',
         'detalles',
         'categoria',
+        'descuento',
     ];
-    public function Crear_Producto()
+    public function CrearProducto()
     {
         return true;
     }
-
-    public function Producto_Compra()
+    public function ProductoCompra()
     {
-        return $this->belongsToMany(Producto_Compra::class, 'id_producto', 'id_producto');
+        return $this->hasMany(ProductoCompra::class, 'idProducto', 'idProducto');
     }
-
-    public function Producto_Categoria()
+    public function ProductoHistorial()
     {
-        return $this->belongsToMany(Producto_Categoria::class, 'id_producto', 'id_producto');
+        return $this->hasMany(ProductoHistorial::class, 'idProducto', 'idProducto');
+    }
+    public function ProductoCategoria()
+    {
+        return $this->hasMany(Producto_Categoria::class, 'idProducto', 'idProducto');
     }
 }

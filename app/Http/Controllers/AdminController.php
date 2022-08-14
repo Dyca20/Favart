@@ -9,11 +9,14 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ValidationsController;
 use App\Models\Categoria;
 use App\Models\Direccion;
+use App\Models\HistorialCarrito;
 use App\Models\Telefono;
 use App\Models\Persona;
 use App\Models\User;
 use App\Models\Producto;
 use App\Models\ProductoCategoria;
+use App\Models\ProductoHistorial;
+use Spatie\ImageOptimizer\OptimizerChainFactory;
 
 class AdminController extends ValidationsController
 {
@@ -24,15 +27,14 @@ class AdminController extends ValidationsController
     {
         return view('admin/welcome');
     }
-
-    public function getHistoryPage()
-    {
-        return view('admin/history');
-    }
-
     public function getManageInventoryPage()
     {
         $productos = Producto::all();
+        foreach ($productos as $index => $producto) :
+            if ($producto->estado == 0) :
+                unset($productos[$index]);
+            endif;
+        endforeach;
 
         return view('admin/inventory', array('productos' => $productos));
     }
@@ -57,27 +59,27 @@ class AdminController extends ValidationsController
         $categorias = Categoria::all();
         $categoriaFormateadas = array();
 
-        $categoriasDelProducto = ProductoCategoria::where('id_producto', $id)->get();
+        $categoriasDelProducto = ProductoCategoria::where('idProducto', $id)->get();
         $categoriasDelProductoNombres = array();
 
         foreach ($categorias as $categoria) {
-            $categoria = ['id_categoria' => $categoria->id_categoria, 'nombre_categoria' => $categoria->nombreCategoria];
+            $categoria = ['idCategoria' => $categoria->idCategoria, 'nombreCategoria' => $categoria->nombreCategoria];
             array_push($categoriaFormateadas,  $categoria);
         }
 
         foreach ($categoriasDelProducto as $categoriaProducto) {
 
-            $id_categoria = $categoriaProducto->id_categoria;
-            $nombre_categoria = Categoria::find($categoriaProducto->id_categoria)->nombreCategoria;
-            $categoria = ['id_categoria' => $id_categoria, 'nombre_categoria' => $nombre_categoria];
-            $dataCategorias .= $nombre_categoria . ' ';
+            $idCategoria = $categoriaProducto->idCategoria;
+            $nombreCategoria = Categoria::find($categoriaProducto->idCategoria)->nombreCategoria;
+            $categoria = ['idCategoria' => $idCategoria, 'nombreCategoria' => $nombreCategoria];
+            $dataCategorias .= $nombreCategoria . ' ';
             array_push($categoriasDelProductoNombres,  $categoria);
         }
 
         foreach ($categoriaFormateadas as $index => $item) {
             foreach ($categoriasDelProductoNombres as $index2 => $item2) {
 
-                if ($item['id_categoria'] == $item2['id_categoria']) {
+                if ($item['idCategoria'] == $item2['idCategoria']) {
                     unset($categoriaFormateadas[$index]);
                 }
             }
@@ -94,8 +96,8 @@ class AdminController extends ValidationsController
     public function getEditPerfilPage($id)
     {
         $usuario = $this->obtenerUsuario($id);
-        $direccion = $this->obtenerDireccion($usuario->Persona->id_direccion);
-        $telefono = Telefono::where('id_Persona', $usuario->id_Persona)->first();
+        $direccion = $this->obtenerDireccion($usuario->Persona->idDireccion);
+        $telefono = Telefono::where('idPersona', $usuario->idPersona)->first();
         $data = ['usuario' => $usuario, 'telefono' => $telefono, 'direccion' => $direccion];
         return view('admin/perfil', $data);
     }
@@ -115,11 +117,15 @@ class AdminController extends ValidationsController
             $name = time() . $file->getClientOriginalName();
             $file->move(public_path() . '/images/productos', $name);
 
+            $this->optimizarImg($name);
+
             $idProducto = Producto::insertGetId([
-                'nombre_Producto' => $data['nombre_Producto'],
+                'nombreProducto' => $data['nombreProducto'],
                 'precio' => $data['precio'],
                 'cantidad' => $data['cantidad'],
                 'detalles' => $data['detalles'],
+                'descuento' => $data['descuento'],
+                'estado' => 1,
                 'imagen' => $name,
             ]);
 
@@ -127,6 +133,12 @@ class AdminController extends ValidationsController
         endif;
 
         return view('admin/addProduct');
+    }
+    public function optimizarImg($name)
+    {
+        $optimizerChain = OptimizerChainFactory::create();
+        $source = public_path() . '/images/productos/' . $name;
+        $optimizerChain->optimize($source);
     }
 
     public function postEditProductPage(Request $data, $id)
@@ -144,19 +156,47 @@ class AdminController extends ValidationsController
         else :
 
             $producto = $this->obtenerProducto($id);
-
             $producto->cantidad = $data->cantidad;
-            $producto->nombre_Producto = $data->nombre_Producto;
+            $producto->nombreProducto = $data->nombreProducto;
             $producto->precio = $data->precio;
-            $producto->imagen =  $producto->imagen;
             $producto->detalles = $data->detalles;
+            $producto->descuento = $data->descuento;
+
+
+            if (is_null($data->imagen)) :
+
+            else :
+                unlink('images/productos/' . $producto->imagen);
+
+                $file = $data->file('imagen');
+                $name = time() . $file->getClientOriginalName();
+                $file->move(public_path() . '/images/productos', $name);
+
+                $producto->imagen =  $name;
+
+            endif;
+
             $producto->save();
 
             return  redirect()->route('manageInventory');
 
-
         endif;
     }
+
+    public function postDeleteProductPage($id)
+    {
+        $producto = $this->obtenerProducto($id);
+        $productohistorial = ProductoHistorial::where('idProducto',  $producto->idProducto)->get();
+        if ($productohistorial->isEmpty()) :
+            unlink('images/productos/' . $producto->imagen);
+            DB::table('productos')->where('idProducto', '=', $id)->delete();
+        else :
+            $producto->estado = 0;
+            $producto->save();
+        endif;
+        return  redirect()->route('manageInventory');
+    }
+
 
     /* Operaciones para las categorias */
 
@@ -183,29 +223,29 @@ class AdminController extends ValidationsController
         endif;
     }
 
-    public function postAddProductCategoryPage($id_producto, $id_categoria)
+    public function postAddProductCategoryPage($idProducto, $idCategoria)
     {
 
         ProductoCategoria::create([
-            'id_producto' => $id_producto,
-            'id_categoria' => $id_categoria,
+            'idProducto' => $idProducto,
+            'idCategoria' => $idCategoria,
         ]);
-        return  redirect('admin/' . $id_producto . '/addCategory');
+        return  redirect('admin/' . $idProducto . '/addCategory');
     }
 
-    public function postDeleteProductCategoryPage($id_producto, $id_categoria)
+    public function postDeleteProductCategoryPage($idProducto, $idCategoria)
     {
 
-        DB::table('producto_categorias')->where('id_categoria', '=', $id_categoria)->where('id_producto', '=', $id_producto)->delete();
+        DB::table('productocategorias')->where('idCategoria', '=', $idCategoria)->where('idProducto', '=', $idProducto)->delete();
 
-        return  redirect('admin/' . $id_producto . '/addCategory');
+        return  redirect('admin/' . $idProducto . '/addCategory');
     }
 
-    public function postDeleteCategoryPage($id_producto, $id_categoria)
+    public function postDeleteCategoryPage($idProducto, $idCategoria)
     {
 
-        DB::table('categorias')->where('id_categoria', '=', $id_categoria)->delete();
-        return  redirect('admin/' . $id_producto . '/addCategory');
+        DB::table('categorias')->where('idCategoria', '=', $idCategoria)->delete();
+        return  redirect('admin/' . $idProducto . '/addCategory');
     }
 
 
@@ -223,12 +263,12 @@ class AdminController extends ValidationsController
 
         else :
             $persona = $this->obtenerPersona($id);
-            $usuario = $this->obtenerUsuario($persona->id_Persona);
-            $direccion = $this->obtenerDireccion($persona->id_direccion);
-            $telefono = $this->obtenerTelefono($persona->id_Persona);
+            $usuario = $this->obtenerUsuario($persona->idPersona);
+            $direccion = $this->obtenerDireccion($persona->idDireccion);
+            $telefono = $this->obtenerTelefono($persona->idPersona);
 
             $usuario->email = $data->email;
-            $usuario->nombre_Usuario = $data->nombre_Usuario;
+            $usuario->nombreUsuario = $data->nombreUsuario;
             if ($data->password != null) :
                 $usuario->password = Hash::make($data->password);
             endif;
@@ -239,10 +279,10 @@ class AdminController extends ValidationsController
             $persona->edad = $data->edad;
             $persona->save();
 
-            $direccion->señas_Exactas = $data->direccion;
+            $direccion->señasExactas = $data->direccion;
             $direccion->save();
 
-            $telefono->numero_Telefono = $data->telefono;
+            $telefono->numeroTelefono = $data->telefono;
             $telefono->save();
 
             return  view('admin/welcome');
@@ -281,8 +321,50 @@ class AdminController extends ValidationsController
     public function getSearcherPage(Request $request)
     {
 
-        $productos = Producto::where("nombre_Producto", 'like', $request->buscar_producto . "%")->take(10)->get();
+
+        $productos =  Producto::where("nombreProducto", 'like', $request->buscarProducto . "%")->take(10)->get();
 
         return view('admin/inventory', array('productos' => $productos));
+    }
+
+    public function getHistoryPage()
+    {
+        $historiales = HistorialCarrito::orderBy('fecha', 'DESC')->get();
+        $usuarios = User::all();
+        $productosHistorial = array();
+        foreach ($historiales as $historial) {
+            $productos = ProductoHistorial::where('idHistorial',  $historial->idHistorial)->get();
+            array_push($productosHistorial, $productos);
+        }
+        $productos =  Producto::all();
+
+        return view('admin/history', array('historiales' => $historiales, 'productos' => $productos, 'productosHistorial' => $productosHistorial, 'users' => $usuarios));
+    }
+    
+    public function getCarritoHistorialPage($idHistorial, $idUsuario)
+    {
+        $productos = Producto::all();
+
+        $historialUsuario = HistorialCarrito::where('idUsuario', $idUsuario)->where('idHistorial', $idHistorial)->first();
+
+        $productosHistorial = ProductoHistorial::where('idHistorial', '=', $idHistorial . "%")->get();
+
+        $productosCarrito = array();
+
+        foreach ($productos as $producto) :
+
+            foreach ($productosHistorial as $productoHistorial) {
+
+                if ($producto['idProducto'] == $productoHistorial['idProducto']) {
+
+                    $producto['cantidad'] = $productoHistorial['cantidadCarrito'];
+
+                    array_push($productosCarrito, $producto);
+                }
+            }
+
+        endforeach;
+
+        return view('admin/carritohistorial', array('productos' => $productosCarrito, 'historial' => $historialUsuario));
     }
 }

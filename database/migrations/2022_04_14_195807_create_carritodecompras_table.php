@@ -14,14 +14,19 @@ class CreateCarritoDeComprasTable extends Migration
     public function up()
     {
         Schema::create('carrito_de_compras', function (Blueprint $table) {
-            $table->increments('id_Carrito');
- 
-            $table->integer('id_Usuario')->unsigned();
-            $table->foreign('id_Usuario')->references('id_Usuario')->on('users');
+            $table->increments('idCarrito');
 
-            $table->float('resumen_Precio');
+            $table->integer('idUsuario')->unsigned();
+            $table->foreign('idUsuario')->references('idUsuario')->on('users');
 
-            $table->integer('cantidad');
+            $table->float('resumenPrecio')->nullable();
+
+            $table->float('total')->nullable();
+
+            $table->integer('cantidad')->nullable();
+
+            $table->float('descuento')->nullable();
+
             $table->timestamps();
         });
     }

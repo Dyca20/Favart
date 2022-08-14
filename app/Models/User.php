@@ -24,24 +24,24 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $table = "users";
-    protected $primaryKey = 'id_Usuario';
+    protected $primaryKey = 'idUsuario';
     protected $fillable = [
         
-        'id_Persona',
-        'nombre_Usuario',
+        'idPersona',
+        'nombreUsuario',
         'email',
         'password',
         'rolUsuario',
 
     ];
 
-    public function persona(){
-        return $this->belongsTo(Persona::class,'id_Persona','id_Persona');
+    public function Persona(){
+        return $this->belongsTo(Persona::class,'idPersona','idPersona');
     }
 
-    public function carrito_de_compra()
+    public function CarritoDeCompra()
     {
-        return $this->hasOne(Carrito_de_Compra::class, 'id_Usuario', 'id_Usuario');
+        return $this->hasOne(Carrito_de_Compra::class, 'idUsuario', 'idUsuario');
     }
     /**
      * 
