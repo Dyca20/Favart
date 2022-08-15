@@ -135,7 +135,7 @@
         </section>
     </main>
 
-    <div class="mt-20 sm:mt-44 md:mt-80 xl:mt-72 lg:mt-80 2xl:mt-20">
+    <div class="mt-36 sm:mt-44 md:mt-80 xl:mt-72 lg:mt-80 2xl:mt-20">
         @include('layouts.footer')
     </div>
 

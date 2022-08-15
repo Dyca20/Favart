@@ -201,9 +201,9 @@
             {{-- Con este modal se va a mostrar los detalles del producto y los accesorios. --}}
 
         </section>
-        @include('layouts.footer')
+        
     </main>
-
+@include('layouts.footer')
     <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
 </body>
 
