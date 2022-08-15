@@ -64,17 +64,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($historiales as $historial)
+                        @foreach($historiales as $index => $historial)
                         <tr class="bg-white border-b  hover:bg-gray-5">
 
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap max-w-xxs">
                                 <p class="text-justify overflow-hidden">
                                     @foreach($productosHistorial as $productoHistorial)
-                                    @for($i=0; $i < 3; $i++) 
-                                    @if(count($productoHistorial) <= $i)
-                                    @break
-                                    @endif
-                                    @if($productoHistorial[$i] -> idHistorial == $historial -> idHistorial)
+                                    @for($i=0; $i < 3; $i++) @if(count($productoHistorial) <=$i) @break @endif @if($productoHistorial[$i] -> idHistorial == $historial -> idHistorial)
                                         @foreach($productos as $producto)
 
                                         @if($producto -> idProducto == $productoHistorial[$i] -> idProducto)
@@ -102,7 +98,15 @@
                                 {{$historial -> cantidad}}
                             </td>
                             <td class="py-4 px-6">
-                                estado
+                                @if($pedidos[$index] -> estado == 1)
+                                Pendiente
+                                @endif
+                                @if($pedidos[$index]-> estado == 2)
+                                En envío
+                                @endif
+                                @if($pedidos[$index] -> estado == 3)
+                                Completado
+                                @endif
                             </td>
                             <td class="py-4 px-6 space-x-2">
                                 <a href="{{url('/carritoHistorial/'.$historial -> idHistorial)}}" class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-500 to-red-500 group-hover:from-red-500 group-hover:to-red-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-cyan-200">

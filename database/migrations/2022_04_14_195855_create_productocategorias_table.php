@@ -37,4 +37,3 @@ class CreateProductoCategoriasTable extends Migration
         Schema::dropIfExists('producto_categorias');
     }
 }
-

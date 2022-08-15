@@ -15,6 +15,7 @@ class ProductoHistorial extends Model
         'idHistorial',
         'idProducto',
         'cantidadCarrito',
+        'descuento'
     ];
     public function ProductoHistorial()
     {

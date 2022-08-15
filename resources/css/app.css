@@ -2,19 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @layer components {
     .invalid-feedback {
         color: red;
     }
-    .crop {
-        left: -100%;
-        right: -100%;
-        top: -100%;
-        bottom: -100%;
-        margin: auto;
-        min-height: 100%;
-        min-width: 100%;
-    }
+
+    @import url("https://fonts.googleapis.com/css?family=Roboto:700");
 }
