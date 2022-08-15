@@ -19,7 +19,7 @@
     <main class="h-screen">
         <section
             class="flex flex-col sm:flex-row justify-around space-x-50 mt-4 mb-20 sm:mt-16 items-center font-light">
-            <div class="py-20">
+            <div class="py-0">
                 <div class="flex align-middle w-full z-0">
                     <div class="">
                         <div class="">
@@ -46,7 +46,7 @@
                     </p>
                     {{-- botón de contacto --}}
                 </div>
-                <div id="default-carousel" class="relative mt-10" data-carousel="static">
+                <div id="default-carousel" class="relative mt-10 " data-carousel="static">
                     <!-- Carousel wrapper -->
                     <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
                         <!-- Item 1 -->
@@ -134,8 +134,8 @@
             </div>
         </section>
     </main>
-
-    @include('layouts.footer')
-
+    <div class="mt-0 sm:mt-44 md:mt-80 xl:mt-72 lg:mt-80 2xl:mt-0">
+        @include('layouts.footer')
+    </div>
     <script src="./js/app.js"></script>
 </body>
