@@ -19,7 +19,7 @@
     <main class="h-screen">
         <section
             class="flex flex-col sm:flex-row justify-around space-x-50 mt-4 mb-20 sm:mt-16 items-center font-light">
-            <div class="py-20">
+            <div class="py-0">
                 <div class="flex align-middle w-full z-0">
                     <div class="">
                         <div class="">
@@ -135,7 +135,9 @@
         </section>
     </main>
 
-    @include('layouts.footer')
+    <div class="mt-20 sm:mt-44 md:mt-80 xl:mt-72 lg:mt-80 2xl:mt-20">
+        @include('layouts.footer')
+    </div>
 
     <script src="./js/app.js"></script>
 </body>
