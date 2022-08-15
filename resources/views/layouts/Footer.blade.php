@@ -6,7 +6,7 @@
  </head>
  <footer class=" bg-red-400 shadow md:px-6 py-8 w-full">
      <div class="flex flex-col sm:flex-row items-center justify-between">
-         <a href="https://flowbite.com/" class="flex items-center mb-4 sm:mb-0">
+         <a href="#" class="flex items-center mb-4 sm:mb-0">
              <img src="{{ URL::asset('images/logo_favart.png') }}" class="mr-3 h-8" alt="Flowbite Logo" />
              <span class="self-center text-2xl text-white font-semibold whitespace-nowrap">Fav Art</span>
          </a>
@@ -21,7 +21,7 @@
              </li>
              <li class="flex space-x-2 p-2">
                  <i class="gg-instagram"></i>
-                 <a href="#" class="mr-4 hover:underline md:mr-6 ">Instagram</a>
+                 <a href="https://www.instagram.com/favartt/" class="mr-4 hover:underline md:mr-6 ">Instagram</a>
              </li>
              <li class="flex space-x-2 p-2">
                  <i class="gg-phone"></i>

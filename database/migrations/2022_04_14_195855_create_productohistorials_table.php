@@ -24,7 +24,8 @@ class CreateProductoHistorialsTable extends Migration
             $table->foreign('idProducto')->references('idProducto')->on('productos');
             
             $table->integer('cantidadCarrito');
-            
+
+            $table->float('descuento');
             $table->timestamps();
         });
     }

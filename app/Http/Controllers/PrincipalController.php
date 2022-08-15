@@ -15,6 +15,7 @@ use App\Models\Producto;
 use App\Models\ProductoCategoria;
 use App\Models\Categoria;
 use App\Models\HistorialCarrito;
+use App\Models\Pedido;
 use App\Models\ProductoCompra;
 use App\Models\ProductoHistorial;
 use Illuminate\Support\Facades\Auth;
@@ -200,6 +201,7 @@ class PrincipalController extends ValidationsController
                     if ($productoComprado->idProducto == $producto->idProducto) :
                         if ($productoComprado->cantidadCarrito > $producto->cantidad) :
                             $condicion += 1;
+
                         endif;
                     endif;
                 endforeach;
@@ -217,19 +219,34 @@ class PrincipalController extends ValidationsController
                     'fecha' => $date,
                 ]);
 
+                Pedido::create([
+                    'idUsuario' => $carritoDelUsuario->idUsuario,
+                    'idHistorial' => $idHistorial,
+                    'estado' => 1,
+                ]);
+
                 foreach ($productosComprados as $productoComprado) :
+                    $descuento = 0;
+                    foreach ($productos as $producto) :
+                        if ($productoComprado->idProducto == $producto->idProducto) :
+
+                            $descuento = $producto->descuento;
+                            $cantidad = $producto->cantidad;
+                            $cantidadVendida = $productoComprado->cantidadCarrito;
+                            $cantidad -=  $cantidadVendida;
+                            $producto->cantidad = $cantidad;
+                            $producto->save();
+
+                        endif;
+                    endforeach;
+
                     ProductoHistorial::create([
                         'idHistorial' => $idHistorial,
                         'idProducto' => $productoComprado->idProducto,
                         'cantidadCarrito' => $productoComprado->cantidadCarrito,
+                        'descuento' => $descuento,
                     ]);
-                    foreach ($productos as $producto) :
-                        if ($productoComprado->idProducto == $producto->idProducto) :
-                            $cantidad = $producto->cantidad;
-                            $cantidad -= $productoComprado->cantidadCarrito;
-                            $producto->save();
-                        endif;
-                    endforeach;
+
                     $productoComprado->delete();
                 endforeach;
 
@@ -396,14 +413,28 @@ class PrincipalController extends ValidationsController
     public function getHistoryPage()
     {
         $historialDelUsuario = HistorialCarrito::where('idUsuario', Auth::User()->idUsuario)->get();
+        $pedidos = Pedido::all();
+        $productos = ProductoHistorial::all();
+
         $productosHistorial = array();
-        foreach ($historialDelUsuario as $historial) {
-            $productos = ProductoHistorial::where('idHistorial',  $historial->idHistorial)->get();
-            array_push($productosHistorial, $productos);
-        }
+        $pedidosUsuario = array();
+        foreach ($historialDelUsuario as $historial) :
+            $productosDelHistorial = array();
+            foreach ($productos as $producto) :
+                if ($producto->idHistorial == $historial->idHistorial) :
+                    array_push($productosDelHistorial, $producto);
+                endif;
+            endforeach;
+            array_push($productosHistorial, $productosDelHistorial);
+            foreach ($pedidos as $pedido) :
+                if ($pedido->idHistorial == $historial->idHistorial) :
+                    array_push($pedidosUsuario, $pedido);
+                endif;
+            endforeach;
+        endforeach;
         $productos =  Producto::all();
 
-        return view('history', array('historiales' => $historialDelUsuario, 'productos' => $productos, 'productosHistorial' => $productosHistorial));
+        return view('history', array('historiales' => $historialDelUsuario, 'productos' => $productos, 'productosHistorial' => $productosHistorial, 'pedidos' => $pedidosUsuario));
     }
 
     public function getCarritoHistorialPage($idHistorial)
@@ -414,6 +445,7 @@ class PrincipalController extends ValidationsController
 
         $productosHistorial = ProductoHistorial::where('idHistorial', '=', $idHistorial . "%")->get();
 
+
         $productosCarrito = array();
 
         foreach ($productos as $producto) :
@@ -423,6 +455,10 @@ class PrincipalController extends ValidationsController
                 if ($producto['idProducto'] == $productoHistorial['idProducto']) {
 
                     $producto['cantidad'] = $productoHistorial['cantidadCarrito'];
+
+                    $producto['descuento'] = $productoHistorial['descuento'];
+
+                    dump($producto['descuento'], $productoHistorial['descuento']);
 
                     array_push($productosCarrito, $producto);
                 }

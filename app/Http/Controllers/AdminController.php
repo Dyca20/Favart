@@ -10,13 +10,18 @@ use App\Http\Controllers\ValidationsController;
 use App\Models\Categoria;
 use App\Models\Direccion;
 use App\Models\HistorialCarrito;
+use App\Models\Pedido;
 use App\Models\Telefono;
 use App\Models\Persona;
 use App\Models\User;
 use App\Models\Producto;
 use App\Models\ProductoCategoria;
 use App\Models\ProductoHistorial;
+use Illuminate\Support\Facades\Auth;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
+
+use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isNull;
 
 class AdminController extends ValidationsController
 {
@@ -236,7 +241,7 @@ class AdminController extends ValidationsController
     public function postDeleteProductCategoryPage($idProducto, $idCategoria)
     {
 
-        DB::table('productocategorias')->where('idCategoria', '=', $idCategoria)->where('idProducto', '=', $idProducto)->delete();
+        DB::table('producto_categorias')->where('idCategoria', '=', $idCategoria)->where('idProducto', '=', $idProducto)->delete();
 
         return  redirect('admin/' . $idProducto . '/addCategory');
     }
@@ -331,16 +336,30 @@ class AdminController extends ValidationsController
     {
         $historiales = HistorialCarrito::orderBy('fecha', 'DESC')->get();
         $usuarios = User::all();
+        $pedidos = Pedido::all();
+        $productos = ProductoHistorial::all();
+
         $productosHistorial = array();
-        foreach ($historiales as $historial) {
-            $productos = ProductoHistorial::where('idHistorial',  $historial->idHistorial)->get();
-            array_push($productosHistorial, $productos);
-        }
+        $pedidosUsuario = array();
+        foreach ($historiales as $historial) :
+            $productosDelHistorial = array();
+            foreach ($productos as $producto) :
+                if ($producto->idHistorial == $historial->idHistorial) :
+                    array_push($productosDelHistorial, $producto);
+                endif;
+            endforeach;
+            array_push($productosHistorial, $productosDelHistorial);
+            foreach ($pedidos as $pedido) :
+                if ($pedido->idHistorial == $historial->idHistorial) :
+                    array_push($pedidosUsuario, $pedido);
+                endif;
+            endforeach;
+        endforeach;
         $productos =  Producto::all();
 
-        return view('admin/history', array('historiales' => $historiales, 'productos' => $productos, 'productosHistorial' => $productosHistorial, 'users' => $usuarios));
+        return view('admin/history', array('historiales' => $historiales, 'productos' => $productos, 'productosHistorial' => $productosHistorial, 'users' => $usuarios, 'pedidos' => $pedidos));
     }
-    
+
     public function getCarritoHistorialPage($idHistorial, $idUsuario)
     {
         $productos = Producto::all();
@@ -359,6 +378,8 @@ class AdminController extends ValidationsController
 
                     $producto['cantidad'] = $productoHistorial['cantidadCarrito'];
 
+                    $producto['descuento'] = $productoHistorial['descuento'];
+
                     array_push($productosCarrito, $producto);
                 }
             }
@@ -366,5 +387,70 @@ class AdminController extends ValidationsController
         endforeach;
 
         return view('admin/carritohistorial', array('productos' => $productosCarrito, 'historial' => $historialUsuario));
+    }
+
+    public function getAccounting()
+    {
+        $productos = Producto::all();
+
+        $historialUsuario = new HistorialCarrito;
+
+        $productosHistorial = ProductoHistorial::all();
+
+        $productosComprados = array();
+        $totalPrecioProducto = array();
+
+        $cantidad = 0;
+        $resumenPrecio = 0;
+        $descuento = 0;
+        $total  = 0;
+        $ingresar = true;
+
+        foreach ($productosHistorial as $index => $productoHistorial) :
+            foreach ($productos as $producto) :
+
+                if ($producto['idProducto'] == $productoHistorial['idProducto']) :
+
+                    $producto['cantidad'] = $productoHistorial['cantidadCarrito'];
+                    $cantidad +=  $producto['cantidad'];
+                    $resumenPrecio +=  ($producto['cantidad'] * $producto['precio']);
+                    $descuento +=  ($producto['cantidad'] * ($productoHistorial['descuento'] / 100 * $producto['precio']));
+                    $total = $resumenPrecio -  $descuento;
+
+                    $totalProducto =  ($producto['cantidad'] * $producto['precio']) - ($producto['cantidad'] * ($productoHistorial['descuento'] / 100 * $producto['precio']));
+
+                    if (count($productosComprados) < 1) :
+
+                        array_push($productosComprados, $producto);
+                        array_push($totalPrecioProducto,  $totalProducto);
+                    else :
+
+                        foreach ($productosComprados as $index => $productoComprado) :
+
+                            if ($producto['idProducto'] == $productoComprado['idProducto']) :
+                                $productoComprado['cantidad'] += $producto['cantidad'];
+                                $totalPrecioProducto[$index] +=  $totalProducto;
+                                $ingresar = false;
+                            endif;
+
+                        endforeach;
+
+                        if ($ingresar) :
+                            array_push($productosComprados, $producto);
+                            array_push($totalPrecioProducto,  $totalProducto);
+                        else :
+                            $ingresar = true;
+                        endif;
+                    endif;
+                endif;
+            endforeach;
+        endforeach;
+
+        $historialUsuario->cantidad =  $cantidad;
+        $historialUsuario->resumenPrecio =  $resumenPrecio;
+        $historialUsuario->descuento =    $descuento;
+        $historialUsuario->total =  $total;
+
+        return view('admin/accounting', array('productos' => $productosComprados, 'historial' => $historialUsuario, 'totalproducto' => $totalPrecioProducto));
     }
 }

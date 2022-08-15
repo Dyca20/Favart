@@ -23,8 +23,7 @@ class CreatePedidosTable extends Migration
             $table->integer('idHistorial')->unsigned();
             $table->foreign('idHistorial')->references('idHistorial')->on('historial_Carritos');
 
-            $table->date('fecha', 6);
-            $table->string('estado', 25);
+            $table->integer('estado')->unsigned();
             $table->timestamps();
         });
     }
