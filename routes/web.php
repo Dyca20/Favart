@@ -67,5 +67,9 @@ Route::get('/admin/delAdminMaker/{idUsuario}', [App\Http\Controllers\AdminContro
 
 
 Route::post('/admin/buscador', [App\Http\Controllers\AdminController::class, 'getSearcherPage'])->name('getSearcher')->middleware(['auth', 'admin']);
+Route::get('/admin/manageInventory/searcher/{idCategoria}', [App\Http\Controllers\AdminController::class, 'getSearcherCategoryPage'])->name('getSearcherCategoryInventory')->middleware(['auth', 'admin']);
+Route::post('/admin/manageInventory/searcher/', [App\Http\Controllers\AdminController::class, 'getSearcherPage'])->name('getSearcherInventory')->middleware(['auth', 'admin']);
+
+
 
 Route::get('/admin/accounting', [App\Http\Controllers\AdminController::class, 'getAccounting'])->name('accounting')->middleware(['auth', 'admin']);

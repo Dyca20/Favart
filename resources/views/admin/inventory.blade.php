@@ -40,20 +40,13 @@
                     data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom"
                     style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(319px, 70px);">
                     <ul class="py-1 text-sm text-gray-700 " aria-labelledby="dropdownDefault">
-                        {{-- @foreach ($categoria as $categoriaProducto)
+                        @foreach ($categoria as $categoriaProducto)
                             <li>
-                                <a href="{{ url('/catalog/searcher/' . $categoriaProducto->idCategoria) }}"
+                                <a href="{{ url('/admin/manageInventory/searcher/' . $categoriaProducto->idCategoria) }}"
                                     class="block py-2 px-4 hover:bg-gray-100 ">{{ $categoriaProducto->nombreCategoria }}</a>
                             </li>
-                        @endforeach --}}
-                        <li>
-                            <a href="{{ url('/catalog/searcher/') }}"
-                                class="block py-2 px-4 hover:bg-gray-100 ">{{ 'Probando' }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/catalog/searcher/') }}"
-                                class="block py-2 px-4 hover:bg-gray-100 ">{{ 'Probando2' }}</a>
-                        </li>
+                        @endforeach 
+                       
                     </ul>
                 </div>
                 <form class="flex space-x-2" method="POST" action="{{ url('admin/buscador') }}"

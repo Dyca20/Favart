@@ -36,13 +36,14 @@ class AdminController extends ValidationsController
     public function getManageInventoryPage()
     {
         $productos = Producto::all();
+        $categorias = Categoria::all();
         foreach ($productos as $index => $producto) :
             if ($producto->estado == 0) :
                 unset($productos[$index]);
             endif;
         endforeach;
 
-        return view('admin/inventory', array('productos' => $productos));
+        return view('admin/inventory', array('productos' => $productos, 'categoria' => $categorias));
     }
 
     public function getAddProductPage()
@@ -323,16 +324,6 @@ class AdminController extends ValidationsController
 
 
     /* Operaciones para buscador */
-
-    public function getSearcherPage(Request $request)
-    {
-
-
-        $productos =  Producto::where("nombreProducto", 'like', $request->buscarProducto . "%")->take(10)->get();
-
-        return view('admin/inventory', array('productos' => $productos));
-    }
-
     public function getHistoryPage()
     {
         $historiales = HistorialCarrito::orderBy('fecha', 'DESC')->get();
@@ -556,5 +547,51 @@ class AdminController extends ValidationsController
         $usuarioElegido->save();
 
         return redirect('admin/adminMaker/0');
+    }
+
+    public function getSearcherCategoryPage($idCategoria)
+    {
+        $productos =  Producto::all();
+
+        $productosEncontrados = array();
+
+        $productosBuscados = ProductoCategoria::where('idCategoria',  $idCategoria)->get();
+
+        $categorias = Categoria::all();
+
+        if ($productosBuscados->isEmpty()) :
+            foreach ($productos as $i => $value) {
+                unset($productos[$i]);
+            }
+        else :
+            foreach ($productos as $index => $producto) {
+
+                foreach ($productosBuscados as $index2 => $productoBuscado) {
+
+                    if ($producto['idProducto'] == $productoBuscado['idProducto'] and $producto['estado'] == 1) {
+                        array_push($productosEncontrados, $producto);
+                    }
+                }
+            }
+            $productos = $productosEncontrados;
+        endif;
+        return view('admin/inventory', array('productos' => $productos, 'categoria' => $categorias));
+    }
+    public function getSearcherPage(Request $request)
+    {
+        $categorias = Categoria::all();
+
+        $productos =  Producto::where("nombreProducto", 'like', $request->buscarProducto . "%")->take(20)->get();
+
+        foreach ($productos as $index => $producto) :
+            if ($producto->estado == 0) :
+                unset($productos[$index]);
+            endif;
+        endforeach;
+
+
+
+
+        return view('admin/inventory', array('productos' => $productos, 'categoria' => $categorias));
     }
 }
