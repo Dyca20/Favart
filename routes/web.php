@@ -21,7 +21,7 @@ Route::get('/carrito', [App\Http\Controllers\PrincipalController::class, 'getCar
 
 Route::get('/sumProductCarrito/{idProducto}', [App\Http\Controllers\PrincipalController::class, 'getSumProductCarrito'])->name('sumProductCarrito')->middleware('auth');
 Route::get('/subProductCarrito/{idProducto}', [App\Http\Controllers\PrincipalController::class, 'getSubProductCarrito'])->name('subProductCarrito')->middleware('auth');
-Route::get('/addProductCarrito/{idProducto}', [App\Http\Controllers\PrincipalController::class, 'getAddProductCarrito'])->name('addProductCarrito')->middleware('auth');
+Route::post('/addProductCarrito/{idProducto}', [App\Http\Controllers\PrincipalController::class, 'postAddProductCarrito'])->name('addProductCarrito')->middleware('auth');
 Route::get('/delProductCarrito/{idProducto}', [App\Http\Controllers\PrincipalController::class, 'getDelProductCarrito'])->name('delProductCarrito')->middleware('auth');
 
 Route::get('/finishCarrito', [App\Http\Controllers\PrincipalController::class, 'getFinishCarrito'])->name('finishCarrito')->middleware('auth');
@@ -33,12 +33,11 @@ Route::get('/{id}/perfil', [App\Http\Controllers\PrincipalController::class, 'ge
 Route::post('/{id}/perfil', [App\Http\Controllers\PrincipalController::class, 'postPerfilPage'])->name('postPerfil')->middleware('auth');
 
 
-
-
-
 Route::get('/admin/welcome', [App\Http\Controllers\AdminController::class, 'getWelcomePage'])->name('welcomeAdmin')->middleware(['auth', 'admin']);
 
 Route::get('/admin/history', [App\Http\Controllers\AdminController::class, 'getHistoryPage'])->name('historyAdmin')->middleware(['auth', 'admin']);
+Route::get('/admin/history/status/{idPedido}/{idStatus}', [App\Http\Controllers\AdminController::class, 'getChangeHistoryOrderStatus'])->name('historyOrderStatus')->middleware(['auth', 'admin']);
+
 Route::get('/admin/carritoHistorial/{idHistorial}/{idUsuario}', [App\Http\Controllers\AdminController::class, 'getCarritoHistorialPage'])->name('AdmincarritoHistorial')->middleware(['auth', 'admin']);
 
 Route::get('/admin/manageInventory', [App\Http\Controllers\AdminController::class, 'getManageInventoryPage'])->name('manageInventory')->middleware(['auth', 'admin']);
@@ -60,6 +59,12 @@ Route::get('/admin/{id}/deleteProduct', [App\Http\Controllers\AdminController::c
 
 Route::get('/admin/{id}/perfil', [App\Http\Controllers\AdminController::class, 'getEditPerfilPage'])->name('getEditPerfilAdmin')->middleware(['auth', 'admin']);
 Route::post('/admin/{id}/perfil', [App\Http\Controllers\AdminController::class, 'postEditPerfilPage'])->name('postEditPerfilAdmin')->middleware(['auth', 'admin']);
+
+Route::get('/admin/adminMaker/{idUsuario}', [App\Http\Controllers\AdminController::class, 'getAdminMakerPage'])->name('getAdminMaker')->middleware(['auth', 'admin']);
+Route::post('/admin/adminMaker', [App\Http\Controllers\AdminController::class, 'postAddElectAdminMakerPage'])->name('postAddElectAdminMaker')->middleware(['auth', 'admin']);
+Route::get('/admin/addAdminMaker/{idUsuario}', [App\Http\Controllers\AdminController::class, 'getAddAdminMakerPage'])->name('getAddAdminMaker')->middleware(['auth', 'admin']);
+Route::get('/admin/delAdminMaker/{idUsuario}', [App\Http\Controllers\AdminController::class, 'getDelAdminMakerPage'])->name('getDelAdminMaker')->middleware(['auth', 'admin']);
+
 
 Route::post('/admin/buscador', [App\Http\Controllers\AdminController::class, 'getSearcherPage'])->name('getSearcher')->middleware(['auth', 'admin']);
 

@@ -280,4 +280,29 @@ class ValidationsController extends Controller
 
         return $mensaje;
     }
+    protected function rules_AddElectAdmin()
+    {
+
+        $reglas = '';
+        $reglas = [
+            'nombreUsuario' => ['required', 'string', 'min:2', 'max:25'],
+        ];
+
+        return $reglas;
+    }
+
+    protected function messages_AddElectAdmin()
+    {
+
+        $mensaje = '';
+
+        $mensaje = [
+
+            'nombreUsuario.required' => 'El usuario es requerido',
+            'nombreUsuario.min' => 'El usuario debe ser al menos de 2 carácteres',
+            'nombreUsuario.max' => 'El usuario es demasiado largo, utiliza un nombre más corto',
+        ];
+
+        return $mensaje;
+    }
 }

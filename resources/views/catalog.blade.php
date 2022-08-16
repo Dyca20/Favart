@@ -138,7 +138,6 @@
                                         <div class="flex">
                                             <h3 class="font-bold text-gray-500">Categorías:&nbsp;</h3>
                                             <p class="text-base leading-relaxed text-gray-500">
-                                                <a class="text-blue-600 hover:underline" href="/#">
                                                     {{ $producto->categoria }}</a>
                                             </p>
                                         </div>
@@ -191,31 +190,25 @@
                             </div>
                             <!-- Modal footer -->
                             <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 bg-white">
-                                <a href="{{ url('/addProductCarrito/' . $producto->idProducto) }}"> <button
-                                        type="button"
-                                        class="text-white bg-red-400 hover:bg-red-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 ">
-                                        <svg aria-hidden="true" class="mr-2 -ml-1 w-5 h-5" fill="currentColor"
-                                            viewBox="0 0 20 20">
-                                            <path
-                                                d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
-                                            </path>
-                                        </svg>
-                                        Añadir al carrito
-                                    </button></a>
+                            <form method="POST" action="{{url('/addProductCarrito/'.$producto -> idProducto)}}" enctype="multipart/form-data" class="text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2">
+                                @csrf
+                                <button type="submit" class="text-white bg-red-400 hover:bg-red-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 ">
+                                    <svg aria-hidden="true" class="mr-2 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
+                                        </path>
+                                    </svg>
+                                    Añadir al carrito
+                                </button>
 
                                 {{-- cantidad --}}
                                 <div class="flex flex-row items-center space-x-2">
-                                    <svg aria-hidden="true" class="w-5 h-5 text-slate-400" fill="currentColor"
-                                        viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd"
-                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                            clip-rule="evenodd"></path>
+                                    <svg aria-hidden="true" class="w-5 h-5 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                                     </svg>
-                                    <input type="number"
-                                        class="text-gray-600 text-sm p-1.5 ml-auto inline-flex items-center rounded-sm border-gray-300"
-                                        value="1" min="1" max="10">
+                                    <input type="number" id="cantidad" name="cantidad" class="text-gray-600 text-sm p-1.5 ml-auto inline-flex items-center rounded-sm border-gray-300" value="1" min="1" max="{{$producto->cantidad}}">
                                 </div>
-                            </div>
+                            </form>
+                        </div>
                         </div>
                     </div>
                 </div>

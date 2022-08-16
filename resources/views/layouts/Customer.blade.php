@@ -171,12 +171,12 @@
                             </form>
                         @else
                             <a class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-400 md:p-0"
-                                href="login" class="px-2 mx-2">
+                                href="/login" class="px-2 mx-2">
                                 Ingresar
                             </a>
                         </li>
                         <li>
-                            <a href="register" class="px-2 mx-2">
+                            <a href="/register" class="px-2 mx-2">
                                 Registrarse
                             </a>
                             @endif

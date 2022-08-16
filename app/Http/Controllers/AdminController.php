@@ -17,6 +17,7 @@ use App\Models\User;
 use App\Models\Producto;
 use App\Models\ProductoCategoria;
 use App\Models\ProductoHistorial;
+use Faker\Provider\ar_EG\Person;
 use Illuminate\Support\Facades\Auth;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
 
@@ -335,13 +336,19 @@ class AdminController extends ValidationsController
     public function getHistoryPage()
     {
         $historiales = HistorialCarrito::orderBy('fecha', 'DESC')->get();
-        $usuarios = User::all();
         $pedidos = Pedido::all();
         $productos = ProductoHistorial::all();
 
+        $users = User::all();
+        $personas = Persona::all();
+        $telefonos = Telefono::all();
+        $direcciones = Direccion::all();
+
+        $usuarios = array($users, $personas, $telefonos, $direcciones);
+
         $productosHistorial = array();
         $pedidosUsuario = array();
-        foreach ($historiales as $historial) :
+        foreach ($historiales as $index => $historial) :
             $productosDelHistorial = array();
             foreach ($productos as $producto) :
                 if ($producto->idHistorial == $historial->idHistorial) :
@@ -351,13 +358,15 @@ class AdminController extends ValidationsController
             array_push($productosHistorial, $productosDelHistorial);
             foreach ($pedidos as $pedido) :
                 if ($pedido->idHistorial == $historial->idHistorial) :
-                    array_push($pedidosUsuario, $pedido);
+                    $pedidosUsuario[$index] = $pedido;
                 endif;
             endforeach;
         endforeach;
         $productos =  Producto::all();
 
-        return view('admin/history', array('historiales' => $historiales, 'productos' => $productos, 'productosHistorial' => $productosHistorial, 'users' => $usuarios, 'pedidos' => $pedidos));
+
+
+        return view('admin/history', array('historiales' => $historiales, 'productos' => $productos, 'productosHistorial' => $productosHistorial, 'users' => $usuarios, 'pedidos' => $pedidosUsuario));
     }
 
     public function getCarritoHistorialPage($idHistorial, $idUsuario)
@@ -397,8 +406,11 @@ class AdminController extends ValidationsController
 
         $productosHistorial = ProductoHistorial::all();
 
+        $pedidos = Pedido::all();
+
         $productosComprados = array();
         $totalPrecioProducto = array();
+        $totalPedidos = array();
 
         $cantidad = 0;
         $resumenPrecio = 0;
@@ -451,6 +463,98 @@ class AdminController extends ValidationsController
         $historialUsuario->descuento =    $descuento;
         $historialUsuario->total =  $total;
 
-        return view('admin/accounting', array('productos' => $productosComprados, 'historial' => $historialUsuario, 'totalproducto' => $totalPrecioProducto));
+        $pedidosRealizados = count($pedidos);
+        $pedidosPendientes = 0;
+        $pedidosEnEnvio = 0;
+        $pedidosCompletados = 0;
+
+        array_push($totalPedidos, $pedidosRealizados, $pedidosPendientes, $pedidosEnEnvio, $pedidosCompletados);
+
+        foreach ($pedidos as $pedido) :
+            if ($pedido->estado == 1) {
+                $totalPedidos[1] += 1;
+            } else if ($pedido->estado == 2) {
+                $totalPedidos[2] += 1;
+            } else if ($pedido->estado == 3) {
+                $totalPedidos[3] += 1;
+            }
+
+        endforeach;
+
+        return view('admin/accounting', array('productos' => $productosComprados, 'historial' => $historialUsuario, 'totalproducto' => $totalPrecioProducto, 'totalPedidos' => $totalPedidos));
+    }
+    public function getChangeHistoryOrderStatus($idHistorial, $idStatus)
+    {
+        $pedido = Pedido::where('idHistorial', $idHistorial)->get()->first();
+        $pedido->estado = $idStatus;
+        $pedido->save();
+
+        return redirect('admin/history');
+    }
+    public function getAdminMakerPage($idUsuario)
+    {
+        $usuariosAdmin = User::where('rolUsuario', 2)->get();
+
+        if ($idUsuario != 0) :
+            $usuario = User::where('idUsuario', $idUsuario)->get()->first();
+            $persona = Persona::where('idPersona', $usuario->idPersona)->get()->first();
+            $telefono = Telefono::where('idPersona', $usuario->idPersona)->get()->first();
+            $usuarioElegido = array($usuario, $persona, $telefono);
+        else :
+            $usuario = new User();
+            $persona = new Persona();
+            $telefono = new Telefono();
+            $usuarioElegido = array($usuario, $persona, $telefono);
+        endif;
+
+        return view('admin/adminMaker', array('usuariosAdmin' => $usuariosAdmin, 'usuarioElegido' => $usuarioElegido, 'persona' => $persona));
+    }
+
+    public function postAddElectAdminMakerPage(Request $request)
+    {
+
+        $reglas =  $this->rules_AddElectAdmin();
+        $mensaje = $this->messages_AddElectAdmin();
+
+        $validacion = Validator::make($request->all(), $reglas, $mensaje);
+        $request->all();
+
+        if ($validacion->fails()) :
+            return back()->withErrors($validacion)->withInput();
+
+        else :
+            $usuarioElegido = User::where('nombreUsuario', $request->nombreUsuario)->get()->first();
+            if (is_null($usuarioElegido)) :
+                return redirect('admin/adminMaker/0');
+            else :
+                if ($usuarioElegido->rolUsuario == 2) :
+                    return redirect('admin/adminMaker/0');
+                else :
+                    return redirect('admin/adminMaker/' . $usuarioElegido->idUsuario);
+                endif;
+            endif;
+        endif;
+
+        return redirect('admin/adminMaker/0')->withErrors([
+            'nombreUsuario' => 'El usuario no existe',
+        ])->onlyInput('nombreUsuario');
+    }
+    public function getAddAdminMakerPage($idUsuario)
+    {
+
+        $usuarioElegido = User::where('idUsuario', $idUsuario)->get()->first();
+        $usuarioElegido->rolUsuario = 2;
+        $usuarioElegido->save();
+
+        return redirect('admin/adminMaker/0');
+    }
+    public function getDelAdminMakerPage($idUsuario)
+    {
+
+        $usuarioElegido = User::where('idUsuario', $idUsuario)->get()->first();
+        $usuarioElegido->rolUsuario = 1;
+        $usuarioElegido->save();
+
+        return redirect('admin/adminMaker/0');
     }
 }

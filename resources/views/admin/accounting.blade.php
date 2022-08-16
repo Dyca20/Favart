@@ -126,44 +126,48 @@
                 </div>
 
             </section>
+
             <section class="px-36 pt-12 font-light w-full">
                 <div class="flex items-center pb-8">
                     <h2 class="text-2xl font-medium text-gray-800 my-6"><b> Pedidos </b></h2>
                 </div>
-                <table class="min-w-full divide-y divide-gray-200 table-auto" id="tablaTotales" name="tablaTotales">
-                    <thead class="bg-gray-50">
+               <table class="min-w-full divide-y divide-gray-200 table-auto" id="tablaPedidos" name="tablaPedidos">
+                <thead class="bg-gray-50">
 
-                        <tr>
-                            <th scope="col"
-                                class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                                Ingresos Totales
-                            </th>
-                            <th scope="col"
-                                class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                                Ganancias
-                            </th>
-                            <th scope="col"
-                                class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                                Pago a Proveedores
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200" id="tbodyProductos" name="tbodyProductos">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
+                            Pedidos Totales
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
+                            Pedidos Pendientes
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
+                            Pedidos En Envío
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
+                            Pedidos Completados
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="tbodyPedidos" name="tbodyPedidos">
 
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                {{ ' ₡' . $historial->total }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                {{ ' ₡' . $historial->total * 0.25 }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                {{ ' ₡' . $historial->total * 0.75 }}
-                            </td>
-                        </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                            {{$totalPedidos[0]}}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                            {{$totalPedidos[1]}}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                            {{$totalPedidos[2]}}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                            {{$totalPedidos[3]}}
+                        </td>
+                    </tr>
 
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
 
             </section>
             <section class="px-36 pt-12 font-light w-full">
@@ -188,7 +192,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200" id="tbodyProductos" name="tbodyProductos">
+                    <tbody class="bg-white divide-y divide-gray-200" id="tbodytotales" name="tbodytotales">
 
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">

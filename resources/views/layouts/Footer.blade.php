@@ -15,18 +15,12 @@
                  <i class="gg-girl"></i>
                  <a href="#" class="mr-4 hover:underline md:mr-6 ">Quiénes somos</a>
              </li>
-             <li class="flex space-x-2 p-2">
-                 <i class="gg-facebook"></i>
-                 <a href="#" class="mr-4 hover:underline md:mr-6">Facebook</a>
-             </li>
+
              <li class="flex space-x-2 p-2">
                  <i class="gg-instagram"></i>
                  <a href="https://www.instagram.com/favartt/" class="mr-4 hover:underline md:mr-6 ">Instagram</a>
              </li>
-             <li class="flex space-x-2 p-2">
-                 <i class="gg-phone"></i>
-                 <a href="#" class="hover:underline">WhatsApp</a>
-             </li>
+
          </ul>
      </div>
 

@@ -144,45 +144,41 @@ class PrincipalController extends ValidationsController
         return redirect('/carrito');
     }
 
-
-    public function getAddProductCarrito($idProducto)
+    public function postAddProductCarrito(Request $request, $idProducto)
     {
         $carritoDelUsuario = CarritoDeCompra::where('idUsuario', Auth::User()->idUsuario)->first();
         $producto = Producto::where('idProducto', $idProducto)->get()->first();
+        $request->all();
 
-        if (is_null($carritoDelUsuario)) :
+        if ($request->cantidad <= $producto['cantidad']) :
+            if (is_null($carritoDelUsuario)) :
 
-            $idCarrito = CarritoDeCompra::insertGetId([
-                'idUsuario' => Auth::User()->idUsuario,
-            ]);
-            if (1 <= $producto['cantidad']) :
+                $idCarrito = CarritoDeCompra::insertGetId([
+                    'idUsuario' => Auth::User()->idUsuario,
+                ]);
+
                 ProductoCompra::create([
                     'idCarrito' => $idCarrito,
                     'idProducto' => $idProducto,
-                    'cantidadCarrito' => 1,
+                    'cantidadCarrito' => $request->cantidad,
                 ]);
-            endif;
-        else :
 
-            if (ProductoCompra::where('idProducto', $idProducto)->exists()) :
-
-                $productoCompra = ProductoCompra::where('idProducto', $idProducto)->get()->first();
-
-                if ($productoCompra['cantidadCarrito'] <= 1) :
-                    $productoCompra['cantidadCarrito'] += 1;
-                    $productoCompra->save();
-
-                endif;
             else :
-                if (1 <= $producto['cantidad']) :
+
+                if (ProductoCompra::where('idProducto', $idProducto)->exists()) :
+
+                    $productoCompra = ProductoCompra::where('idProducto', $idProducto)->get()->first();
+                    $productoCompra['cantidadCarrito'] = $request->cantidad;
+                    $productoCompra->save();
+                else :
                     ProductoCompra::create([
                         'idCarrito' => $carritoDelUsuario->idCarrito,
                         'idProducto' => $idProducto,
-                        'cantidadCarrito' => 1,
+                        'cantidadCarrito' => $request->cantidad,
                     ]);
                 endif;
-            endif;
 
+            endif;
         endif;
 
         return redirect('/catalog');
@@ -457,8 +453,6 @@ class PrincipalController extends ValidationsController
                     $producto['cantidad'] = $productoHistorial['cantidadCarrito'];
 
                     $producto['descuento'] = $productoHistorial['descuento'];
-
-                    dump($producto['descuento'], $productoHistorial['descuento']);
 
                     array_push($productosCarrito, $producto);
                 }
