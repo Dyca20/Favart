@@ -57,13 +57,24 @@
                                     </div>
                                 </a>
                             </div>
+                            @if(Auth::User()->idUsuario == 1)
+                            <div class="mr-4">
+                                <a href="{{ url('admin/adminMaker/0') }}" class="px-2 mx-2">
+                                    <div class="flex flex-row space-x-3">
+                                        <h4 class="font-normal text-white hover:text-pink-600">
+                                            Administradores
+                                        </h4>
+                                    </div>
+                                </a>
+                            </div>
+                            @endif
                             <div class="mx-2">
                                 <a href="/welcome" class="px-2 mx-2">
                                     <div class="flex flex-row space-x-3">
                                         <h4 class="font-normal text-white hover:text-pink-600">
                                             {{ __('Cliente') }}
                                         </h4>
-             
+
                                     </div>
                                 </a>
                             </div>
@@ -87,7 +98,7 @@
         </nav>
     </header>
     @yield('content')
- 
+
 </body>
 
 

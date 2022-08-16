@@ -232,6 +232,31 @@ class ValidationsController extends Controller
         return $mensaje;
     }
 
+    protected function rules_AddElectAdmin()
+    {
+
+        $reglas = '';
+        $reglas = [
+            'nombreUsuario' => ['required', 'string', 'min:2', 'max:25'],
+        ];
+
+        return $reglas;
+    }
+
+    protected function messages_AddElectAdmin()
+    {
+
+        $mensaje = '';
+
+        $mensaje = [
+
+            'nombreUsuario.required' => 'El usuario es requerido',
+            'nombreUsuario.min' => 'El usuario debe ser al menos de 2 carácteres',
+            'nombreUsuario.max' => 'El usuario es demasiado largo, utiliza un nombre más corto',
+        ];
+
+        return $mensaje;
+    }
 
     protected function reglas_addproduct()
     {
@@ -241,7 +266,7 @@ class ValidationsController extends Controller
             'nombreProducto' => ['required', 'string', 'min:4', 'max:50', 'unique:productos'],
             'precio' => ['required', 'numeric', 'max:100000'],
             'cantidad' => ['required', 'numeric', 'max:1000'],
-            'detalles' => ['required', 'string', 'min:30', 'max:255'],
+            'detalles' => ['required', 'string', 'min:10', 'max:255'],
             'descuento' => ['required', 'numeric', 'min:0' , 'max:100'],
             'imagen' => ['required'],
 
@@ -261,7 +286,7 @@ class ValidationsController extends Controller
             'nombreProducto.max' => 'El nombre del producto debe máximo de 50 carácteres',
             'nombreProducto.unique' => 'El nombre del producto ya existe',
             'detalles.required' => 'Los detalles del producto son requeridos',
-            'detalles.min' => 'Los detalles del producto debe ser de al menos 30 carácteres',
+            'detalles.min' => 'Los detalles del producto debe ser de al menos 10 carácteres',
             'detalles.max' => 'Los detalles del producto debe máximo de 255 carácteres',
             'descuento.max' => 'El decuento máximo es de 100 %',
             'descuento.required' => 'El descuento es requerido',

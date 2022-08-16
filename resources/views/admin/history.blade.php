@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>FavArt - Hitorial</title>
+    <title>FavArt - Historial</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -111,14 +111,15 @@
                                     <ul class="py-1 text-sm text-gray-700 " aria-labelledby="dropdownDefault">
 
                                         <li>
-                                            <a href="{{ url('/admin/status/.$historial -> idUsuario)}}" class="block py-2 px-4 hover:bg-gray-100 ">Pendiente</a>
+                                            <a href="{{ url('/admin/history/status/'.$pedidos[$index] -> idPedido .'/'. 1 )}}" class="block py-2 px-4 hover:bg-gray-100 ">Pendiente</a>
                                         </li>
                                         <li>
-                                            <a href="{{ url('/' )}}" class="block py-2 px-4 hover:bg-gray-100 ">En envío</a>
+                                            <a href="{{ url('/admin/history/status/'.$pedidos[$index] -> idPedido .'/'. 2 )}}" class="block py-2 px-4 hover:bg-gray-100 ">En envío</a>
                                         </li>
                                         <li>
-                                            <a href="{{ url('/' )}}" class="block py-2 px-4 hover:bg-gray-100 ">Completado</a>
+                                            <a href="{{ url('/admin/history/status/'.$pedidos[$index] -> idPedido .'/'. 3 )}}" class="block py-2 px-4 hover:bg-gray-100 ">Completado</a>
                                         </li>
+
                                     </ul>
                                 </div>
 

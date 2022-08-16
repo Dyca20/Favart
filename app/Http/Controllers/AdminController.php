@@ -325,8 +325,6 @@ class AdminController extends ValidationsController
 
     public function getSearcherPage(Request $request)
     {
-
-
         $productos =  Producto::where("nombreProducto", 'like', $request->buscarProducto . "%")->take(10)->get();
 
         return view('admin/inventory', array('productos' => $productos));
@@ -397,8 +395,11 @@ class AdminController extends ValidationsController
 
         $productosHistorial = ProductoHistorial::all();
 
+        $pedidos = Pedido::all();
+
         $productosComprados = array();
         $totalPrecioProducto = array();
+        $totalPedidos = array();
 
         $cantidad = 0;
         $resumenPrecio = 0;
@@ -451,6 +452,94 @@ class AdminController extends ValidationsController
         $historialUsuario->descuento =    $descuento;
         $historialUsuario->total =  $total;
 
-        return view('admin/accounting', array('productos' => $productosComprados, 'historial' => $historialUsuario, 'totalproducto' => $totalPrecioProducto));
+        $pedidosRealizados = count($pedidos);
+        $pedidosPendientes = 0;
+        $pedidosEnEnvio = 0;
+        $pedidosCompletados = 0;
+
+        array_push($totalPedidos, $pedidosRealizados, $pedidosPendientes, $pedidosEnEnvio, $pedidosCompletados);
+
+        foreach ($pedidos as $pedido) :
+            if ($pedido->estado == 1) {
+                $totalPedidos[1] += 1;
+            } else if ($pedido->estado == 2) {
+                $totalPedidos[2] += 1;
+            } else if ($pedido->estado == 3) {
+                $totalPedidos[3] += 1;
+            }
+
+        endforeach;
+
+        return view('admin/accounting', array('productos' => $productosComprados, 'historial' => $historialUsuario, 'totalproducto' => $totalPrecioProducto, 'totalPedidos' => $totalPedidos));
     }
+
+    public function getChangeHistoryOrderStatus($idPedido, $idStatus)
+    {
+        $pedido = Pedido::where('idPedido', $idPedido)->get()->first();
+        $pedido->estado = $idStatus;
+        $pedido->save();
+
+        return redirect('admin/history');
+    }
+
+    public function getAdminMakerPage($idUsuario)
+    {
+        $usuarios = User::all();
+        $usuariosAdmin = User::where('rolUsuario', 2)->get();
+        $usuarioElegido = new User();
+        if ($idUsuario != 0) :
+            $usuarioElegido = User::where('idUsuario', $idUsuario)->get()->first();
+        endif;
+
+        return view('admin/adminMaker', array('usuarios' => $usuarios,  'usuariosAdmin' => $usuariosAdmin, 'usuarioElegido' => $usuarioElegido));
+    }
+
+    public function postAddElectAdminMakerPage(Request $request)
+    {
+
+        $reglas =  $this->rules_AddElectAdmin();
+        $mensaje = $this->messages_AddElectAdmin();
+
+        $validacion = Validator::make($request->all(), $reglas, $mensaje);
+        $request->all();
+
+        if ($validacion->fails()) :
+            return back()->withErrors($validacion)->withInput();
+
+        else :
+            $usuarioElegido = User::where('nombreUsuario', $request->nombreUsuario)->get()->first();
+            if (is_null($usuarioElegido)) :
+                return redirect('admin/adminMaker/0');
+            else :
+                if ($usuarioElegido->rolUsuario == 2) :
+                    return redirect('admin/adminMaker/0');
+                else :
+                    return redirect('admin/adminMaker/' . $usuarioElegido->idUsuario);
+                endif;
+            endif;
+        endif;
+
+        return redirect('admin/adminMaker/0')->withErrors([
+            'nombreUsuario' => 'El usuario no existe',
+        ])->onlyInput('nombreUsuario');
+    }
+    public function getAddAdminMakerPage($idUsuario)
+    {
+
+        $usuarioElegido = User::where('idUsuario', $idUsuario)->get()->first();
+        $usuarioElegido->rolUsuario = 2;
+        $usuarioElegido->save();
+
+        return redirect('admin/adminMaker/0');
+    }
+    public function getDelAdminMakerPage($idUsuario)
+    {
+
+        $usuarioElegido = User::where('idUsuario', $idUsuario)->get()->first();
+        $usuarioElegido->rolUsuario = 1;
+        $usuarioElegido->save();
+
+        return redirect('admin/adminMaker/0');
+    }
+    
 }

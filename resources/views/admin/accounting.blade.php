@@ -124,13 +124,16 @@
 
                     <tr>
                         <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                            Ingresos Totales
+                            Pedidos Totales
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                            Ganancias
+                            Pedidos Pendientes
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                            Pago a Proveedores
+                            Pedidos En Envío
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
+                            Pedidos Completados
                         </th>
                     </tr>
                 </thead>
@@ -138,13 +141,16 @@
 
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                            {{' ₡'. $historial -> total}}
+                            {{$totalPedidos[0]}}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                            {{' ₡'. $historial -> total * 0.25}}
+                            {{$totalPedidos[1]}}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                            {{' ₡'. $historial -> total * 0.75}}
+                            {{$totalPedidos[2]}}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                            {{$totalPedidos[3]}}
                         </td>
                     </tr>
 
