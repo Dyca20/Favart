@@ -132,26 +132,30 @@
                         class="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white ">
                         <li>
                             <a href="/welcome"
-                                class="block py-2 pr-4 pl-3 text-white bg-red-400 rounded md:bg-transparent md:text-red-400 md:p-0 "
-                                aria-current="page">Principal</a>
+                                class="block py-2 pr-4 pl-3  bg-red-400 rounded md:bg-transparent md:p-0 "
+                                aria-current="welcome">Principal</a>
                         </li>
                         <li>
                             <a href="/catalog"
-                                class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-400 md:p-0 ">Catálogo</a>
+                                class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-400 md:p-0 "
+                                aria-current="catalog">Catálogo</a>
                         </li>
                         <li>
                             <a href="/history"
-                                class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-400 md:p-0 ">Compras</a>
+                                class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-400 md:p-0 "
+                                aria-current="history">Compras</a>
                         </li>
                         <li>
                             <a href="/carrito"
-                                class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-400 md:p-0 ">Carrito</a>
+                                class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-400 md:p-0 "
+                                aria-current="carrito">Carrito</a>
                         </li>
                         <li>
 
                             @if (Auth::check())
                                 <a class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-400 md:p-0"
-                                    href="{{ url('/' . Auth::User()->idUsuario) . '/perfil' }}" class="px-2 mx-2">
+                                    href="{{ url('/' . Auth::User()->idUsuario) . '/perfil' }}" class="px-2 mx-2"
+                                    aria-current="user">
                                     {{ Auth::User()->nombreUsuario }}
                                 </a>
                         </li>
@@ -182,7 +186,23 @@
                 </div>
         </nav>
     </header>
-
+    <script>
+        if (window.location.href.indexOf("welcome") > -1) {
+            document.querySelector('[aria-current="welcome"]').classList.add('text-red-400');
+        }
+        if (window.location.href.indexOf("catalog") > -1) {
+            document.querySelector('[aria-current="catalog"]').classList.add('text-red-400');
+        }
+        if (window.location.href.indexOf("history") > -1) {
+            document.querySelector('[aria-current="history"]').classList.add('text-red-400');
+        }
+        if (window.location.href.indexOf("carrito") > -1) {
+            document.querySelector('[aria-current="carrito"]').classList.add('text-red-400');
+        }
+        if (window.location.href.indexOf("perfil") > -1) {
+            document.querySelector('[aria-current="user"]').classList.add('text-red-400');
+        }
+    </script>
 </body>
 
 </html>

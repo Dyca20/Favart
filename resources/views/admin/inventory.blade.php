@@ -14,118 +14,147 @@
 
 <body class="">
     @include('layouts.Admin')
-    <main>
-        <section class="grid-rows-2 px-36 pt-12 font-light w-full">
-            <div class="flex items-center pb-8">
-                <div class="h-auto w-36">
-                    <img src="{{ URL::asset('/images/LogoFavart.png') }}" alt="logo" class="w-auto object-cover ">
+    <main class="flex pl-20 pr-20 pt-10 flex-col h-screen">
+        <div class="flex pl-10 justify-between bg-gradient-to-r from-red-300 to-red-50 h-24 rounded-md">
+            <h1 class="flex gap-2 items-center text-4xl font-semibold text-white">
+                <i class="gg-shopping-bag"></i>Gestionar inventario
+            </h1>
+            <img class="object-cover w-68" src="{{ URL::asset('images/gestor.png') }}" alt="">
+        </div>
+        <section class="grid-rows-2 mt-10 w-full">
+            <div class="flex p-3 space-x-2">
+                <a href="/admin/addProduct" class="text-indigo-600 hover:text-indigo-900">
+                    <button type="button"
+                        class="text-white bg-rose-400 hover:bg-rose-300 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Agregar
+                        nuevo producto</button>
+                </a>
+                <button id="dropdownDefault" data-dropdown-toggle="dropdown"
+                    class="text-white bg-slate-600 hover:bg-slate-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 h-10 text-center inline-flex items-center "
+                    type="button">Categorías <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                        </path>
+                    </svg></button>
+                <!-- Dropdown menu -->
+                <div id="dropdown" class="z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow  hidden"
+                    data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom"
+                    style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(319px, 70px);">
+                    <ul class="py-1 text-sm text-gray-700 " aria-labelledby="dropdownDefault">
+                        {{-- @foreach ($categoria as $categoriaProducto)
+                            <li>
+                                <a href="{{ url('/catalog/searcher/' . $categoriaProducto->idCategoria) }}"
+                                    class="block py-2 px-4 hover:bg-gray-100 ">{{ $categoriaProducto->nombreCategoria }}</a>
+                            </li>
+                        @endforeach --}}
+                        <li>
+                            <a href="{{ url('/catalog/searcher/') }}"
+                                class="block py-2 px-4 hover:bg-gray-100 ">{{ 'Probando' }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/catalog/searcher/') }}"
+                                class="block py-2 px-4 hover:bg-gray-100 ">{{ 'Probando2' }}</a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="ml-6">
-                    <h1 class="text-4xl font-semibold text-gray-800"><b> Gestionar Inventario </b></h1>
-                </div>
+                <form class="flex space-x-2" method="POST" action="{{ url('admin/buscador') }}"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <input type="text" id="buscarProducto" name="buscarProducto"
+                        class="bg-gray-50 rounded h-10 text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-rose-300 transition duration-500 px-3 pb-3">
+                    <button
+                        class="bg-slate-600 hover:bg-zinc-500 text-white font-bold px-4 h-10 rounded shadow-lg hover:transition duration-500 "
+                        type="submit">
+                        Buscar
+                    </button>
+                </form>
+                <a href="{{ url('admin/manageInventory') }}">
+                    <button
+                        class="bg-slate-600 hover:bg-zinc-500 text-white font-bold px-4 py-2 rounded shadow-lg hover:transition duration-500"
+                        type="button">
+                        Mostrar Todo
+                    </button>
+                </a>
             </div>
-            <div class="grid  lg:grid-cols-1 md:grid-cols-1 p-2">
-                <div class="flex justify-between py-y px-6 whitespace-nowrap text-base font-medium">
-                    <div> <a href="/admin/addProduct" class="text-indigo-600 hover:text-indigo-900">Agregar</a></div>
-
-                    <div class="flex items-center w-2/3 max-w-xs">
-
-                        <form method="POST" action="{{ url('admin/buscador') }}" enctype="multipart/form-data">
-                            @csrf
-                            <input type="text" id="buscarProducto" name="buscarProducto" class="bg-gray-50 rounded w-3/4 h-10 text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-rose-300 transition duration-500 px-3 pb-3">
-                            <button class="bg-rose-400 hover:bg-zinc-500 text-white font-bold px-4 py-2 rounded shadow-lg hover:transition duration-500  mb-3" type="submit">
-                                Buscar
-                            </button>
-                        </form>
-
-                    </div>
-                    <div class="flex items-center max-w-xs">
-                        <a href="{{url('admin/manageInventory')}}">
-                            <button class="bg-rose-400 hover:bg-zinc-500 text-white font-bold px-4 py-2 rounded shadow-lg hover:transition duration-500" type="button">
-                                Mostrar Todo
-                            </button>
-                        </a>
-                    </div>
-
-
-                </div>
-            </div>
-
-
-            <div class="col-span-2 flex flex-auto items-center justify-between  pb-5 px-5 bg-white rounded shadow-sm">
-                <table class="min-w-full divide-y divide-gray-200 table-auto" id="tablaProductos" name="tablaProductos">
-                    <thead class="bg-gray-50">
-
+            <div class="col-span-2 flex flex-auto items-center justify-between px-5 bg-white rounded shadow-sm">
+                <table class="w-full text-sm text-left text-gray-500">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
+                            <th scope="col" class="py-3 px-6">
                                 Imagen
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
+                            <th scope="col" class="py-3 px-6">
                                 Nombre
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
+                            <th scope="col" class="py-3 px-6">
                                 Cantidad
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
+                            <th scope="col" class="py-3 px-6">
                                 Precio
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                                Categorias
+                            <th scope="col" class="py-3 px-6">
+                                Categorías
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
+                            <th scope="col" class="py-3 px-6">
                                 Detalles
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
+                            <th scope="col" class="py-3 px-6">
                                 Opciones
-                            </th>
-
-                            <th scope="col" class="relative px-6 py-3">
-                                <span class="sr-only">Edit</span>
                             </th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200" id="tbodyProductos" name="tbodyProductos">
-                        @foreach($productos as $producto)
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-20 w-20">
-                                        <img class="h-20 w-20 rounded-full" src="{{ URL::asset('/images/productos/'.$producto -> imagen) }}" alt="">
+                    <tbody id="tbodyProductos" name="tbodyProductos">
+                        @foreach ($productos as $producto)
+                            <tr class="bg-white border-b hover:bg-gray-5">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 h-20 w-20">
+                                            <img class="h-20 w-20 rounded-full"
+                                                src="{{ URL::asset('/images/productos/' . $producto->imagen) }}"
+                                                alt="">
+                                        </div>
+
                                     </div>
+                                </td>
+                                <td class="py-4 px-6">
+                                    {{ $producto->nombreProducto }}
+                                </td>
+                                <td class="py-4 px-6">
+                                    {{ $producto->cantidad }}
+                                </td>
+                                <td class="py-4 px-6">
+                                    {{ $producto->precio }}
+                                </td>
+                                <td class="py-4 px-6">
+                                    {{ $producto->categoria }}
+                                </td>
+                                <td class="py-4 px-6">
+                                    <div class="max-w-xs">
+                                        <p class="text-justify h-10 text-ellipsis overflow-hidden">
+                                            {{ $producto->detalles }}</p>
+                                    </div>
+                                </td>
 
-                                </div>
-                            </td>
-
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                {{ $producto -> nombreProducto }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                {{ $producto -> cantidad }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                {{ $producto -> precio }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                {{ $producto -> categoria }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                <div class="max-w-xs">
-                                    <p class="text-justify h-10 text-ellipsis overflow-hidden"> {{ $producto -> detalles }}</p>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="{{ url('admin/'.$producto -> idProducto.'/editProduct')}}" class="text-indigo-600 hover:text-indigo-900">Editar /</a>
-                                <a href="{{ url('admin/'.$producto -> idProducto.'/deleteProduct')}}" class="text-indigo-600 hover:text-indigo-900">Eliminar </a>
-                            </td>
-                        </tr>
+                                <td class="py-4 px-6 space-x-2">
+                                    <a href="{{ url('admin/' . $producto->idProducto . '/editProduct') }}"
+                                        class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-blue-500 group-hover:to-cyan-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-cyan-200">
+                                        <span
+                                            class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0">
+                                            Editar
+                                        </span></a>
+                                    <a href="{{ url('admin/' . $producto->idProducto . '/deleteProduct') }}"
+                                        class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-500 to-red-400 group-hover:from-red-500 group-hover:to-red-400 hover:text-white  focus:ring-4 focus:outline-none focus:ring-red-200">
+                                        <span
+                                            class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0">
+                                            Eliminar
+                                        </span></a>
+                                </td>
+                            </tr>
                         @endforeach()
                     </tbody>
                 </table>
-
             </div>
             </div>
-
-
         </section>
     </main>
+    <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
 </body>

@@ -10,41 +10,50 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/app.css">
+    <link href='https://css.gg/phone.css' rel='stylesheet'>
 </head>
 
-<body class="">
-    {{-- Muestra el Navbar, está en la carpeta layouts con el nombre admin. --}}
+<body class="bg-slate-50 h-screen w-screen overflow-x-hidden">
+    {{-- Muestra el Navbar, está en la carpeta layouts con el nombre customer. --}}
     @include('layouts.Admin')
-    <main>
-        <section class="flex justify-around pt-36 font-light">
-            <div>
-                <h1 class="text-4xl font-semibold mb-2">Bienvenido a accesorios <span
-                        class="text-red-400 font-semibold">Fav Art.</span></h1>
-                <p class="text-3xl">Diseños hechos con amor 💕</p>
-                <hr><br>
-                <p class="font-normal"> Entregas en Cañas y Los Ángeles Tilarán de 1 a 2 días. </p>
-                <p class="font-normal"> Se realizan envíos a todo el país. 🇨🇷</p><br>
-                {{-- boton rosado de ver catálogo --}}
-                <div class="flex flex-row mt-5 space-x-8">
-                    <a href="/catalogo"
-                        class="z-40 bg-red-400 shadow-2xl shadow-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full">Ver
-                        Catálogo</a>
-                    {{-- botón de contacto --}}
-                    <a href="/contacto"
-                        class="bg-red-400 shadow-md hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full">Contacto</a>
+    <main class="h-screen">
+        <section
+            class="flex flex-col sm:flex-row justify-around space-x-50 mt-4 mb-20 sm:mt-16 items-center font-light">
+            <div class="py-0">
+                <div class="flex align-middle w-full z-0">
+                    <div class="">
+                        <div class="">
+                            <div>
+                                <span class="text-red-400 sm:text-6xl text-3xl font-bold font-sans">Admin. </span>
+                                <span class="text-slate-700 sm:text-6xl text-3xl font-semibold font-sans">Fav
+                                    Art.</span>
+                            </div>
+                        </div>
+                        <div>
+                            <hr class="h-2">
+                            <div class="text-slate-700 sm:text-4xl text-2xl font-thin">Diseños hechos a mano con amor.
+                                💕</div>
+                        </div>
+                    </div>
                 </div>
-
-                <img class="w-24 origin-center rotate-0 absolute z-30 left-1/6 -ml-16 top-96 pt-8"
-                    src="{{ URL::asset('/images/arrow.png') }}">
-                <div id="default-carousel" class="relative mt-8 z-20" data-carousel="static">
+                {{-- boton rosado de ver catálogo --}}
+                <div class="flex flex-col mt-10 p-4 text-slate-700 bg-red-100 rounded-md">
+                    <p class="sm:text-lg text-sm font-normal">Entregas en Cañas y Los Ángeles de Tilarán de <strong>1 a
+                            2
+                            días.</strong>
+                    </p>
+                    <p class="text-lg font-normal">Se hacen entregas a todo el país. 🚚
+                    </p>
+                    {{-- botón de contacto --}}
+                </div>
+                <div id="default-carousel" class="relative mt-10" data-carousel="static">
                     <!-- Carousel wrapper -->
                     <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
                         <!-- Item 1 -->
                         <div class="duration-700 ease-in-out absolute inset-0 transition-all transform translate-x-0 z-20"
                             data-carousel-item="">
                             <span
-                                class="absolute text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 sm:text-3xl dark:text-gray-800">First
-                                Slide</span>
+                                class="absolute text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 sm:text-3xl "></span>
                             <img src="{{ URL::asset('/images/carousel/post_1.jpg') }}"
                                 class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                                 alt="...">
@@ -66,13 +75,11 @@
                     </div>
                     <!-- Slider indicators -->
                     <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
-                        <button type="button" class="w-3 h-3 rounded-full bg-white dark:bg-gray-800"
-                            aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-                        <button type="button"
-                            class="w-3 h-3 rounded-full bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800"
+                        <button type="button" class="w-3 h-3 rounded-full bg-white " aria-current="true"
+                            aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                        <button type="button" class="w-3 h-3 rounded-full bg-white/50  hover:bg-white "
                             aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-                        <button type="button"
-                            class="w-3 h-3 rounded-full bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800"
+                        <button type="button" class="w-3 h-3 rounded-full bg-white/50  hover:bg-white "
                             aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
                     </div>
                     <!-- Slider controls -->
@@ -80,9 +87,9 @@
                         class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
                         data-carousel-prev="">
                         <span
-                            class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                            <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30  group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white  group-focus:outline-none">
+                            <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 " fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 19l-7-7 7-7"></path>
                             </svg>
@@ -93,9 +100,9 @@
                         class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
                         data-carousel-next="">
                         <span
-                            class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                            <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30  group-hover:bg-white/50  group-focus:ring-4 group-focus:ring-white  group-focus:outline-none">
+                            <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 " fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
                                 </path>
                             </svg>
@@ -103,12 +110,32 @@
                         </span>
                     </button>
                 </div>
+                <div class="flex justify-center sm:justify-start space-x-6 mt-8 ">
+                    <a href="/catalog" data-tooltip-target="tooltip-default"
+                        class="z-40 bg-rose-400 shadow-md hover:bg-rose-300 text-white font-bold py-2 px-4 rounded-lg">
+                        <button type="button">Ver
+                            Catálogo</button>
+                        <div id="tooltip-default" role="tooltip"
+                            class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip">
+                            Mostrar todos los productos
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </a>
 
+                    <a href="/contacto"
+                        class="flex gap-3 ring-1 ring-slate-500 shadow-md hover:bg-slate-600 hover:text-white text-slate-700 font-bold py-2 px-4 rounded-lg">
+                        <i class="gg-phone"></i>
+                        Contacto</a>
+                </div>
             </div>
-            <div class="mt-20">
-                <img src="{{ URL::asset('/images/LogoFavart.png') }}" alt="logo" class="w-auto object-cover ">
+            <div class="hidden sm:flex w-96 -mt-32 ">
+                <img src="{{ URL::asset('/images/hmoon.png') }}" alt="logo"
+                    class="w-full shadow-red-400 drop-shadow-2xl-red">
             </div>
         </section>
     </main>
-    <script src="./js/app.js"></script>
+    <div class="mt-36 sm:mt-44 md:mt-80 xl:mt-72 lg:mt-80 2xl:mt-0">
+        @include('layouts.footer')
+    </div>
+    <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
 </body>
