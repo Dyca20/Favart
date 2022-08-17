@@ -122,10 +122,7 @@
                         </div>
                     </a>
 
-                    <a href="/contacto"
-                        class="flex gap-3 ring-1 ring-slate-500 shadow-md hover:bg-slate-600 hover:text-white text-slate-700 font-bold py-2 px-4 rounded-lg">
-                        <i class="gg-phone"></i>
-                        Contacto</a>
+                    
                 </div>
             </div>
             <div class="hidden sm:flex w-96 -mt-32 ">

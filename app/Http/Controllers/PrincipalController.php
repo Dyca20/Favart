@@ -33,7 +33,7 @@ class PrincipalController extends ValidationsController
 
     public function getCatalogPage()
     {
-        $productos = Producto::all();
+        $productos = Producto::paginate(1);
 
         $productosAccesorios = array();
         $productosCategorias = ProductoCategoria::all();
@@ -335,7 +335,7 @@ class PrincipalController extends ValidationsController
     {
         $categoria = Categoria::all();
 
-        $productos =  Producto::where("nombreProducto", 'like', $request->buscarProducto . "%")->take(20)->get();
+        $productos =  Producto::where("nombreProducto", 'like', $request->buscarProducto . "%")->take(40)->paginate(20);
 
         foreach ($productos as $index => $producto) :
             if ($producto->estado == 0) :
@@ -370,7 +370,7 @@ class PrincipalController extends ValidationsController
 
         $productosAccesorios = array();
 
-        $productosEncontrados = array();
+        $productosEncontrados =  Producto::paginate(20);
 
         $productosCategorias = ProductoCategoria::all();
 
@@ -391,13 +391,23 @@ class PrincipalController extends ValidationsController
                 foreach ($productosBuscados as $index2 => $productoBuscado) {
 
                     if ($producto['idProducto'] == $productoBuscado['idProducto'] and $producto['estado'] == 1) {
-                        array_push($productosEncontrados, $producto);
+                      
                         foreach ($accesorios as $index3 => $item2) {
 
                             if ($producto['idProducto'] == $item2['idProducto']) {
                                 array_push($productosAccesorios, $producto);
                             }
                         }
+                        unset($productos[$index]);
+                    }
+                }
+            }
+            foreach ($productosEncontrados as $index => $productoEncontrado) {
+
+                foreach ($productos as $index2 => $producto) {
+
+                    if ($producto['idProducto'] == $productoEncontrado['idProducto']) {
+                        unset($productosEncontrados[$index]);
                     }
                 }
             }

@@ -26,7 +26,7 @@
                 <div class="flex items-center pb-8">
                     <h2 class="text-2xl font-medium text-gray-800 my-6"><b> Productos </b></h2>
                 </div>
-                <div class="col-span-2 flex flex-auto items-center justify-between  pb-5  bg-white rounded shadow-sm">
+                <div class="col-span-2 flex flex-auto items-center justify-between overflow-y-auto max-h-screen pb-5 bg-white rounded shadow-sm">
                     <table class="min-w-full divide-y divide-gray-200 table-auto" id="tablaProductos"
                         name="tablaProductos">
                         <thead class="bg-gray-50">

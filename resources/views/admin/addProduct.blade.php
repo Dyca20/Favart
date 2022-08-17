@@ -89,7 +89,7 @@
                             <input
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 id="descuento" name="descuento" type="number" min="0" max="100"
-                                placeholder="Descuento" value="{{ old('descuento') }}">
+                                placeholder="Descuento" value="0">
                             @error('descuento')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

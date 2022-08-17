@@ -122,7 +122,7 @@
                         </div>
                     </a>
 
-                    <a href="/contacto"
+                    <a href="https://www.instagram.com/favartt/"
                         class="flex gap-3 ring-1 ring-slate-500 shadow-md hover:bg-slate-600 hover:text-white text-slate-700 font-bold py-2 px-4 rounded-lg">
                         <i class="gg-phone"></i>
                         Contacto</a>

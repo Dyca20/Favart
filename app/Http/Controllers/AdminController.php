@@ -18,6 +18,7 @@ use App\Models\Producto;
 use App\Models\ProductoCategoria;
 use App\Models\ProductoHistorial;
 use Faker\Provider\ar_EG\Person;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
 
@@ -35,7 +36,7 @@ class AdminController extends ValidationsController
     }
     public function getManageInventoryPage()
     {
-        $productos = Producto::all();
+        $productos = Producto::paginate(10);
         $categorias = Categoria::all();
         foreach ($productos as $index => $producto) :
             if ($producto->estado == 0) :
@@ -553,7 +554,7 @@ class AdminController extends ValidationsController
     {
         $productos =  Producto::all();
 
-        $productosEncontrados = array();
+        $productosEncontrados = Producto::all();
 
         $productosBuscados = ProductoCategoria::where('idCategoria',  $idCategoria)->get();
 
@@ -569,28 +570,33 @@ class AdminController extends ValidationsController
                 foreach ($productosBuscados as $index2 => $productoBuscado) {
 
                     if ($producto['idProducto'] == $productoBuscado['idProducto'] and $producto['estado'] == 1) {
-                        array_push($productosEncontrados, $producto);
+                        unset($productos[$index]);
                     }
                 }
             }
-            $productos = $productosEncontrados;
+            foreach ($productosEncontrados as $index => $productoEncontrado) {
+
+                foreach ($productos as $index2 => $producto) {
+
+                    if ($producto['idProducto'] == $productoEncontrado['idProducto']) {
+                        unset($productosEncontrados[$index]);
+                    }
+                }
+            }
         endif;
-        return view('admin/inventory', array('productos' => $productos, 'categoria' => $categorias));
+        return view('admin/inventory', array('productos' => $productosEncontrados, 'categoria' => $categorias));
     }
     public function getSearcherPage(Request $request)
     {
         $categorias = Categoria::all();
 
-        $productos =  Producto::where("nombreProducto", 'like', $request->buscarProducto . "%")->take(20)->get();
+        $productos =  Producto::where("nombreProducto", 'like', $request->buscarProducto . "%")->take(20)-> paginate(10);
 
         foreach ($productos as $index => $producto) :
             if ($producto->estado == 0) :
                 unset($productos[$index]);
             endif;
         endforeach;
-
-
-
 
         return view('admin/inventory', array('productos' => $productos, 'categoria' => $categorias));
     }

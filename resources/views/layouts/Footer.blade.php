@@ -11,10 +11,10 @@
              <span class="self-center text-2xl text-white font-semibold whitespace-nowrap">Fav Art</span>
          </a>
          <ul class="flex flex-wrap items-center mb-6 text-sm sm:text-md text-white font-semibold sm:mb-0 ">
-             <li class="flex space-x-2 p-2">
+            <!--  <li class="flex space-x-2 p-2">
                  <i class="gg-girl"></i>
                  <a href="#" class="mr-4 hover:underline md:mr-6 ">Quiénes somos</a>
-             </li>
+             </li> -->
 
              <li class="flex space-x-2 p-2">
                  <i class="gg-instagram"></i>
